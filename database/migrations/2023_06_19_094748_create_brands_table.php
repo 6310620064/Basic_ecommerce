@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('amount');
-            $table->string('image');
-            $table->integer('order');
+            $table->string('name')->nullable();
+            $table->integer('amount')->nullable();
+            $table->string('image')->nullable()->unique();
+            $table->integer('order')->nullable()->unique();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
             $table->softDeletes();

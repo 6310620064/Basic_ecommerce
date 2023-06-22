@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sizes', function (Blueprint $table) {
-            $table->id();
-            $table->string('size');
+            $table->id()->nullable();
+            $table->string('size')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
             $table->softDeletes();

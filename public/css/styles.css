@@ -1,0 +1,114 @@
+.div_center
+{
+    text-align: center;
+    padding-top : 40px;
+}
+
+.h2_font
+{
+    font-size: 35px;
+    padding-bottom: 40px;
+}
+
+.div_design
+{
+    padding-bottom: 15px;
+}  
+
+.input_form
+{
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+td,th
+{
+    border: 3px solid white;
+    padding : .5em;
+}
+
+.center
+{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    margin-top: 30px;
+    border: 3px solid white;
+    border-collapse:collapse
+    
+}
+label
+{
+    display: inline-block;
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.icon_center
+{
+    align-items: center;
+    text-align: center;
+}
+
+.icon-center 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+p
+{
+    font-size: 15px;
+}
+
+.div_img
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 145px;
+    margin-top: 15px;
+    margin-bottom: 35px;
+}
+
+.show_img img 
+{
+    width: 150px;
+    height: 150px;
+}
+
+th
+{
+    background-color: rgb(4, 0, 32);
+    height: 50px;
+    width: 50px;
+}
+
+td
+{
+    width: 150px;
+}
+
+.input_color
+{
+    color: black;
+    padding-bottom: 20px;
+}
+
+.head_product
+{
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    margin-top: 30px;
+    border: 3px solid white;
+    border-collapse:collapse
+}
+
+
+
+

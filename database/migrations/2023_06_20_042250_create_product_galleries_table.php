@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->string('image');
-            $table->integer('order');
+            $table->string('image')->nullable()->unique();
+            $table->integer('order')->nullable()->unique();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

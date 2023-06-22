@@ -15,20 +15,20 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('price_normal');
-            $table->integer('price_member');
+            $table->string('name')->nullable();
+            $table->integer('price_normal')->nullable();
+            $table->integer('price_member')->nullable();
             $table->unsignedBigInteger('brand_id'); 
             $table->foreign('brand_id')->references('id')->on('brands');
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('types');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('size_id');
             $table->foreign('size_id')->references('id')->on('sizes');
-            $table->integer('amount');
+            $table->integer('amount')->nullable();
             $table->boolean('is_highlight')->default(false);
-            $table->string('image');
-            $table->date('start_display');
-            $table->date('end_display');
+            $table->string('image')->nullable()->unique();
+            $table->dateTime('start_display')->nullable();
+            $table->dateTime('end_display')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
             $table->softDeletes();
