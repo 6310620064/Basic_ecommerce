@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
   </head>
   <body>
@@ -68,7 +71,8 @@
                     <tr>
                         <td>{{$data->id}}</td>
                         <td>{{$data->name}}</td>
-                        <td>{{$data->amount}}</td>
+                        <td>{{$data->products->count() ?? 0 }} </td>
+
                         <td>
                             <img src="{{ \Storage::url( $data->image ) }}" alt="" />
                         </td>
@@ -95,7 +99,8 @@
                             @endif
                         </td>
                         <td>
-                            <a onclick ="return confirm('Are you sure to delete this?')" class ="btn btn-danger" href="{{url('delete_category', $data->id)}}">Delete</a>
+                            <a style="margin-bottom:10px;" href="{{url('update_category', $data->id)}}" class="btn btn-primary">Edit</a>
+                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{url('delete_category', $data->id)}}">Delete</a>
                         </td>
                     </tr>
                     @endforeach
@@ -112,6 +117,63 @@
     <!-- plugins:js -->
     @include('admin.script')
     <!-- End custom js for this page -->
+
+    <script>
+        document.getElementById('create_category').addEventListener('submit', function (event) {
+            event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
+
+            Swal.fire({
+            icon: 'success',
+            title: 'Category created successfully',
+            showConfirmButton: false,
+            timer: 1500
+            }).then(() => {
+            // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
+            var form = event.target;
+            var formData = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', form.action, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // ส่งคำขอเสร็จสมบูรณ์
+                console.log('Category submitted successfully');
+                // โหลดหน้าเว็บใหม่
+                location.reload();
+                }
+            };
+            xhr.send(formData);
+            });
+        });
+    </script>
+
+    <script>
+        function confirmation(event) {
+            event.preventDefault();
+            var urlToRedirect = event.currentTarget.getAttribute('href');
+            Swal.fire({
+
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonText: 'Yes, delete it!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your category has been deleted.',
+                        'success'
+                    )
+                    // Redirect to the URL
+                    window.location.href = urlToRedirect;
+                }
+            });
+        }
+    </script>
   </body>
         
 </html>

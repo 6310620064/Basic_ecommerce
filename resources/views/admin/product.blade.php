@@ -3,6 +3,10 @@
   <head>
     @include('admin.css')
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
   </head>
   <body>
     <div class="container-scroller">
@@ -27,7 +31,7 @@
 
             <h2 class ="h2_font"> Add Product</h2>
 
-            <form action="{{url('/add_product')}}" method="POST" enctype="multipart/form-data">
+            <form id="create_product"action="{{url('/add_product')}}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
@@ -102,10 +106,35 @@
                 <input type="submit" value="Add Product" class="btn btn-primary">
             </div>
             </form>
-
-
-
         </div>
+        <script>
+                document.getElementById('create_product').addEventListener('submit', function (event) {
+                    event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
+
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Product created successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                    }).then(() => {
+                    // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
+                    var form = event.target;
+                    var formData = new FormData(form);
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', form.action, true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // ส่งคำขอเสร็จสมบูรณ์
+                        console.log('Product submitted successfully');
+                        // โหลดหน้าเว็บใหม่
+                        location.reload();
+                        }
+                    };
+                    xhr.send(formData);
+                    });
+                });
+            </script>
     </div>
 </div>
 

@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
+
+use Illuminate\Http\Request;
+
 
 
 /*
@@ -39,16 +43,24 @@ Route::get('/redirect',[HomeController::class,'redirect']);
 // Category
 Route::get('/view_category',[AdminController::class,'view_category']);
 Route::post('/add_category',[AdminController::class,'add_category']);
+Route::get('/update_category/{id}',[AdminController::class,'update_category']);
+Route::post('/update_category_confirm/{id}', [AdminController::class, 'update_category_confirm']);
 Route::get('/delete_category/{id}',[AdminController::class,'delete_category']);
+
 
 // Size
 Route::get('/view_size',[AdminController::class,'view_size']);
 Route::post('/add_size',[AdminController::class,'add_size']);
+
+Route::get('/update_size/{id}',[AdminController::class,'update_size']);
+Route::post('/update_size_confirm/{id}', [AdminController::class, 'update_size_confirm']);
 Route::get('/delete_size/{id}',[AdminController::class,'delete_size']);
 
 // Brand
 Route::get('/view_brand',[AdminController::class,'view_brand']);
 Route::post('/add_brand',[AdminController::class,'add_brand']);
+Route::get('/update_brand/{id}',[AdminController::class,'update_brand']);
+Route::post('/update_brand_confirm/{id}', [AdminController::class, 'update_brand_confirm']);
 Route::get('/delete_brand/{id}',[AdminController::class,'delete_brand']);
 
 
@@ -57,8 +69,33 @@ Route::get('/view_product',[AdminController::class,'view_product']);
 Route::post('/add_product',[AdminController::class,'add_product']);
 Route::get('/show_product',[AdminController::class,'show_product']);
 Route::get('/update_product/{id}',[AdminController::class,'update_product']);
-Route::get('/delete_product/{id}',[AdminController::class,'delete_product']);
 Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_product_confirm']);
+Route::get('/delete_product/{id}',[AdminController::class,'delete_product']);
+
+//Product Detail
+Route::get('/view_detail/{id}',[ProductController::class,'view_detail']);
+Route::post('/add_detail',[ProductController::class,'add_detail']);
+Route::get('/show_detail/{id}',[ProductController::class,'show_detail']);
+Route::get('/update_detail/{id}',[ProductController::class,'update_detail']);
+Route::post('/update_detail_confirm/{id}', [ProductController::class, 'update_detail_confirm']);
+Route::get('/delete_detail/{id}', [ProductController::class, 'delete_detail']);
+
+
+
+
+//Product Gallery
+Route::get('/view_gallery/{id}',[ProductController::class,'view_gallery']);
+Route::post('/add_gallery',[ProductController::class,'add_gallery']);
+Route::get('/show_gallery/{id}',[ProductController::class,'show_gallery']);
+Route::get('/update_gallery/{id}',[ProductController::class,'update_gallery']);
+Route::post('/update_gallery_confirm/{id}', [ProductController::class, 'update_gallery_confirm']);
+Route::get('/delete_gallery/{id}', [ProductController::class, 'delete_gallery']);
+
+
+
+
+
+
 
 
 

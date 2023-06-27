@@ -4,7 +4,11 @@
 
     <base href ="/public">
     @include('admin.css')
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
   </head>
   <body>
     <div class="container-scroller">
@@ -29,7 +33,7 @@
 
             <h2 class ="h2_font"> Update Product</h2>
 
-            <form action="{{url('/update_product_confirm',$product->id)}}" method="POST" enctype="multipart/form-data">
+            <form id="update_product" action="{{url('/update_product_confirm',$product->id)}}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
@@ -55,7 +59,9 @@
                 <select class = "input_color" name="brand" style="margin-bottom:10px;">
                     <option value="{{$product->brand->id}}" selected="" required="" >{{$product->brand->name}} </option>
                     @foreach($brand as $brand)
-                    <option value = "{{$brand->id}}">{{$brand->name}}</option>
+                        @if($brand->name != $product->brand->name)
+                            <option value = "{{$brand->id}}">{{$brand->name}}</option>
+                        @endif
                     @endforeach
                 </select><br>
 
@@ -63,7 +69,9 @@
                 <select class = "input_color" name="category" style="margin-bottom:10px;">
                     <option value="{{$product->category->id}}" selected="" required="" >{{$product->category->name}} </option>
                     @foreach($category as $category)
-                        <option value = "{{$category->id}}">{{$category->name}}</option>
+                        @if($category->name != $product->category->name)
+                            <option value = "{{$category->id}}">{{$category->name}}</option>
+                        @endif
                     @endforeach
                 </select><br>
 
@@ -71,7 +79,9 @@
                 <select class = "input_color" name="size" style="margin-bottom:10px;">
                     <option value="{{$product->size->id}}" selected="" required="" >{{$product->size->size}}</option>
                     @foreach($size as $size)
-                        <option value = "{{$size->id}}">{{$size->size}}</option>
+                        @if($size->size != $product->size->size)
+                            <option value = "{{$size->id}}">{{$size->size}}</option>
+                        @endif
                     @endforeach
                 </select>
 
@@ -100,16 +110,65 @@
                 <input class = "input_color" type="datetime-local" name="end_display" value="{{$product->end_display}}">
             </div>
 
-            <input type="checkbox" class="input_form" name="is_highlight" value="0">
-            <label for="is_highlight">Not Highlight</label><br>
-            <input type="checkbox" class="input_form" name="is_active" value="0">
-            <label for="active">Inactive</label><br>
+            @if($product->is_highlight == '1')
+                <input type="checkbox" class="input_form" name="is_highlight" value="0">
+                <label for="is_highlight">Not Highlight</label><br>
+            @else
+                <input type="checkbox" class="input_form" name="is_highlight" value="0" checked>
+                <label for="is_highlight">Not Highlight</label><br>
+            @endif
+            @if($product->is_active == '1')
+                <input type="checkbox" class="input_form" name="is_active" value="0">
+                <label for="active">Inactive</label><br>
+            @else
+                <input type="checkbox" class="input_form" name="is_active" value="0" checked>
+                <label for="active">Inactive</label><br>
+            @endif
 
             <div class = "div_design">
-                <input type="submit" value="Update Product" class="btn btn-primary">
+                <input type="submit" value="Update" class="btn btn-primary">
+                <a  href="{{url('/show_product')}}" class="btn btn-outline-warning">Back</a>
+
             </div>
             </form>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('update_product').addEventListener('submit', function (event) {
+                    event.preventDefault(); // Prevent the default form submission
 
+                    Swal.fire({
+                        title: 'Do you want to save the changes?',
+                        showDenyButton: true,
+                        showCancelButton: true,
+                        confirmButtonText: 'Save',
+                        denyButtonText: `Don't save`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If the user confirms, submit the form
+                            Swal.fire('Edit Success!', '', 'success')
+                            
+                            var form = event.target;
+                            var formData = new FormData(form);
+
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', form.action, true);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                    // ส่งคำขอเสร็จสมบูรณ์
+                                    console.log('Form submitted successfully');
+                                    // โหลดหน้าเว็บใหม่
+                                    location.reload();
+                                }
+                            };
+                            xhr.send(formData);
+                        } else if (result.isDenied) {
+                            Swal.fire('Changes are not saved', '', 'info');
+                        }
+                    });
+                });
+            });
+
+            </script>
 
 
         </div>

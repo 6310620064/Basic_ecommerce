@@ -31,6 +31,7 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id','id');
     }
+    
 
     
     public function category()
@@ -53,28 +54,7 @@ class Product extends Model
         return $this->hasMany(Product_Detail::class, 'product_id' , 'id');
     }
 
-    // public function save(array $options = [])
-    // {
-    //     parent::save($options);
 
-    //     // Check if the category_id exists and the product is not soft deleted
-    //     if ($this->brand_id && !$this->trashed()) {
-    //         $brand = Brand::find($this->brand_id);
-
-    //         if ($brand) {
-    //             $brand->increment('amount');
-    //         }
-    //     }
-
-    //     if ($this->category_id && !$this->trashed()) {
-    //         $category = Category::find($this->category_id);
-
-    //         if ($category) {
-    //             $category->increment('amount');
-    //         }
-    //     }
-
-    // }
     protected static function boot()
 {
     parent::boot();

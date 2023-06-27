@@ -7,10 +7,12 @@ use App\Models\Category;
 use App\Models\Size;
 use App\Models\Brand;
 use App\Models\Product;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class AdminController extends Controller
 {
+    //Categories
     public function view_category()
     {
         $data = Category::all();
@@ -29,8 +31,32 @@ class AdminController extends Controller
         $data->is_active = $request->is_active;
         $data->save();
 
-        return redirect()->back()->with('message', 'Category Added Successfully');
+        Alert::success('Category Added Successfully','We have added category to the database');
+        return redirect()->back();
 
+    }
+
+    public function update_category($id)
+    {
+        $data= Category::find($id);
+
+
+        return view('admin.update_category', compact('data'));
+    }
+
+    public function update_category_confirm(Request $request,$id)
+    {
+        $data = Category::find($id);
+        
+        $data->name = $request->name;
+        if ($request->hasFile('image')) {
+            $data->image = $request->file('image')->store('category');
+        } 
+        $data->is_display_homepage = $request->is_display_homepage;
+        $data->is_active = $request->is_active;
+        $data->save();
+
+        return redirect()->back();
     }
 
     public function delete_category($id)
@@ -40,6 +66,7 @@ class AdminController extends Controller
         return redirect()->back()->with('message','Category Deleted Successfully');
     }
 
+    //Sizes
     public function view_size()
     {
         $size = Size::all();
@@ -54,17 +81,40 @@ class AdminController extends Controller
         $size->size = $request->size;
         $size->is_active = $request->is_active;
         $size->save();
-        return redirect()->back()->with('message', 'Size Added Successfully');
 
+        
+        return redirect()->back()->with('message','Size Added Successfully');
     }
+
+    
+    public function update_size($id)
+    {
+        $size = Size::find($id);
+      
+        return view('admin.update_size', compact('size'));
+    }
+
+    public function update_size_confirm(Request $request,$id)
+    {
+        $size = Size::find($id);
+        
+        $size->size = $request->size;
+        $size->is_active = $request->is_active;  
+        $size->save();
+
+        return redirect()->back()->with('message','Size Updated Successfully');
+    }
+
 
     public function delete_size($id)
     {
         $size = Size::find($id);
         $size->delete();
+
         return redirect()->back()->with('message','Size Deleted Successfully');
     }
 
+    //Brands
     public function view_brand()
     {
         $brand = Brand::all();
@@ -82,9 +132,35 @@ class AdminController extends Controller
         $brand->order = $request->order;
         $brand->is_active = $request->is_active;
         $brand->save();
-        return redirect()->back()->with('message', 'Brand Added Successfully');
+
+        return redirect()->back();
 
     }
+
+    
+    public function update_brand($id)
+    {
+        $brand= Brand::find($id);
+      
+        return view('admin.update_brand', compact('brand'));
+    }
+
+    
+    public function update_brand_confirm(Request $request,$id)
+    {
+        $brand = Brand::find($id);
+
+        $brand->name = $request->name;
+        if ($request->hasFile('image')) {
+            $brand->image = $request->file('image')->store('brand');
+        } 
+        $brand->order = $request->order;
+        $brand->is_active = $request->is_active;
+        $brand->save();
+        
+        return redirect()->back()->with('message','Brand Updated Successfully');
+    }
+
 
     public function delete_brand($id)
     {
@@ -93,6 +169,7 @@ class AdminController extends Controller
         return redirect()->back()->with('message','Brand Deleted Successfully');
     }
 
+    //Products
     public function view_product()
     {
         $category = Category::all();
@@ -170,4 +247,6 @@ class AdminController extends Controller
 
         return redirect()->back()->with('message','Product Updated Successfully');
     }
+
+   
 }

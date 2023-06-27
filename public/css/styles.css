@@ -109,6 +109,19 @@ td
     border-collapse:collapse
 }
 
+.input_text
+{
+    color: black;
+    width: 500px; 
+    text-align: center; 
 
+}
 
-
+.div_text
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 15px;
+    padding-left: 150px;
+}

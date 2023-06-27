@@ -12,12 +12,18 @@ class Product_Gallery extends Model
     use HasFactory;
     use SoftDeletes;
 
+
     protected $fillable = [
         'product_id',
         'image',
         'order',
         'is_active',
     ];
+    
+    protected $dates = [
+        'deleted_at'
+    ];
+
 
     public function products()
     {
