@@ -23,8 +23,10 @@
         <div class="content-wrapper">
         <div class="div_center">
 
-            <h2 class ="h2_font"> All details of {{$product->name}} </h2>
-
+            <h2 class ="h2_font"> All details of {{$product->name}} </h2><br>
+            <div class="add-button-container">
+                <a class="btn btn-info" href="{{url('view_detail', $product->id)}}">Add</a>
+            </div>               
                 <table class="center">
                     <tr>
                         <th>ID</th>
@@ -35,14 +37,14 @@
                         <th>Action</th>
                     </tr>
 
-                    @foreach($detail as $detail)
+                    @foreach($detail as $item)
                         <tr>
-                            <td>{{$detail->id}}</td>
-                            <td>{{$detail->type}}</td>
-                            <td>{{$detail->value}}</td>
-                            <td>{{$detail->language}}</td>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->type}}</td>
+                            <td>{{$item->value}}</td>
+                            <td>{{$item->language}}</td>
                             <td>
-                                @if($detail->is_active == 1)
+                                @if($item->is_active == 1)
                                     <span class="icon-center">
                                     <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
                                     </span>
@@ -53,12 +55,20 @@
                                 @endif
                             </td>
                             <td>
-                                <a style="margin-bottom:10px;"class ="btn btn-primary"href="{{url('update_detail', $detail->id)}}">Edit</a><br>
-                                <a onclick="confirmation(event)" class ="btn btn-danger" href="{{url('delete_detail', $detail->id)}}">Delete</a>
+                                <a style="margin-bottom:10px;"class ="btn btn-primary"href="{{url('update_detail', $item->id)}}">Edit</a><br>
+                                <a onclick="confirmation(event)" class ="btn btn-danger" href="{{url('delete_detail', $item->id)}}">Delete</a>
                         </tr>
                     @endforeach
+                    <tr>
+                        <td colspan="6">
+                            <p>Total details : {{ $item->count() }}</p>
+                        </td>
+                    </tr>
 
                 </table>
+                <div class="pagination">
+                    {{ $detail->links() }}
+                </div>
         </div>
         </div>
     </div>

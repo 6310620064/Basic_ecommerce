@@ -109,7 +109,7 @@
                         <th>Action</th>
                     </tr>
 
-                    @foreach($brand as $brand)
+                    @foreach($brands as $brand)
                     <tr>
                         <td>{{$brand->id}}</td>
                         <td>{{$brand->name}}</td>
@@ -140,6 +140,10 @@
                         </td>
                     </tr>
                 </table>
+                <div class="pagination">
+                {{ $brands->links() }}
+                </div>
+                
         </div>
     </div>
     

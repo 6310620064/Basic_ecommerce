@@ -83,7 +83,7 @@
                     <th>Active</th>
                     <th>Action</th>
                 </tr>
-                @foreach($size as $size)
+                @foreach($sizes as $size)
                 <tr>
                     <td>{{$size->id}}</td>
                     <td>{{$size->size}}</td>
@@ -110,9 +110,11 @@
                     </td>
                 </tr>
             </table>
+            <div class="pagination">
+                {{ $sizes->links() }}
+            </div>
         </div>
     </div>
-
 
     <script>
         function confirmation(event) {

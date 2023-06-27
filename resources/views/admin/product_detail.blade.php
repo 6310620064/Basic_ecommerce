@@ -68,7 +68,7 @@
             <label style="padding-right:8em;"for="active">Inactive</label><br>
 
             <input type="submit" name="submit" value="Add Detail" class="btn btn-primary">
-            <a  href="{{url('/show_product')}}" class="btn btn-outline-warning">Back</a>
+            <a  href="{{url('show_detail', $detail->product_id)}}" class="btn btn-outline-warning">Back</a>
 
             </form>
             <script>

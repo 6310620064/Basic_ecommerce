@@ -15,9 +15,10 @@ class AdminController extends Controller
     //Categories
     public function view_category()
     {
-        $data = Category::all();
 
-        return view('admin.category',compact('data'));
+        $datas = Category::paginate(6);
+
+        return view('admin.category',compact('datas'));
     }
 
     public function add_category(Request $request)
@@ -69,9 +70,10 @@ class AdminController extends Controller
     //Sizes
     public function view_size()
     {
-        $size = Size::all();
+        
+        $sizes = Size::paginate(6);
 
-        return view('admin.size',compact('size'));
+        return view('admin.size',compact('sizes'));
     }
 
     public function add_size(Request $request)
@@ -117,9 +119,8 @@ class AdminController extends Controller
     //Brands
     public function view_brand()
     {
-        $brand = Brand::all();
-
-        return view('admin.brand',compact('brand'));
+        $brands = Brand::paginate(6);
+        return view('admin.brand',compact('brands'));
     }
 
     public function add_brand(Request $request)
@@ -203,9 +204,9 @@ class AdminController extends Controller
 
     public function show_product()
     {
-        $product = Product::all();
+        $products = Product::paginate(6);
 
-        return view('admin.show_product', compact('product'));
+        return view('admin.show_product', compact('products'));
     }
 
     public function update_product($id)

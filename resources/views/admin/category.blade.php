@@ -67,7 +67,7 @@
                         <th>Action</th>
                     </tr>
 
-                    @foreach($data as $data)
+                    @foreach($datas as $data)
                     <tr>
                         <td>{{$data->id}}</td>
                         <td>{{$data->name}}</td>
@@ -110,6 +110,9 @@
                         </td>
                     </tr>
                 </table>
+                <div class="pagination">
+                {{ $datas->links() }}
+                </div>
 
         </div>
     </div>

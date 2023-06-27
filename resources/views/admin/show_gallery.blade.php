@@ -24,6 +24,9 @@
         <div class="div_center">
 
             <h2 class ="h2_font"> All galleries of {{$product->name}} </h2>
+            <div class="add-button-container">
+                <a class="btn btn-info" href="{{url('view_gallery', $product->id)}}">Add</a>
+            </div>      
 
                 <table class="center">
                     <tr>
@@ -32,7 +35,7 @@
                         <th>Active</th>
                         <th>Action</th>
                     </tr>
-                    @foreach($gallery as $gallery)
+                    @foreach($galleries as $gallery)
                     <tr>
                         <td><img src="{{ \Storage::url($gallery->image)}}" alt=""/></td>
                         <td>{{$gallery->order}}</td>
@@ -53,7 +56,15 @@
                         </td>
                     </tr>
                     @endforeach
+                    <tr>
+                        <td colspan="6">
+                            <p>Total Galleries : {{ $gallery->count() }}</p>
+                        </td>
+                    </tr>
                 </table>
+                <div class="pagination">
+                    {{ $galleries->links() }}
+                </div>
         </div>
         </div>
     </div>

@@ -57,7 +57,7 @@
 
             <div class = "div_design">
                 <input type="submit" value="Add Galleries" class="btn btn-primary">
-                <a  href="{{url('/show_product')}}" class="btn btn-outline-warning">Back</a>
+                <a  href="{{url('show_gallery', $gallery->product_id)}}" class="btn btn-outline-warning">Back</a>
             </div>
             </form>
             <script>

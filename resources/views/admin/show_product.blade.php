@@ -49,7 +49,7 @@
           <th>Relate</th>
           <th>Action</th>
         </tr>
-      @foreach($product as $product)
+      @foreach($products as $product)
 
         <tr>
           <td>{{$product->id}}</td>
@@ -105,6 +105,9 @@
             </td>
         </tr>
       </table>
+        <div class="pagination_product">
+          {{ $products->links() }}
+        </div>
     </div>
   </div>
     

@@ -17,9 +17,9 @@ class ProductController extends Controller
     public function view_detail($id)
     {
         $product = Product::find($id);
-
+        $detail = Product_Detail::find($id);
  
-        return view('admin.product_detail',compact('product'));
+        return view('admin.product_detail',compact('product','detail'));
          
     }
 
@@ -40,7 +40,7 @@ class ProductController extends Controller
     public function show_detail($id)
     {
         $product = Product::find($id);
-        $detail = Product_detail::where('product_id', $id)->get();
+        $detail = Product_detail::where('product_id', $id)->paginate(6);
         
         return view('admin.show_detail', compact('product', 'detail'));
     }
@@ -75,8 +75,9 @@ class ProductController extends Controller
     public function view_gallery($id)
     {
         $product = Product::find($id);
+        $gallery = Product_Gallery::find($id);
     
-        return view('admin.product_gallery', compact('product'));
+        return view('admin.product_gallery', compact('product','gallery'));
     }
 
     public function add_gallery(Request $request)
@@ -95,9 +96,9 @@ class ProductController extends Controller
     public function show_gallery($id)
     {
         $product = Product::find($id);
-        $gallery = Product_Gallery::where('product_id', $id)->get();
+        $galleries = Product_Gallery::where('product_id', $id)->paginate(6);
 
-        return view('admin.show_gallery', compact('product', 'gallery'));
+        return view('admin.show_gallery', compact('product', 'galleries'));
     }
 
     public function update_gallery($id)
