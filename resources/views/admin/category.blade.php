@@ -33,12 +33,12 @@
             <div class="div_center">
                 <h2 class ="h2_font">Add Category</h2>
 
-                <form id = "create_category" action ="{{url('/add_category')}}" method="POST" enctype="multipart/form-data">
+                <form id = "create_category" action ="{{route('add_category')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class = "div_design">
                         <input class="input_form" type="hidden" name="amount" value="0">
-                        <input type="hidden" class="input_form" name="is_display_homepage" value="1">
-                        <input type="hidden" class="input_form" name="is_active" value="1">
+                        <input type="hidden" class="input_form" name="is_display_homepage" value="0">
+                        <input type="hidden" class="input_form" name="is_active" value="0">
                         <label> Name :</label>
                         <input class="input_form" type="text" name="name" placeholder="Name" required="">
                     </div>
@@ -46,10 +46,10 @@
                         <label > Image :</label>
                         <input type="file" name="image" style="margin-bottom:5px;">
                     </div>
-                    <input type="checkbox" class="input_form" name="is_display_homepage" value="0">
-                    <label style ="display:inline; padding-left:30px;"for="display">Hide for Homepage</label><br>
-                    <input style ="margin-left:28px;"type="checkbox" class="input_form" name="is_active" value="0">
-                    <label style = "padding-top:30px; padding-right:80px;" for="active">Inactive</label><br>
+                    <input type="checkbox" class="input_form" name="is_display_homepage" value="1" checked>
+                    <label style ="display:inline; padding-left:30px;"for="display">Display for Homepage</label><br>
+                    <input style ="margin-left:28px;"type="checkbox" class="input_form" name="is_active" value="1" checked>
+                    <label style = "padding-top:30px; padding-right:80px;" for="active">Active</label><br>
 
                     <input type="submit" class ="btn btn-primary" name="submit" value="Add Category">  
                 </form>
@@ -67,17 +67,17 @@
                         <th>Action</th>
                     </tr>
 
-                    @foreach($datas as $data)
+                    @foreach($data as $datas)
                     <tr>
-                        <td>{{$data->id}}</td>
-                        <td>{{$data->name}}</td>
-                        <td>{{$data->products->count() ?? 0 }} </td>
+                        <td>{{$datas->id}}</td>
+                        <td>{{$datas->name}}</td>
+                        <td>{{$datas->products->count() ?? 0 }} </td>
 
                         <td>
-                            <img src="{{ \Storage::url( $data->image ) }}" alt="" />
+                            <img src="{{ \Storage::url( $datas->image ) }}" alt="" />
                         </td>
                         <td>
-                            @if( $data->is_display_homepage == 1 )
+                            @if( $datas->is_display_homepage == 1 )
                                 <span class="icon-center">
                                     <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
                                 </span>
@@ -88,7 +88,7 @@
                             @endif
                         </td>
                         <td>
-                            @if($data->is_active == 1)
+                            @if($datas->is_active == 1)
                                 <span class="icon-center">
                                     <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
                                 </span>
@@ -99,19 +99,23 @@
                             @endif
                         </td>
                         <td>
-                            <a style="margin-bottom:10px;" href="{{url('update_category', $data->id)}}" class="btn btn-primary">Edit</a>
-                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{url('delete_category', $data->id)}}">Delete</a>
+                            <a style="margin-bottom:10px;" href="{{route('update_category', $datas->id)}}" class="btn btn-primary">Edit</a>
+                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_category', $datas->id)}}">Delete</a>
                         </td>
                     </tr>
                     @endforeach
                     <tr>
                         <td colspan="7">
-                            <p>Total catogories : {{ $data->count() }}</p>
+                            @if($data->count() == '0')
+                                <p>Total catogories : {{ $data->count() }}</p>
+                            @else
+                                <p>Total catogories : {{ $datas->count() }}</p>
+                            @endif
                         </td>
                     </tr>
                 </table>
                 <div class="pagination">
-                {{ $datas->links() }}
+                {{ $data->links() }}
                 </div>
 
         </div>

@@ -12,7 +12,7 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                  <h5 class="mb-0 font-weight-normal">Dev Pooz</h5>
                   <span>Gold Member</span>
                 </div>
               </div>
@@ -66,7 +66,7 @@
           </li>
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{url('view_category')}}">
+            <a class="nav-link" href="{{ route('view_category')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
@@ -75,7 +75,7 @@
           </li>
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{url('view_size')}}">
+            <a class="nav-link" href="{{route('view_size')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>
               </span>
@@ -84,7 +84,7 @@
           </li>
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{url('view_brand')}}">
+            <a class="nav-link" href="{{route('view_brand')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-contacts"></i>
               </span>
@@ -102,8 +102,8 @@
             </a>
             <div>
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{url('view_product')}}">Add Product</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{url('show_product')}}">Show Products</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('view_product')}}">Add Product</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('show_product')}}">Show Products</a></li>
               </ul>
             </div>
           </li>

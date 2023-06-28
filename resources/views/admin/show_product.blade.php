@@ -49,22 +49,22 @@
           <th>Relate</th>
           <th>Action</th>
         </tr>
-      @foreach($products as $product)
+      @foreach($product as $products)
 
         <tr>
-          <td>{{$product->id}}</td>
-          <td>{{$product->name}}</td>
-          <td>{{$product->price_normal}}</td>
-          <td>{{$product->price_member}}</td>
-          <td>{{$product->brand->name}}</td>
-          <td>{{$product->category->name}}</td>
-          <td>{{$product->size->size}}</td>
-          <td>{{$product->amount}}</td>
+          <td>{{$products->id}}</td>
+          <td>{{$products->name}}</td>
+          <td>{{$products->price_normal}}</td>
+          <td>{{$products->price_member}}</td>
+          <td>{{$products->brand->name}}</td>
+          <td>{{$products->category->name}}</td>
+          <td>{{$products->size->size}}</td>
+          <td>{{$products->amount}}</td>
           <td>
-            <img src="{{ \Storage::url($product->image)}}" alt=""/>
+            <img src="{{ \Storage::url($products->image)}}" alt=""/>
           </td>
           <td>
-              @if($product->is_highlight == 1)
+              @if($products->is_highlight == 1)
                 <span class="icon-center">
                   <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
                 </span>
@@ -75,7 +75,7 @@
               @endif
           </td>
           <td>
-              @if($product->is_active == 1)
+              @if($products->is_active == 1)
                 <span class="icon-center">
                   <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
                 </span>
@@ -85,28 +85,32 @@
                 </span>
               @endif
           </td>
-          <td>{{$product->start_display}}</td>
-          <td>{{$product->end_display}}</td>
+          <td>{{$products->start_display}}</td>
+          <td>{{$products->end_display}}</td>
           <td>
-            <a style="margin-bottom:10px; "class ="btn btn-info" href="{{url('show_detail', $product->id)}}">Detail</a>
-            <a class ="btn btn-success" href="{{url('show_gallery', $product->id)}}" >Gallery</a>
+            <a style="margin-bottom:10px; "class ="btn btn-info" href="{{route('show_detail', $products->id)}}">Detail</a>
+            <a class ="btn btn-success" href="{{route('show_gallery', $products->id)}}" >Gallery</a>
           </td>
           <td colspan="2">
-            <a style="margin-bottom:10px; "class ="btn btn-info" href="{{url('view_detail', $product->id)}} ">Add Detail</a>
-            <a style="margin-bottom:10px; "class ="btn btn-success" href="{{url('view_gallery', $product->id)}} ">Add Gallery</a>
-            <a style="margin-bottom:10px;"class ="btn btn-primary" href="{{url('update_product', $product->id)}} ">Edit</a>
-            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{url('delete_product', $product->id)}}">Delete</a>
+            <a style="margin-bottom:10px; "class ="btn btn-info" href="{{route('view_detail', $products->id)}} ">Add Detail</a>
+            <a style="margin-bottom:10px; "class ="btn btn-success" href="{{route('view_gallery', $products->id)}} ">Add Gallery</a>
+            <a style="margin-bottom:10px;"class ="btn btn-primary" href="{{route('update_product', $products->id)}} ">Edit</a>
+            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_product', $products->id)}}">Delete</a>
           </td>
         </tr>
       @endforeach
         <tr>
             <td colspan="15">
+              @if($product->count() == '0')
                 <p>Total Products : {{ $product->count() }}</p>
+              @else
+                <p>Total Products : {{ $products->count() }}</p>
+              @endif
             </td>
         </tr>
       </table>
         <div class="pagination_product">
-          {{ $products->links() }}
+          {{ $product->links() }}
         </div>
     </div>
   </div>

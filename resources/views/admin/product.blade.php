@@ -17,28 +17,19 @@
 <div class="main-panel">
     <div class="content-wrapper">
 
-        @if(session()->has('message'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                {{session()->get('message')}}
-            </div>
-
-        @endif
-
 
         <div class ="div_center">
 
             <h2 class ="h2_font"> Add Product</h2>
 
-            <form id="create_product"action="{{url('/add_product')}}" method="POST" enctype="multipart/form-data">
+            <form id="create_product"action="{{route('add_product')}}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
             <div class = "div_design">
 
-                <input type="hidden" class="input_form" name="is_highlight" value="1">
-                <input type="hidden" class="input_form" name="is_active" value="1">
+                <input type="hidden" class="input_form" name="is_highlight" value="0">
+                <input type="hidden" class="input_form" name="is_active" value="0">
                 <label> Name :</label>
                 <input class = "input_color" type="text" name="name" placeholder="Name" required="">
             </div>
@@ -97,10 +88,10 @@
                 <input class = "input_color" type="datetime-local" name="end_display">
             </div>
 
-            <input type="checkbox" class="input_form" name="is_highlight" value="0">
-            <label for="is_highlight">Not Highlight</label><br>
-            <input type="checkbox" class="input_form" name="is_active" value="0">
-            <label for="active">Inactive</label><br>
+            <input type="checkbox" class="input_form" name="is_highlight" value="1" checked>
+            <label for="is_highlight">Highlight</label><br>
+            <input type="checkbox" class="input_form" name="is_active" value="1" checked>
+            <label for="active">Active</label><br>
 
             <div class = "div_design">
                 <input type="submit" value="Add Product" class="btn btn-primary">

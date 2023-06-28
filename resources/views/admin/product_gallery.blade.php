@@ -18,22 +18,13 @@
 <div class="main-panel">
     <div class="content-wrapper">
 
-        @if(session()->has('message'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                {{session()->get('message')}}
-            </div>
-
-        @endif
-
 
         <div class ="div_center">
 
             <h2 class ="h2_font"> Add Galleries</h2>
 
 
-            <form id="create_gallery" action="{{url('/add_gallery')}}" method="POST" enctype="multipart/form-data">
+            <form id="create_gallery" action="{{route('add_gallery')}}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
@@ -41,46 +32,25 @@
 
             <input type="hidden" name="product_id" value="{{ $product->id }}">
             <label style="font-size:25px;"> {{$product->name}} </label>
-            <input type="hidden" class="input_form" name="is_active" value="1">     
+            <input type="hidden" class="input_form" name="is_active" value="0">     
             <div class = "div_img">
                 <label style="margin-right:-50px;"> Image :</label>
                 <input style="margin-bottom: 20px;" type="file" name="image" placeholder="Image" required="" >
             </div>
 
-            <div class = "div_design">
-                <label style="margin-right:-50px;"> Order :</label>
-                <input class = "input_color" type="number" min="0" name="order" placeholder="Order" required="">
-            </div>
+            <input class = "input_color" type="hidden" name="order" placeholder="Order" value="1">
 
-            <input type="checkbox" class="input_form" name="is_active" value="0">
-            <label style="padding-right:100px;"for="active">Inactive</label><br>
+            <input type="checkbox" class="input_form" name="is_active" value="1" checked>
+            <label style="padding-right:100px;"for="active">Active</label><br>
 
             <div class = "div_design">
                 <input type="submit" value="Add Galleries" class="btn btn-primary">
-                <a  href="{{url('show_gallery', $gallery->product_id)}}" class="btn btn-outline-warning">Back</a>
+                <a href="{{route('show_gallery' , $product->id)}}" class="btn btn-outline-warning">Back</a>
             </div>
             </form>
             <script>
                     document.getElementById('create_gallery').addEventListener('submit', function (event) {
                     event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
-
-                    // ตรวจสอบค่า Order ที่ป้อนเข้ามา
-                    var orderInput = document.querySelector('input[name="order"]');
-                    var orderValue = orderInput.value;
-
-                    // ตรวจสอบว่ามี Order ที่ซ้ำกันหรือไม่
-                    var orders = document.querySelectorAll('.center td:nth-child(5)');
-                    for (var i = 0; i < orders.length; i++) {
-                        var order = orders[i].textContent;
-                        if (order === orderValue) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Invalid Order',
-                                text: 'Order is already taken. Please choose a different Order.'
-                            });
-                            return; // ยกเลิกการดำเนินการต่อ
-                        }
-                    }
 
                     // ส่งข้อมูลฟอร์ม
                     var form = event.target;

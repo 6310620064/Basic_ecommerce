@@ -18,22 +18,13 @@
 <div class="main-panel">
     <div class="content-wrapper">
 
-        @if(session()->has('message'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                {{session()->get('message')}}
-            </div>
-
-        @endif
-
 
         <div class ="div_center">
 
             <h2 class ="h2_font"> Add Detail</h2>
 
 
-            <form id="create_detail"action="{{url('/add_detail')}}" method="POST">
+            <form id="create_detail"action="{{route('add_detail')}}" method="POST">
 
             @csrf
 
@@ -41,7 +32,7 @@
 
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <label style="font-size:25px;"> {{$product->name}} </label><br>
-                <input type="hidden" class="input_form" name="is_active" value="1">
+                <input type="hidden" class="input_form" name="is_active" value="0">
 
                 <label> Type :</label>
                 <select name="type" id="type" style="color: black;">
@@ -64,11 +55,11 @@
                 </select>
             </div>
 
-            <input style="margin-left:120px;" type="checkbox" class="input_form" name="is_active" value="0">
-            <label style="padding-right:8em;"for="active">Inactive</label><br>
+            <input style="margin-left:120px;" type="checkbox" class="input_form" name="is_active" value="1" checked>
+            <label style="padding-right:8em;"for="active">Active</label><br>
 
             <input type="submit" name="submit" value="Add Detail" class="btn btn-primary">
-            <a  href="{{url('show_detail', $detail->product_id)}}" class="btn btn-outline-warning">Back</a>
+            <a href="{{route('show_detail' , $product->id)}}" class="btn btn-outline-warning">Back</a>
 
             </form>
             <script>

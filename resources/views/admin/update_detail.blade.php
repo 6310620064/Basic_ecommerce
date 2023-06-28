@@ -30,11 +30,11 @@
             <div class="div_center">
                 <h2 class ="h2_font">Update Detail</h2>
 
-                <form id="update_detail" action ="{{url('/update_detail_confirm',$detail->id)}}" method="POST">
+                <form id="update_detail" action ="{{route('update_detail_confirm',$detail->id)}}" method="POST">
                     @csrf
                     <div class = "div_design">
 
-                        <input type="hidden" class="input_form" name="is_active" value="1">
+                        <input type="hidden" class="input_form" name="is_active" value="0">
 
                         <label> Type :</label>
                         <select name="type" id="type" style="color: black;">
@@ -68,15 +68,15 @@
                     </div>
 
                     @if($detail->is_active == '1')
-                        <input style="margin-left:120px;" type="checkbox" class="input_form" name="is_active" value="0">
+                        <input style="margin-left:120px;" type="checkbox" class="input_form" name="is_active" value="1" checked>
                     @else
-                        <input style="margin-left:120px;" type="checkbox" class="input_form" name="is_active" value="0" checked>
+                        <input style="margin-left:120px;" type="checkbox" class="input_form" name="is_active" value="1">
                     @endif
-                    <label style="padding-right:8em;"for="active">Inactive</label><br>
+                    <label style="padding-right:8em;"for="active">Active</label><br>
 
 
                     <input type="submit" name="submit" value="Update" class="btn btn-primary">
-                    <a  href="{{url('show_detail', $detail->product_id)}}" class="btn btn-outline-warning">Back</a>
+                    <a  href="{{route('show_detail', $detail->product_id)}}" class="btn btn-outline-warning">Back</a>
                 </form>
 
                 <script>

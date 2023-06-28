@@ -18,19 +18,10 @@
     <div class="main-panel">
         <div class="content-wrapper">
 
-            @if(session()->has('message'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                {{session()->get('message')}}
-            </div>
-
-            @endif
-
             <div class="div_center">
                 <h2 class ="h2_font">Update Gallery</h2>
 
-                <form id="update_gallery" action ="{{url('/update_gallery_confirm',$gallery->id)}}" method="POST" enctype="multipart/form-data">
+                <form id="update_gallery" action ="{{route('update_gallery_confirm',$gallery->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class = "div_design">
 
@@ -49,18 +40,18 @@
                         <input class="input_form" type="number" name="order"min="0" placeholder="Order" required="" value="{{$gallery->order}}">
                     </div>
 
-                        <input type="hidden" class="input_form" name="is_active" value="1">
+                        <input type="hidden" class="input_form" name="is_active" value="0">
 
                     @if($gallery->is_active == '1')
-                        <input type="checkbox" class="input_form" name="is_active" value="0">
-                        <label for="active">Inactive</label><br>
+                        <input type="checkbox" class="input_form" name="is_active" value="1" checked>
+                        <label for="active">Active</label><br>
                     @else
-                        <input type="checkbox" class="input_form" name="is_active" value="0" checked>
-                        <label for="active">Inactive</label><br>
+                        <input type="checkbox" class="input_form" name="is_active" value="1">
+                        <label for="active">Active</label><br>
                     @endif
 
                     <input type="submit" name="submit" value="Update" class="btn btn-primary">
-                    <a  href="{{url('show_gallery', $gallery->product_id)}}" class="btn btn-outline-warning">Back</a>
+                    <a  href="{{route('show_gallery', $gallery->product_id)}}" class="btn btn-outline-warning">Back</a>
                 </form>
 
                 <script>

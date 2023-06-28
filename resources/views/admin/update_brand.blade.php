@@ -19,22 +19,13 @@
     <div class="main-panel">
         <div class="content-wrapper">
 
-            @if(session()->has('message'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                {{session()->get('message')}}
-            </div>
-
-            @endif
-
             <div class="div_center">
                 <h2 class ="h2_font">Update Brand</h2>
 
-                <form id="update_brand"action ="{{url('/update_brand_confirm',$brand->id)}}" method="POST" enctype="multipart/form-data">
+                <form id="update_brand"action ="{{route('update_brand_confirm',$brand->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class = "div_design">
-                        <input type="hidden" class="input_form" name="is_active" value="1">
+                        <input type="hidden" class="input_form" name="is_active" value="0">
 
                         <label> Name :</label>
                         <input class="input_form" type="text" name="name" placeholder="Name" required="" value="{{$brand->name}}">
@@ -52,17 +43,14 @@
                         <input type="file" name="image" placeholder="Image" >
                     </div>
 
-                    <div class = "div_design">
-                        <label > Order :</label>
-                        <input class="input_form" type="number" name="order"min="0" placeholder="Order" required="" value="{{$brand->order}}">
-                    </div>
+                    <input class="input_form" type="hidden" name="order" placeholder="Order" required="" value="{{$brand->order}}">
 
                     @if($brand->is_active == '1')
-                        <input type="checkbox" class="input_form" name="is_active" value="0">
-                        <label for="active">Inactive</label><br>
+                        <input type="checkbox" class="input_form" name="is_active" value="1" checked>
+                        <label for="active">Active</label><br>
                     @else
-                        <input type="checkbox" class="input_form" name="is_active" value="0" checked>
-                        <label for="active">Inactive</label><br>
+                        <input type="checkbox" class="input_form" name="is_active" value="1">
+                        <label for="active">Active</label><br>
                     @endif
                     
                     <input type="submit" class ="btn btn-primary" name="submit" value="Update">  

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Size;
-use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Product_Detail;
 use App\Models\Product_Gallery;
@@ -34,7 +31,7 @@ class ProductController extends Controller
         $detail->is_active = $request->is_active;
         $detail->save();
 
-        return redirect()->back()->with('message', 'Detail Added Successfully') ;
+        return redirect()->back();
     }
 
     public function show_detail($id)
@@ -82,6 +79,9 @@ class ProductController extends Controller
 
     public function add_gallery(Request $request)
     {
+        $id = $request->product_id;
+        $this->increaseOrder($id);
+
         $gallery = new Product_Gallery;
 
         $gallery->product_id = $request->product_id;
@@ -96,9 +96,9 @@ class ProductController extends Controller
     public function show_gallery($id)
     {
         $product = Product::find($id);
-        $galleries = Product_Gallery::where('product_id', $id)->paginate(6);
+        $gallery = Product_Gallery::where('product_id', $id)->orderBy('order')->paginate(6);
 
-        return view('admin.show_gallery', compact('product', 'galleries'));
+        return view('admin.show_gallery', compact('product', 'gallery'));
     }
 
     public function update_gallery($id)
@@ -125,8 +125,35 @@ class ProductController extends Controller
     public function delete_gallery($id)
     {
         $gallery = Product_Gallery::find($id);
+        $productId = $gallery->product_id;
+        $deletedOrder = $gallery->order;
+
         $gallery->delete();
+        $this->Reorder($productId, $deletedOrder);
+
         return redirect()->back()->with('message','Gallery Deleted Successfully');
+    }
+
+    public function increaseOrder($id)
+    {
+        $galleries = Product_Gallery::where('product_id', $id)->get();
+
+        foreach ($galleries as $gallery) {
+            $gallery->order += 1;
+            $gallery->save();
+        }
+    }
+
+    public function Reorder($productId, $deletedOrder)
+    {
+
+        $galleries = Product_Gallery::where('product_id', $productId)->where('order', '>', $deletedOrder)->get();
+
+        foreach ($galleries as $gallery) {
+            $gallery->order--;
+            $gallery->save();
+        }
+
     }
 
 }

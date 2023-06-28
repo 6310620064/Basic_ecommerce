@@ -19,28 +19,18 @@
 <div class="main-panel">
     <div class="content-wrapper">
 
-        @if(session()->has('message'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                {{session()->get('message')}}
-            </div>
-
-        @endif
-
-
         <div class ="div_center">
 
             <h2 class ="h2_font"> Update Product</h2>
 
-            <form id="update_product" action="{{url('/update_product_confirm',$product->id)}}" method="POST" enctype="multipart/form-data">
+            <form id="update_product" action="{{route('update_product_confirm',$product->id)}}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
             <div class = "div_design">
 
-                <input type="hidden" class="input_form" name="is_highlight" value="1">
-                <input type="hidden" class="input_form" name="is_active" value="1">
+                <input type="hidden" class="input_form" name="is_highlight" value="0">
+                <input type="hidden" class="input_form" name="is_active" value="0">
                 <label> Name :</label>
                 <input class = "input_color" type="text" name="name" placeholder="Name" required="" value="{{$product->name}}">
             </div>
@@ -111,23 +101,23 @@
             </div>
 
             @if($product->is_highlight == '1')
-                <input type="checkbox" class="input_form" name="is_highlight" value="0">
-                <label for="is_highlight">Not Highlight</label><br>
+                <input type="checkbox" class="input_form" name="is_highlight" value="1" checked>
+                <label for="is_highlight">Highlight</label><br>
             @else
-                <input type="checkbox" class="input_form" name="is_highlight" value="0" checked>
-                <label for="is_highlight">Not Highlight</label><br>
+                <input type="checkbox" class="input_form" name="is_highlight" value="1" >
+                <label for="is_highlight">Highlight</label><br>
             @endif
             @if($product->is_active == '1')
-                <input type="checkbox" class="input_form" name="is_active" value="0">
-                <label for="active">Inactive</label><br>
+                <input type="checkbox" class="input_form" name="is_active" value="1" checked>
+                <label for="active">Active</label><br>
             @else
-                <input type="checkbox" class="input_form" name="is_active" value="0" checked>
-                <label for="active">Inactive</label><br>
+                <input type="checkbox" class="input_form" name="is_active" value="1">
+                <label for="active">Active</label><br>
             @endif
 
             <div class = "div_design">
                 <input type="submit" value="Update" class="btn btn-primary">
-                <a  href="{{url('/show_product')}}" class="btn btn-outline-warning">Back</a>
+                <a  href="{{route('show_product')}}" class="btn btn-outline-warning">Back</a>
 
             </div>
             </form>

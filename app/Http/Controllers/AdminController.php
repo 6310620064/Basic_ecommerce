@@ -16,9 +16,9 @@ class AdminController extends Controller
     public function view_category()
     {
 
-        $datas = Category::paginate(6);
+        $data = Category::paginate(6);
 
-        return view('admin.category',compact('datas'));
+        return view('admin.category',compact('data'));
     }
 
     public function add_category(Request $request)
@@ -32,7 +32,6 @@ class AdminController extends Controller
         $data->is_active = $request->is_active;
         $data->save();
 
-        Alert::success('Category Added Successfully','We have added category to the database');
         return redirect()->back();
 
     }
@@ -71,9 +70,9 @@ class AdminController extends Controller
     public function view_size()
     {
         
-        $sizes = Size::paginate(6);
+        $size = Size::paginate(6);
 
-        return view('admin.size',compact('sizes'));
+        return view('admin.size',compact('size'));
     }
 
     public function add_size(Request $request)
@@ -85,7 +84,7 @@ class AdminController extends Controller
         $size->save();
 
         
-        return redirect()->back()->with('message','Size Added Successfully');
+        return redirect()->back();
     }
 
     
@@ -104,7 +103,7 @@ class AdminController extends Controller
         $size->is_active = $request->is_active;  
         $size->save();
 
-        return redirect()->back()->with('message','Size Updated Successfully');
+        return redirect()->back();
     }
 
 
@@ -119,12 +118,14 @@ class AdminController extends Controller
     //Brands
     public function view_brand()
     {
-        $brands = Brand::paginate(6);
-        return view('admin.brand',compact('brands'));
+        $brand = Brand::orderBy('order')->paginate(6);
+        return view('admin.brand',compact('brand'));
     }
 
     public function add_brand(Request $request)
     {
+        $this->increaseOrder();
+
         $brand = new Brand;
 
         $brand->name = $request->name;
@@ -133,6 +134,7 @@ class AdminController extends Controller
         $brand->order = $request->order;
         $brand->is_active = $request->is_active;
         $brand->save();
+
 
         return redirect()->back();
 
@@ -159,14 +161,17 @@ class AdminController extends Controller
         $brand->is_active = $request->is_active;
         $brand->save();
         
-        return redirect()->back()->with('message','Brand Updated Successfully');
+        return redirect()->back();
     }
 
 
     public function delete_brand($id)
     {
         $brand = Brand::find($id);
+        $order = $brand->order;
+        Brand::where('order', '>', $order)->decrement('order');
         $brand->delete();
+        
         return redirect()->back()->with('message','Brand Deleted Successfully');
     }
 
@@ -204,9 +209,9 @@ class AdminController extends Controller
 
     public function show_product()
     {
-        $products = Product::paginate(6);
+        $product = Product::paginate(6);
 
-        return view('admin.show_product', compact('products'));
+        return view('admin.show_product', compact('product'));
     }
 
     public function update_product($id)
@@ -247,6 +252,16 @@ class AdminController extends Controller
         $product->save();
 
         return redirect()->back()->with('message','Product Updated Successfully');
+    }
+
+    public function increaseOrder()
+    {
+        $brand = Brand::all();
+
+        foreach ($brand as $brand) {
+            $brand->order += 1;
+            $brand->save();
+        }
     }
 
    

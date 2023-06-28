@@ -23,6 +23,15 @@
         <div class="content-wrapper">
         <div class="div_center">
 
+        @if(session()->has('message'))
+
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+            {{session()->get('message')}}
+        </div>
+
+        @endif
+
             <h2 class ="h2_font"> All galleries of {{$product->name}} </h2>
             <div class="add-button-container">
                 <a class="btn btn-info" href="{{url('view_gallery', $product->id)}}">Add</a>
@@ -35,12 +44,24 @@
                         <th>Active</th>
                         <th>Action</th>
                     </tr>
-                    @foreach($galleries as $gallery)
+                    @foreach($gallery as $galleries)
                     <tr>
-                        <td><img src="{{ \Storage::url($gallery->image)}}" alt=""/></td>
-                        <td>{{$gallery->order}}</td>
+                        <td><img src="{{ \Storage::url($galleries->image)}}" alt=""/></td>
+                        <td>{{$galleries->order}}
+                            @if($gallery->total() == '1')
+
+                            @elseif($galleries->order == '1')
+                                <span class="arrow arrow-down" onclick="gallery_arrow_down({{$galleries->id}})"></span>
+                                                                
+                            @elseif($galleries->order == $gallery->total())
+                                <span class="arrow arrow-up" onclick="gallery_arrow_up({{$galleries->id}})"></span><br>
+                            @else
+                                <span class="arrow arrow-up" onclick="gallery_arrow_up({{$galleries->id}})"></span><br>
+                                <span class="arrow arrow-down" onclick="gallery_arrow_down({{$galleries->id}})"></span>
+                            @endif
+                        </td>
                         <td>
-                            @if($gallery->is_active == 1)
+                            @if($galleries->is_active == 1)
                                 <span class="icon-center">
                                     <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
                                 </span>
@@ -51,19 +72,19 @@
                             @endif
                         </td>
                         <td>
-                            <a style="margin-bottom:10px;"class ="btn btn-primary"href="{{url('update_gallery', $gallery->id)}}">Edit</a><br>
-                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{url('delete_gallery', $gallery->id)}}"">Delete</a>
+                            <a style="margin-bottom:10px;"class ="btn btn-primary"href="{{route('update_gallery', $galleries->id)}}">Edit</a><br>
+                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_gallery', $galleries->id)}}"">Delete</a>
                         </td>
                     </tr>
                     @endforeach
                     <tr>
                         <td colspan="6">
-                            <p>Total Galleries : {{ $gallery->count() }}</p>
+                            <p>Total Galleries : {{ $gallery->total() }}</p>
                         </td>
                     </tr>
                 </table>
                 <div class="pagination">
-                    {{ $galleries->links() }}
+                    {{ $gallery->links() }}
                 </div>
         </div>
         </div>
@@ -95,6 +116,57 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        function gallery_arrow_down(id) {
+            Swal.fire({
+                title: 'Confirmation',
+                text: 'Are you sure you want to down the order?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                // Send Axios request to increase the order
+                axios.post('/gallery_arrow_down/' + id)
+                    .then(function (response) {
+                    // Reload the page after successful update
+                    location.reload();
+                    })
+                    .catch(function (error) {
+                    // Show error message
+                    Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+                    });
+                }
+            });
+        }
+
+        function gallery_arrow_up(id) {
+            Swal.fire({
+                title: 'Confirmation',
+                text: 'Are you sure you want to up the order?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                // Send Axios request to increase the order
+                axios.post('/gallery_arrow_up/' + id)
+                    .then(function (response) {
+                    // Reload the page after successful update
+                    location.reload();
+                    })
+                    .catch(function (error) {
+                    // Show error message
+                    Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+                    });
+                }
+            });
+        }
+
     </script>
     
     <!-- container-scroller -->

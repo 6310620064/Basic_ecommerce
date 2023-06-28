@@ -26,14 +26,14 @@
             </div>
 
             @endif
-
+            
             <div class="div_center">
                 <h2 class ="h2_font">Add Brand</h2>
 
-                <form id = "create_brand" action ="{{url('/add_brand')}}" method="POST" enctype="multipart/form-data">
+                <form id = "create_brand" action ="{{route('add_brand')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class = "div_design">
-                        <input type="hidden" class="input_form" name="is_active" value="1">
+                        <input type="hidden" class="input_form" name="is_active" value="0">
 
                         <label> Name :</label>
                         <input class="input_form" type="text" name="name" placeholder="Name" required="">
@@ -43,36 +43,18 @@
                         <label> Image :</label>
                         <input type="file" name="image" >
                     </div>
-                    <div class = "div_design">
-                        <label > Order :</label>
-                        <input class="input_form" type="number" name="order"min="0" placeholder="Order" required="">
-                    </div>
-                    <input type="checkbox" class="input_form" name="is_active" value="0">
-                    <label for="active">Inactive</label><br>
+                
+
+                    <input class="input_form" type="hidden" name="order" value="1">
+
+                    <input type="checkbox" class="input_form" name="is_active" value="1" checked>
+                    <label for="active">Active</label><br>
 
                     <input type="submit" class ="btn btn-primary" name="submit" value="Add Brand">  
                 </form>
                 <script>
                     document.getElementById('create_brand').addEventListener('submit', function (event) {
                     event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
-
-                    // ตรวจสอบค่า Order ที่ป้อนเข้ามา
-                    var orderInput = document.querySelector('input[name="order"]');
-                    var orderValue = orderInput.value;
-
-                    // ตรวจสอบว่ามี Order ที่ซ้ำกันหรือไม่
-                    var orders = document.querySelectorAll('.center td:nth-child(5)');
-                    for (var i = 0; i < orders.length; i++) {
-                        var order = orders[i].textContent;
-                        if (order === orderValue) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Invalid Order',
-                                text: 'Order is already taken. Please choose a different Order.'
-                            });
-                            return; // ยกเลิกการดำเนินการต่อ
-                        }
-                    }
                     Swal.fire({
                         icon: 'success',
                         title: 'Brand created successfully',
@@ -108,18 +90,28 @@
                         <th>Active</th>
                         <th>Action</th>
                     </tr>
-
-                    @foreach($brands as $brand)
+                    
+                    @foreach($brand as $brands)
                     <tr>
-                        <td>{{$brand->id}}</td>
-                        <td>{{$brand->name}}</td>
-                        <td>{{$brand->products->count() ?? 0}}</td>
+                        <td>{{$brands->id}}</td>
+                        <td>{{$brands->name}}</td>
+                        <td>{{$brands->products->count() ?? 0}}</td>
                         <td class = "show_img">
-                            <img src="{{ \Storage::url( $brand->image ) }}" alt=""/>
+                            <img src="{{ \Storage::url( $brands->image ) }}" alt=""/>
                         </td>
-                        <td>{{$brand->order}}</td>
+                        <td>{{$brands->order}}
+                            @if($brands->order == '1')
+                                <span class="arrow arrow-down" onclick="brand_arrow_down({{$brands->id}})"></span>
+                                                                
+                            @elseif($brands->order == $brands->count())
+                                <span class="arrow arrow-up" onclick="brand_arrow_up({{$brands->id}})"></span><br>
+                            @else
+                                <span class="arrow arrow-up" onclick="brand_arrow_up({{$brands->id}})"></span><br>
+                                <span class="arrow arrow-down" onclick="brand_arrow_down({{$brands->id}})"></span>
+                            @endif
+                        </td>
                         <td>
-                            @if($brand->is_active == 1)
+                            @if($brands->is_active == 1)
                                 <span class="icon-center">
                                     <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
                                 </span>
@@ -129,19 +121,23 @@
                                 </span>
                             @endif
                         <td>
-                            <a style="margin-bottom:10px;" href="{{url('update_brand', $brand->id)}}" class="btn btn-primary">Edit</a>
-                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{url('delete_brand', $brand->id)}}">Delete</a>
+                            <a style="margin-bottom:10px;" href="{{route('update_brand', $brands->id)}}" class="btn btn-primary">Edit</a>
+                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_brand', $brands->id)}}">Delete</a>
                         </td>
                     </tr>
                     @endforeach
                     <tr>
                         <td colspan="7">
-                            <p>Total Brands : {{ $brand->count() }}</p>
+                            @if($brand->count() == '0')
+                                <p>Total Brands : {{ $brand->count() }}</p>
+                            @else
+                                <p>Total Brands : {{ $brands->count() }}</p>
+                            @endif
                         </td>
                     </tr>
                 </table>
                 <div class="pagination">
-                {{ $brands->links() }}
+                {{ $brand->links() }}
                 </div>
                 
         </div>
@@ -176,6 +172,57 @@
             });
         }
     </script>
+
+<script>
+    function brand_arrow_down(id) {
+        Swal.fire({
+            title: 'Confirmation',
+            text: 'Are you sure you want to down the order?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            // Send Axios request to increase the order
+            axios.post('/brand_arrow_down/' + id)
+                .then(function (response) {
+                // Reload the page after successful update
+                location.reload();
+                })
+                .catch(function (error) {
+                // Show error message
+                Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+                });
+            }
+        });
+    }
+
+    function brand_arrow_up(id) {
+        Swal.fire({
+            title: 'Confirmation',
+            text: 'Are you sure you want to up the order?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            // Send Axios request to increase the order
+            axios.post('/brand_arrow_up/' + id)
+                .then(function (response) {
+                // Reload the page after successful update
+                location.reload();
+                })
+                .catch(function (error) {
+                // Show error message
+                Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+                });
+            }
+        });
+    }
+
+</script>
 
   </body>
 </html>

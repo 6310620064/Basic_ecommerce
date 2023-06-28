@@ -32,16 +32,16 @@
             <div class="div_center">
                 <h2 class ="h2_font">Add Size</h2>
 
-                <form id="create_size" action ="{{url('/add_size')}}" method="POST">
+                <form id="create_size" action ="{{route('add_size')}}" method="POST">
                     @csrf
                     <div class = "div_design">
                         <label> Size :</label>
                         <input class="input_form" type="text" name="size" placeholder="Size" required="">
                     </div>
                     
-                    <input type="hidden" class="input_form" name="is_active" value="1">
-                    <input type="checkbox" class="input_form" name="is_active" value="0">
-                    <label for="active">Inactive</label><br>
+                    <input type="hidden" class="input_form" name="is_active" value="0">
+                    <input type="checkbox" class="input_form" name="is_active" value="1" checked>
+                    <label for="active">Active</label><br>
 
                     <input type="submit" class ="btn btn-primary" name="submit" value="Add Size">  
                 </form>
@@ -83,12 +83,12 @@
                     <th>Active</th>
                     <th>Action</th>
                 </tr>
-                @foreach($sizes as $size)
+                @foreach($size as $sizes)
                 <tr>
-                    <td>{{$size->id}}</td>
-                    <td>{{$size->size}}</td>
+                    <td>{{$sizes->id}}</td>
+                    <td>{{$sizes->size}}</td>
                     <td>
-                        @if($size->is_active == 1)
+                        @if($sizes->is_active == 1)
                             <span class="icon-center">
                                 <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
                             </span>
@@ -99,19 +99,23 @@
                         @endif
                     </td>
                     <td>
-                        <a style="margin-bottom:10px;" href="{{url('update_size', $size->id)}}" class="btn btn-primary">Edit</a><br>
-                        <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_size', $size->id)}}">Delete</a>
+                        <a style="margin-bottom:10px;" href="{{route('update_size', $sizes->id)}}" class="btn btn-primary">Edit</a><br>
+                        <a class="btn btn-danger" onclick="confirmation(event)" href="{{route('delete_size', $sizes->id)}}">Delete</a>
                     </td>
                 </tr>
                 @endforeach
                 <tr>
                     <td colspan="4">
-                        <p>Total Sizes : {{ $size->count() }}</p>
+                        @if($size->count() == '0')
+                            <p>Total Sizes : {{ $size->count() }}</p>
+                        @else
+                            <p>Total Sizes : {{ $sizes->count() }}</p>
+                        @endif
                     </td>
                 </tr>
             </table>
             <div class="pagination">
-                {{ $sizes->links() }}
+                {{ $size->links() }}
             </div>
         </div>
     </div>

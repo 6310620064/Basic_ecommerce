@@ -21,24 +21,15 @@
     <div class="main-panel">
         <div class="content-wrapper">
 
-            @if(session()->has('message'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                {{session()->get('message')}}
-            </div>
-
-            @endif
-
             <div class="div_center">
                 <h2 class ="h2_font">Update Category</h2>
 
-                <form id="update_category" action="{{url('/update_category_confirm',$data->id)}}" method="POST" enctype="multipart/form-data">
+                <form id="update_category" action="{{route('update_category_confirm',$data->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class = "div_design">
                         <input class="input_form" type="hidden" name="amount" value="0">
-                        <input type="hidden" class="input_form" name="is_display_homepage" value="1">
-                        <input type="hidden" class="input_form" name="is_active" value="1">
+                        <input type="hidden" class="input_form" name="is_display_homepage" value="0">
+                        <input type="hidden" class="input_form" name="is_active" value="0">
                         <label> Name :</label>
                         <input class="input_form" type="text" name="name" placeholder="Name" required="" value="{{$data->name}}">
                     </div>
@@ -54,22 +45,22 @@
                     </div>
 
                     @if($data->is_display_homepage == '1')
-                        <input type="checkbox" class="input_form" name="is_display_homepage" value="0">
-                        <label style ="display:inline; padding-left:30px;"for="display">Hide for Homepage</label><br>
+                        <input type="checkbox" class="input_form" name="is_display_homepage" value="1" checked>
+                        <label style ="display:inline; padding-left:30px;"for="display">Display for Homepage</label><br>
                     @else
-                        <input type="checkbox" class="input_form" name="is_display_homepage" value="0" checked>
-                        <label style ="display:inline; padding-left:30px;"for="display">Hide for Homepage</label><br>
+                        <input type="checkbox" class="input_form" name="is_display_homepage" value="1" >
+                        <label style ="display:inline; padding-left:30px;"for="display">Display for Homepage</label><br>
                     @endif
 
                     @if($data->is_active == '1')
-                        <input style ="margin-left:28px;"type="checkbox" class="input_form" name="is_active" value="0">
-                        <label style = "padding-top:30px; padding-right:80px;" for="active">Inactive</label><br>
+                        <input style ="margin-left:28px;"type="checkbox" class="input_form" name="is_active" value="1" checked>
+                        <label style = "padding-top:30px; padding-right:80px;" for="active">Active</label><br>
                     @else
-                        <input style ="margin-left:28px;"type="checkbox" class="input_form" name="is_active" value="0" checked>
-                        <label style = "padding-top:30px; padding-right:80px;" for="active">Inactive</label><br>
+                        <input style ="margin-left:28px;"type="checkbox" class="input_form" name="is_active" value="1">
+                        <label style = "padding-top:30px; padding-right:80px;" for="active">Active</label><br>
                     @endif
                     <input type="submit" class ="btn btn-primary" name="submit" value="Update">  
-                    <a  href="{{url('/view_category')}}" class="btn btn-outline-warning">Back</a>
+                    <a  href="{{route('view_category')}}" class="btn btn-outline-warning">Back</a>
 
                 </form>
               </div>

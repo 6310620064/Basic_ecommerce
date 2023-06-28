@@ -18,36 +18,27 @@
     <div class="main-panel">
         <div class="content-wrapper">
 
-            @if(session()->has('message'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                {{session()->get('message')}}
-            </div>
-
-            @endif
-
             <div class="div_center">
                 <h2 class ="h2_font">Update Size</h2>
 
-                <form id="update_size" action ="{{url('/update_size_confirm',$size->id)}}" method="POST">
+                <form id="update_size" action ="{{route('update_size_confirm',$size->id)}}" method="POST">
                     @csrf
                     <div class = "div_design">
                         <label> Size :</label>
                         <input class="input_form" type="text" name="size" placeholder="Size" required="" value="{{$size->size}}">
                     </div>
                     
-                    <input type="hidden" class="input_form" name="is_active" value="1">
+                    <input type="hidden" class="input_form" name="is_active" value="0">
                     @if($size->is_active == '1')
-                        <input type="checkbox" class="input_form" name="is_active" value="0">
-                        <label for="active">Inactive</label><br>
+                        <input type="checkbox" class="input_form" name="is_active" value="1" checked>
+                        <label for="active">Active</label><br>
                     @else
-                        <input type="checkbox" class="input_form" name="is_active" value="0" checked>
-                        <label for="active">Inactive</label><br>
+                        <input type="checkbox" class="input_form" name="is_active" value="1" >
+                        <label for="active">Active</label><br>
                     @endif
 
                     <input type="submit" class ="btn btn-primary" name="submit" value="Update">  
-                    <a  href="{{url('/view_size')}}" class="btn btn-outline-warning">Back</a>
+                    <a  href="{{route('view_size')}}" class="btn btn-outline-warning">Back</a>
                 </form>
             </div>
             <script>

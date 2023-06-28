@@ -25,7 +25,7 @@
 
             <h2 class ="h2_font"> All details of {{$product->name}} </h2><br>
             <div class="add-button-container">
-                <a class="btn btn-info" href="{{url('view_detail', $product->id)}}">Add</a>
+                <a class="btn btn-info" href="{{route('view_detail', $product->id)}}">Add</a>
             </div>               
                 <table class="center">
                     <tr>
@@ -55,13 +55,13 @@
                                 @endif
                             </td>
                             <td>
-                                <a style="margin-bottom:10px;"class ="btn btn-primary"href="{{url('update_detail', $item->id)}}">Edit</a><br>
-                                <a onclick="confirmation(event)" class ="btn btn-danger" href="{{url('delete_detail', $item->id)}}">Delete</a>
+                                <a style="margin-bottom:10px;"class ="btn btn-primary"href="{{route('update_detail', $item->id)}}">Edit</a><br>
+                                <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_detail', $item->id)}}">Delete</a>
                         </tr>
                     @endforeach
                     <tr>
                         <td colspan="6">
-                            <p>Total details : {{ $item->count() }}</p>
+                            <p>Total details : {{ $detail->total() }}</p>
                         </td>
                     </tr>
 
