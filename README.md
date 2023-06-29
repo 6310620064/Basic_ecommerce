@@ -24,4 +24,4 @@
 ------------------------------------------------------------------------------------------------------
 ### Diagram
 
-![ecommerce](public/images/ecommerce.png){width=300 height=200}  
+![ecommerce](public/images/ecommerce.png)
