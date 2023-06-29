@@ -4,12 +4,12 @@
                <div class="col-md-4">
                    <div class="full">
                       <div class="logo_footer">
-                        <a href="#"><img width="210" src="images/logo.png" alt="#" /></a>
+                        <a href="#"><img width="120" src="images/shop_logo-removebg.png" alt="" /></a>
                       </div>
                       <div class="information_f">
-                        <p><strong>ADDRESS:</strong> 28 White tower, Street Name New York City, USA</p>
-                        <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
-                        <p><strong>EMAIL:</strong> yourmain@gmail.com</p>
+                        <p><strong>ADDRESS:</strong> 130/131 Khaoniwet Mueang Ranong 85000 Thailand</p>
+                        <p><strong>TELEPHONE:</strong> +66 96 378 5027</p>
+                        <p><strong>EMAIL:</strong> devpooz.09@gmail.com</p>
                       </div>
                    </div>
                </div>
@@ -21,12 +21,11 @@
                      <div class="widget_menu">
                         <h3>Menu</h3>
                         <ul>
-                           <li><a href="#">Home</a></li>
-                           <li><a href="#">About</a></li>
-                           <li><a href="#">Services</a></li>
-                           <li><a href="#">Testimonial</a></li>
-                           <li><a href="#">Blog</a></li>
-                           <li><a href="#">Contact</a></li>
+                           <li><a href="{{route('index')}}">Home</a></li>
+                           <li><a href="{{route('all_products')}}">Products</a></li>
+                           <li><a href="{{route('all_brands')}}">Brands</a></li>
+                           <li><a href="{{route('all_categories')}}">Categories</a></li>
+                           <li><a href="{{route('all_sizes')}}">Sizes</a></li>
                         </ul>
                      </div>
                   </div>
@@ -36,8 +35,8 @@
                         <ul>
                            <li><a href="#">Account</a></li>
                            <li><a href="#">Checkout</a></li>
-                           <li><a href="#">Login</a></li>
-                           <li><a href="#">Register</a></li>
+                           <li><a href="{{ route('login') }}">Login</a></li>
+                           <li><a href="{{ route('register') }}">Register</a></li>
                            <li><a href="#">Shopping</a></li>
                            <li><a href="#">Widget</a></li>
                         </ul>
