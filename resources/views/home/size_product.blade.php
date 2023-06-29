@@ -42,7 +42,7 @@
             <div class="row">
 
                @foreach($product as $products)
-                  @if($products->is_active == '1')
+                  @if($products->is_active == '1' && $products->start_display <= now() && $products->end_display > now())
 
                      <div class="col-sm-6 col-md-4 col-lg-4">
                         <div class="box">
@@ -68,6 +68,32 @@
                      </div>
                   </div>
                </div>
+                  @elseif($products->is_active == '1' && $products->start_display <= now() && $products->end_display == null)
+
+                     <div class="col-sm-6 col-md-4 col-lg-4">
+                           <div class="box">
+                              <div class="option_container">
+                                 <div class="options">
+                                    <a href="{{route('product_detail', $products->id)}}"class="option1">
+                                    Detail
+                                    </a>
+                                 </div>
+                              </div>
+                              <div class="img-box">
+                                 <img src="{{ \Storage::url($products->image)}}"alt="">
+                              </div>
+                                 <div class="detail-box">
+                                    <h5>
+                                       {{$products->name}}
+                                    </h5>
+
+                                    <h6>
+                                       Amount <br>
+                                       {{$products->amount}} 
+                                    </h6>
+                        </div>
+                     </div>
+                  </div>
                   @endif
                @endforeach
 

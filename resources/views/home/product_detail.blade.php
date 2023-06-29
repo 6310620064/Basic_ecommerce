@@ -35,7 +35,7 @@
             <div style ="margin:auto; padding:30px;">
                 <img style="width :450px; height:450px;"src="{{ \Storage::url($product->image)}}"alt="">
                 <div class="detail-box" style="margin-left:550px; margin-top:-400px; padding:30px; margin-bottom: 200px;" >
-                <h5 style="text-decoration: none; border-bottom: 1px solid black;width: 30%;">
+                <h5 style="text-decoration: none; border-bottom: 1px solid black;width: 75%;">
                     {{$product->name}}
                 </h5><br>
 
@@ -47,16 +47,22 @@
                     Member Price ฿ {{$product->price_member}} 
                 </h6><br>
                 
-                @foreach($detail as $detail)
+                @foreach($details as $detail)
                     @if($detail->is_active == '1')
                         @if($detail->type == 'Title')
-                            <h5>{{$detail->value}}</h5>
-                        @else
-                            <h6>{{$detail->value}}</h6>
+                            <h5 class="break-word" >{{$detail->value}}</h5>
                         @endif
                     @endif
                 @endforeach
                 <br>
+                @foreach($details as $detail)
+                    @if($detail->is_active == '1')
+                        @if($detail->type == 'Description')
+                            <h5 class="break-word" >{{$detail->value}}</h5>
+                        @endif
+                    @endif
+                @endforeach
+
                 <form style="display: flex;" action="{{route('add_cart',$product->id)}}" method ="POST">
 
                     @csrf

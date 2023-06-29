@@ -178,7 +178,7 @@ margin-left: 10px;
 }
 
 .gallery-photo{
-    margin-left: 80px;
+    margin-left: 40px;
 
 }
 
@@ -240,3 +240,6 @@ margin-left: 10px;
     z-index: 1;
  }
  
+ .break-word {
+    overflow-wrap: break-word;
+}

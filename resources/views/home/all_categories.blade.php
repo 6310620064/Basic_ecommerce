@@ -62,7 +62,7 @@
 
                                  <h6>
                                     Amount <br>
-                                       {{ $categories->products->where('is_active', '1')->count() }}
+                                       {{ $categories->products_count }}
                                  </h6>
                      </div>
                   </div>
