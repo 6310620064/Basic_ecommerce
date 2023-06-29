@@ -7,7 +7,7 @@
                         <a href="#"><img width="120" src="images/shop_logo-removebg.png" alt="" /></a>
                       </div>
                       <div class="information_f">
-                        <p><strong>ADDRESS:</strong> 130/131 Khaoniwet Mueang Ranong 85000 Thailand</p>
+                        <p><strong>ADDRESS:</strong> TU Dormitory 99 Moo.18 Khlong Nueng , Khlong Luang Pathum Thani 12120</p>
                         <p><strong>TELEPHONE:</strong> +66 96 378 5027</p>
                         <p><strong>EMAIL:</strong> devpooz.09@gmail.com</p>
                       </div>
