@@ -99,10 +99,19 @@ Route::post('/gallery_arrow_up/{id}', [ChangeOrderController::class, 'gallery_ar
 
 
 //ALL OF USERS
+Route::get('/all_products', [HomeController::class, 'all_products'])->name('all_products');
 Route::get('/product_detail/{id}', [HomeController::class, 'product_detail'])->where('id', '[0-9]+')->name('product_detail');
 Route::post('/add_cart/{id}',[HomeController::class,'add_cart'])->where('id', '[0-9]+')->name('add_cart');
 Route::get('/all_brands', [HomeController::class, 'all_brands'])->name('all_brands');
 Route::get('/brand_product/{id}',[HomeController::class,'brand_product'])->where('id', '[0-9]+')->name('brand_product');
+Route::get('/all_categories', [HomeController::class, 'all_categories'])->name('all_categories');
+Route::get('/category_product/{id}',[HomeController::class,'category_product'])->where('id', '[0-9]+')->name('category_product');
+Route::get('/all_sizes', [HomeController::class, 'all_sizes'])->name('all_sizes');
+Route::get('/size_product/{id}',[HomeController::class,'size_product'])->where('id', '[0-9]+')->name('size_product');
+
+
+
+
 
 
 

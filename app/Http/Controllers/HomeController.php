@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Size;
 use App\Models\Product_Detail;
 use App\Models\Product_Gallery;
+use Carbon\Carbon;
 
 
 
@@ -16,11 +19,14 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $product = Product::where('is_active', '1')->paginate(6);
+        $product = Product::where('is_highlight', '1')->where('is_active', '1')->paginate(6);
+        $category = Category::all();
+        $category->load('products');
 
-        return view('home.userpage',compact('product'));
+
+        return view('home.userpage',compact('product','category'));
     }
-
+    
     public function redirect()
     {
         $usertype=Auth::user()->usertype;
@@ -31,10 +37,26 @@ class HomeController extends Controller
         }
         else
         {
-            $product = Product::where('is_active', '1')->paginate(6);
+            $product = Product::where('is_highlight', '1')->where('is_active', '1')->paginate(6);
+            $category = Category::all();
+            $category->load('products');
 
-            return view('home.userpage',compact('product'));
+            return view('home.userpage',compact('product','category'));
         }
+    }
+
+    public function all_products()
+    {
+        $now = Carbon::now();
+        $product = Product::where('is_active', '1')
+        ->where('start_display', '<=', $now)
+        ->where(function ($query) use ($now) {
+            $query->where('end_display', '>', $now)
+                ->orWhereNull('end_display');
+        })
+        ->paginate(6);
+
+        return view('home.all_products',compact('product'));
     }
 
     public function product_detail($id)
@@ -48,7 +70,8 @@ class HomeController extends Controller
 
     public function all_brands()
     {
-        $brand = Brand::orderBy('order')->paginate(6);
+        $brand = Brand::where('is_active', '1')->orderBy('order')->paginate(6);
+        $brand->load('products');
 
         return view('home.all_brands',compact('brand'));
     }
@@ -60,7 +83,40 @@ class HomeController extends Controller
 
         return view('home.brand_product', compact('brand', 'product'));
     }
+
+    public function all_categories()
+    {
+        $category = Category::where('is_active', '1')->paginate(6);
+        $category->load('products');
+
+
+        return view('home.all_categories',compact('category'));
+    }
     
+    public function category_product($id)
+    {
+        $category = Category::find($id);
+        $product = Product::where('category_id', $id)->paginate(6);
+
+        return view('home.category_product', compact('category', 'product'));
+    }
+
+    public function all_sizes()
+    {
+        $size = Size::where('is_active', '1')->paginate(6);
+        $size->load('products');
+
+
+        return view('home.all_sizes',compact('size'));
+    }
+
+    public function size_product($id)
+    {
+        $size = Size::find($id);
+        $product = Product::where('size_id', $id)->paginate(6);
+
+        return view('home.size_product', compact('size', 'product'));
+    }
 
     public function add_cart($id)
     {
@@ -74,4 +130,6 @@ class HomeController extends Controller
             return redirect('login');
         }
     }
+
+
 }

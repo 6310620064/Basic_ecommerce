@@ -2,13 +2,13 @@
          <div class="container">
             <div class="heading_container heading_center">
                <h2>
-                  All <span>products</span>
+                  Popular <span>products</span>
                </h2>
             </div>
             <div class="row">
 
                @foreach($product as $products)
-                  @if($products->is_active == '1')
+                  @if($products->is_highlight == '1' && $products->is_active =='1' )
 
                      <div class="col-sm-6 col-md-4 col-lg-4">
                         <div class="box">

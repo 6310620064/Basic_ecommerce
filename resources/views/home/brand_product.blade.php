@@ -48,8 +48,8 @@
                         <div class="box">
                            <div class="option_container">
                               <div class="options">
-                                 <a href=""class="option2">
-                                 See Products
+                                 <a href="{{route('product_detail', $products->id)}}"class="option1">
+                                 Detail
                                  </a>
                               </div>
                            </div>

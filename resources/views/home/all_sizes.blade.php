@@ -33,34 +33,34 @@
          <div class="container">
             <div class="heading_container heading_center">
                <h2>
-                  All <span>Brands</span>
+                  All <span>Sizes</span>
                </h2>
             </div>
             <div class="row">
 
-               @foreach($brand as $brands)
-                  @if($brands->is_active == '1')
+               @foreach($size as $sizes)
+                  @if($sizes->is_active == '1')
 
                      <div class="col-sm-6 col-md-4 col-lg-4">
                         <div class="box">
                            <div class="option_container">
                               <div class="options">
-                                 <a href="{{route('brand_product', $brands->id )}}" class="option2">
+                                 <a href="{{route('size_product', $sizes->id )}}" class="option2">
                                  See Products
+
                                  </a>
                               </div>
                            </div>
                            <div class="img-box">
-                              <img src="{{ \Storage::url($brands->image)}}"alt="">
+                              <h1>{{$sizes->size}} </h1>
                            </div>
                               <div class="detail-box">
                                  <h5>
-                                    {{$brands->name}}
+                                    {{$sizes->size}}
                                  </h5>
-
                                  <h6>
                                     Amount <br>
-                                    {{ $brands->products->where('is_active', '1')->count() }}
+                                    {{ $sizes->products->where('is_active', '1')->count() }}
                                  </h6>
                      </div>
                   </div>
@@ -69,7 +69,7 @@
                @endforeach
 
             <span style="padding-top: 20px;">       
-                {{$brand ->links()}}
+                {{$size ->links()}}
             </span>     
          </div>
 </section>
