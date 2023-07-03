@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function view_category()
     {
 
-        $data = Category::paginate(6);
+        $data = Category::orderBy('id', 'desc')->paginate(6);
 
         return view('admin.category',compact('data'));
     }
@@ -70,7 +70,7 @@ class AdminController extends Controller
     public function view_size()
     {
         
-        $size = Size::paginate(6);
+        $size = Size::orderBy('id', 'desc')->paginate(6);
 
         return view('admin.size',compact('size'));
     }
@@ -209,7 +209,7 @@ class AdminController extends Controller
 
     public function show_product()
     {
-        $product = Product::paginate(6);
+        $product = Product::orderBy('id', 'desc')->paginate(6);
 
         return view('admin.show_product', compact('product'));
     }

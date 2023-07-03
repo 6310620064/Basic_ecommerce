@@ -27,6 +27,16 @@ class Product extends Model
         'is_active',
     ];
 
+    public function scopePublished( $query ){
+        return $query->where('is_active', 1)
+                    ->where('start_display','<=',now())
+                    ->where( function( $query ){
+                        $query->where('end_display', '>', now())
+                            ->orWhere('end_display',null);
+                    });
+    }
+
+    
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id','id');

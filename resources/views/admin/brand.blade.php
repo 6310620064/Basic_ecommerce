@@ -121,7 +121,7 @@
                                 </span>
                             @endif
                         <td>
-                            <a style="margin-bottom:10px;" href="{{route('update_brand', $brands->id)}}" class="btn btn-primary">Edit</a>
+                            <a style="margin-bottom:10px;" href="{{route('update_brand', $brands->id)}}" class="btn btn-primary">Edit</a><br>
                             <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_brand', $brands->id)}}">Delete</a>
                         </td>
                     </tr>

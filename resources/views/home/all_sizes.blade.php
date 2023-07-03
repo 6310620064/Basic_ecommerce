@@ -39,8 +39,6 @@
             <div class="row">
 
                @foreach($size as $sizes)
-                  @if($sizes->is_active == '1')
-
                      <div class="col-sm-6 col-md-4 col-lg-4">
                         <div class="box">
                            <div class="option_container">
@@ -60,12 +58,11 @@
                                  </h5>
                                  <h6>
                                     Amount <br>
-                                    {{ $sizes->products_count }}
+                                    {{ $sizes->total_product }}
                                  </h6>
+                              </div>
+                        </div>
                      </div>
-                  </div>
-               </div>
-                  @endif
                @endforeach
 
             <span style="padding-top: 20px;">       

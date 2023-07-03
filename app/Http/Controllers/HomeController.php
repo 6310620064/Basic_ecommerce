@@ -15,17 +15,20 @@ use Carbon\Carbon;
 
 
 
+
 class HomeController extends Controller
 {
     public function index()
     {
         $now = Carbon::now();
 
+        $product = Product::orderBy('id', 'desc')->paginate(6);
+
         $product = Product::where('is_highlight', '1')->where('is_active', '1')->where('start_display', '<=', $now)
         ->where(function ($query) use ($now) {
             $query->where('end_display', '>', $now)
                 ->orWhereNull('end_display');
-        })->paginate(6);
+        })->orderBy('id', 'desc')->paginate(6);
         $category = Category::all();
         $category->load('products');
 
@@ -59,14 +62,10 @@ class HomeController extends Controller
 
     public function all_products()
     {
-        $now = Carbon::now();
-        $product = Product::where('is_active', '1')
-        ->where('start_display', '<=', $now)
-        ->where(function ($query) use ($now) {
-            $query->where('end_display', '>', $now)
-                ->orWhereNull('end_display');
+        $product = Product::where(function($productQuery){
+            $productQuery->Published();
         })
-        ->paginate(6);
+        ->orderBy('id','desc')->paginate(6);
 
         return view('home.all_products',compact('product'));
     }
@@ -82,19 +81,14 @@ class HomeController extends Controller
 
     public function all_brands()
     {
-        $now = Carbon::now();
-        $brand = Brand::where('is_active', '1')->orderBy('order')->paginate(6);
-        $brand->each(function ($brand) use ($now) {
-            $brand->products_count = $brand->products()
-            ->where('is_active', '1')
-                ->where('start_display', '<=', $now)
-                ->where(function ($query) use ($now) {
-                    $query->where('end_display', '>', $now)
-                        ->orWhereNull('end_display');
-                })
-                ->count();
-            });
-        return view('home.all_brands',compact('now','brand'));
+        $brand = Brand::where('is_active', '1')
+        ->whereHas('products', function( $productQuery ){
+            $productQuery->Published();
+        })
+        ->orderBy('order','asc')
+        ->paginate(6);
+      
+        return view('home.all_brands',compact('brand'));
     }
 
     public function brand_product($id)
@@ -113,18 +107,11 @@ class HomeController extends Controller
 
     public function all_categories()
     {
-        $now = Carbon::now();
-        $category = Category::where('is_active', '1')->paginate(6);
-        $category->each(function ($category) use ($now) {
-            $category->products_count = $category->products()
-            ->where('is_active', '1')
-                ->where('start_display', '<=', $now)
-                ->where(function ($query) use ($now) {
-                    $query->where('end_display', '>', $now)
-                        ->orWhereNull('end_display');
-                })
-                ->count();
-            });
+        $category = Category::where('is_active', '1')
+        ->whereHas('products', function( $productQuery){
+            $productQuery->published();
+        })
+        ->paginate(6);
 
 
         return view('home.all_categories',compact('category'));
@@ -145,19 +132,11 @@ class HomeController extends Controller
 
     public function all_sizes()
     {
-        $now = Carbon::now();
-        $size = Size::where('is_active', '1')->paginate(6);
-        $size->each(function ($size) use ($now) {
-            $size->products_count = $size->products()
-            ->where('is_active', '1')
-                ->where('start_display', '<=', $now)
-                ->where(function ($query) use ($now) {
-                    $query->where('end_display', '>', $now)
-                        ->orWhereNull('end_display');
-                })
-                ->count();
-            });
-
+        $size = Size::where('is_active', '1')
+        ->whereHas('products', function ($productQuery) {
+            $productQuery->Published();
+        })
+        ->paginate(6);
 
         return view('home.all_sizes',compact('size'));
     }

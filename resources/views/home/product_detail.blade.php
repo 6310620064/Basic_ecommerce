@@ -33,51 +33,51 @@
          <!-- end header section -->
 
             <div style ="margin:auto; padding:30px;">
-                <img style="width :450px; height:450px;"src="{{ \Storage::url($product->image)}}"alt="">
-                <div class="detail-box" style="margin-left:550px; margin-top:-400px; padding:30px; margin-bottom: 200px;" >
-                <h5 style="text-decoration: none; border-bottom: 1px solid black;width: 75%;">
-                    {{$product->name}}
-                </h5><br>
+                <img style="width :450px; height:450px; margin-left:150px; margin-top:50px; "src="{{ \Storage::url($product->image)}}"alt="">
+                <div class="detail-box" style="margin-left:650px; margin-top:-400px; padding:30px; margin-bottom: 200px;" >
+                    <h3 style="text-decoration: none; border-bottom: 1px solid black;width: 75%;">
+                        {{$product->name}}
+                    </h3><br>
 
-                <h6 style ="text-decoration: line-through;">
-                    Normal Price ฿ {{$product->price_normal}} 
-                </h6>
+                    <h6 style ="text-decoration: line-through;">
+                        Normal Price ฿ {{$product->price_normal}} 
+                    </h6>
 
-                <h6 style="color:red;">
-                    Member Price ฿ {{$product->price_member}} 
-                </h6><br>
-                
-                @foreach($details as $detail)
-                    @if($detail->is_active == '1')
-                        @if($detail->type == 'Title')
-                            <h5 class="break-word" >{{$detail->value}}</h5>
+                    <h6 style="color:red;">
+                        Member Price ฿ {{$product->price_member}} 
+                    </h6><br>
+                    
+                    @foreach($details as $detail)
+                        @if($detail->is_active == '1')
+                            @if($detail->type == 'Title')
+                                <h5 class="break-word" >{{$detail->value}}</h5>
+                            @endif
                         @endif
-                    @endif
-                @endforeach
-                <br>
-                @foreach($details as $detail)
-                    @if($detail->is_active == '1')
-                        @if($detail->type == 'Description')
-                            <h5 class="break-word" >{{$detail->value}}</h5>
+                    @endforeach
+                    <br>
+                    @foreach($details as $detail)
+                        @if($detail->is_active == '1')
+                            @if($detail->type == 'Description')
+                                <h6 class="break-word" >{{$detail->value}}</h6>
+                            @endif
                         @endif
-                    @endif
-                @endforeach
+                    @endforeach
 
-                <form style="display: flex;" action="{{route('add_cart',$product->id)}}" method ="POST">
+                    <form style="display: flex; margin-top:20px;" action="{{route('add_cart',$product->id)}}" method ="POST">
 
-                    @csrf
+                        @csrf
 
-                        <input type="number" name="amount" value ="1" style="width:100px; ; margin: 10px; text-align:center;" min="1">
-                        <input type="submit" class="btn btn-dark" style="margin-left:15px;" value="Add To Cart" >
+                            <input type="number" name="amount" value ="1" style="width:100px; ; margin: 10px; text-align:center;" min="1">
+                            <input type="submit" class="btn btn-dark" style="margin-left:15px;" value="Add To Cart" >
 
-                </form>
+                    </form>
                 </div>
             </div>
         </div>
         <div class ="gallery">
         @foreach($gallery as $gallery)
             @if($gallery->is_active == '1')
-                <img class="gallery-photo"style="width :200px; height:200px;"src="{{ \Storage::url($gallery->image)}}"alt="">
+                <img class="gallery-photo"style="width :200px; height:200px ;"src="{{ \Storage::url($gallery->image)}}"alt="">
             @endif
         @endforeach
         </div>

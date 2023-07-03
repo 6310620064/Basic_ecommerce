@@ -99,7 +99,7 @@
                             @endif
                         </td>
                         <td>
-                            <a style="margin-bottom:10px;" href="{{route('update_category', $datas->id)}}" class="btn btn-primary">Edit</a>
+                            <a style="margin-bottom:10px;" href="{{route('update_category', $datas->id)}}" class="btn btn-primary">Edit</a><br>
                             <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_category', $datas->id)}}">Delete</a>
                         </td>
                     </tr>

@@ -41,33 +41,30 @@
             <div class="row">
 
                @foreach($category as $categories)
-                  @if($categories->is_active == '1')
-
-                     <div class="col-sm-6 col-md-4 col-lg-4">
-                        <div class="box">
-                           <div class="option_container">
-                              <div class="options">
-                                 <a href="{{route('category_product', $categories->id )}}" class="option2">
-                                 See Products
-                                 </a>
-                              </div>
+                  <div class="col-sm-6 col-md-4 col-lg-4">
+                     <div class="box">
+                        <div class="option_container">
+                           <div class="options">
+                              <a href="{{route('category_product', $categories->id )}}" class="option2">
+                              See Products
+                              </a>
                            </div>
-                           <div class="img-box">
-                              <img src="{{ \Storage::url($categories->image)}}"alt="">
-                           </div>
-                              <div class="detail-box">
-                                 <h5>
-                                    {{$categories->name}}
-                                 </h5>
+                        </div>
+                        <div class="img-box">
+                           <img src="{{ \Storage::url($categories->image)}}"alt="">
+                        </div>
+                           <div class="detail-box">
+                              <h5>
+                                 {{$categories->name}}
+                              </h5>
 
-                                 <h6>
-                                    Amount <br>
-                                       {{ $categories->products_count }}
-                                 </h6>
+                              <h6>
+                                 Amount <br>
+                                    {{ $categories->total_product }}
+                              </h6>
+                           </div>
                      </div>
                   </div>
-               </div>
-                  @endif
                @endforeach
 
             <span style="padding-top: 20px;">       
