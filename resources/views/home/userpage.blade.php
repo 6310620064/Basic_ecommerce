@@ -23,6 +23,8 @@
       <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
 
       <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      
 
 
    </head>
@@ -50,8 +52,8 @@
                   @endforeach
                </div>
                <div>
-               <button class="prev-button">&lt;</button>
-               <button class="next-button">&gt;</button>
+                  <button class="prev-button"><i class="fa-solid fa-angle-left" style="color:#326dd2;"></i></button>
+                  <button class="next-button"><i class="fa-solid fa-angle-right" style="color:#326dd2;"></i></button>
                </div>
             </div>
          </section>
@@ -91,16 +93,17 @@
       <!-- custom jhome/s -->
       <script src="home/js/custom.js"></script>
       <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script>
-      $(document).ready(function(){
-         $('.image-grid').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            infinite: true,
-            prevArrow: $('.prev-button'),
-            nextArrow: $('.next-button'),
+         $(document).ready(function(){
+            $('.image-grid').slick({
+               slidesToShow: 4,
+               slidesToScroll: 1,
+               infinite: true,
+               prevArrow: $('.prev-button'),
+               nextArrow: $('.next-button'),
+            });
          });
-      });
    </script>
    </body>
 </html>

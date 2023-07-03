@@ -23,18 +23,31 @@
       <!-- responshome/ive style -->
       <link href="home/css/responsive.css" rel="stylesheet" />
       <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-
-
+      <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+      <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+      <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    </head>
    <body>
-      <div class="hero_area" style="display:flex; justify-content: space-between;">
          <!-- header section strats -->
         @include('home.header')
          <!-- end header section -->
-
-            <div style ="margin:auto; padding:30px;">
-                <img style="width :450px; height:450px; margin-left:150px; margin-top:50px; "src="{{ \Storage::url($product->image)}}"alt="">
-                <div class="detail-box" style="margin-left:650px; margin-top:-400px; padding:30px; margin-bottom: 200px;" >
+            <div>
+                <section>
+                    <div class ="slider-for">
+                        <div>
+                            <img style="width :450px; height:450px; margin-left:300px; margin-top:150px; "src="{{ \Storage::url($product->image)}}"alt="">
+                        </div>
+                        @foreach($gallery as $galleries)
+                            @if($galleries->is_active == '1')
+                                <div>
+                                    <img class="gallery-photo"style="width :450px; height:450px; margin-left:300px; margin-top:150px;"src="{{ \Storage::url($galleries->image)}}"alt="">
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                <div class="detail-box" style="margin-left:900px; margin-top:-490px; padding:30px; margin-bottom: 150px;" >
                     <h3 style="text-decoration: none; border-bottom: 1px solid black;width: 75%;">
                         {{$product->name}}
                     </h3><br>
@@ -63,24 +76,27 @@
                         @endif
                     @endforeach
 
-                    <form style="display: flex; margin-top:20px;" action="{{route('add_cart',$product->id)}}" method ="POST">
-
+                    <form style="display: flex; margin-top:30px;" action="{{route('add_cart',$product->id)}}" method ="POST">
                         @csrf
-
                             <input type="number" name="amount" value ="1" style="width:100px; ; margin: 10px; text-align:center;" min="1">
                             <input type="submit" class="btn btn-dark" style="margin-left:15px;" value="Add To Cart" >
-
                     </form>
                 </div>
             </div>
+        <div class ="slider-nav" style="margin-bottom:100px;">
+            <div>
+                <img style="width :200px; height:200px; margin-bottom:100px; margin-left: -250px;"src="{{ \Storage::url($product->image)}}"alt="">
+            </div>
+                @foreach($gallery as $galleries)
+                    @if($galleries->is_active == '1')
+                        <div>
+                            <img class="gallery-photo"style="width :200px; height:200px; margin-bottom:100px; margin-left: -250px;"src="{{ \Storage::url($galleries->image)}}"alt="">
+                        </div>
+                    @endif
+                @endforeach
         </div>
-        <div class ="gallery">
-        @foreach($gallery as $gallery)
-            @if($gallery->is_active == '1')
-                <img class="gallery-photo"style="width :200px; height:200px ;"src="{{ \Storage::url($gallery->image)}}"alt="">
-            @endif
-        @endforeach
-        </div>
+        
+        </section>
       <!-- footer start -->
       @include('home.footer')
       <!-- footer end -->
@@ -91,13 +107,36 @@
          
          </p>
       </div>
-      <!-- jQery -->
-      <script src="home/js/jquery-3.4.1.min.js"></script>
-      <!-- popper jhome/s -->
-      <script src="home/js/popper.min.js"></script>
-      <!-- bootstrahome/p js -->
-      <script src="home/js/bootstrap.js"></script>
-      <!-- custom jhome/s -->
-      <script src="home/js/custom.js"></script>
-   </body>
+        <!-- jQery -->
+        <script src="home/js/jquery-3.4.1.min.js"></script>
+        <!-- popper jhome/s -->
+        <script src="home/js/popper.min.js"></script>
+        <!-- bootstrahome/p js -->
+        <script src="home/js/bootstrap.js"></script>
+        <!-- custom jhome/s -->
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="slick/slick.min.js"></script>			
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <script src="home/js/custom.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $('.slider-for').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: true,
+                asNavFor: '.slider-nav'
+                });
+            $('.slider-nav').slick({
+                slidesToShow: 6,
+                slidesToScroll: 1,
+                asNavFor: '.slider-for',
+                dots: true,
+                centerMode: true,
+                focusOnSelect: true
+                });
+        </script>
+    </body>
 </html>

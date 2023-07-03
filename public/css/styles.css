@@ -226,19 +226,23 @@ margin-left: 10px;
  
  .prev-button {
     position: absolute;
-    left: 0;
+    left: -10px;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+    background-color: #fff;
+    border: solid 2px #326dd2;
  }
  
  .next-button {
     position: absolute;
-    right: 0;
+    right: -10px;
     top: 50%;
     transform: translate(50%, -50%);
     z-index: 1;
- }
+    background-color: #fff;
+    border: solid 2px #326dd2; 
+}
  
  .break-word {
     overflow-wrap: break-word;
