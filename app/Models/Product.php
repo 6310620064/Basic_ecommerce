@@ -42,7 +42,6 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id','id');
     }
     
-
     
     public function category()
     {
@@ -62,6 +61,11 @@ class Product extends Model
     public function product_details()
     {
         return $this->hasMany(Product_Detail::class, 'product_id' , 'id');
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class, 'product_id', 'id');
     }
 
 
