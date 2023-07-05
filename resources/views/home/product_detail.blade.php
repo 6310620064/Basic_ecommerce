@@ -37,7 +37,7 @@
                 <section>
                     <div class ="slider-for">
                         <div>
-                            <img style="width :450px; height:450px; margin-left:300px; margin-top:150px; "src="{{ \Storage::url($product->image)}}"alt="">
+                            <img style="width :450px; height:450px; margin-left:300px; margin-top:150px; margin-bottom:200px; "src="{{ \Storage::url($product->image)}}"alt="">
                         </div>
                         @foreach($gallery as $galleries)
                             @if($galleries->is_active == '1')
@@ -47,7 +47,7 @@
                             @endif
                         @endforeach
                     </div>
-                <div class="detail-box" style="margin-left:900px; margin-top:-490px; padding:30px; margin-bottom: 150px;" >
+                <div class="detail-box" style="margin-left:900px; margin-top:-650px; padding:30px; margin-bottom: 200px;" >
                     <h3 style="text-decoration: none; border-bottom: 1px solid black;width: 75%;">
                         {{$product->name}}
                     </h3><br>
@@ -78,23 +78,32 @@
 
                     <form style="display: flex; margin-top:30px;" action="{{route('add_cart',$product->id)}}" method ="POST">
                         @csrf
-                            <input type="number" name="amount" value ="1" style="width:100px; ; margin: 10px; text-align:center;" min="1">
-                            <input type="submit" class="btn btn-dark" style="margin-left:15px;" value="Add To Cart" >
+                        <div class ="row">
+                            <div class="col-md-4">
+                                <input type="number" name="amount" value ="1" style=" width:100px;text-align:center;" min="1">
+                            </div>  
+                            <div class="col-md-4">
+                                <input type="submit" class="btn btn-dark" style="margin-left:15px;" value="Add To Cart" >
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
-        <div class ="slider-nav" style="margin-bottom:100px;">
-            <div>
-                <img style="width :200px; height:200px; margin-bottom:100px; margin-left: -250px;"src="{{ \Storage::url($product->image)}}"alt="">
+
+        @if($gallery !== null && count($gallery) > 0)
+            <div class ="slider-nav" style="margin-bottom:100px;">
+                <div>
+                    <img style="width :200px; height:200px; margin-bottom:100px; margin-left: -250px;"src="{{ \Storage::url($product->image)}}"alt="">
+                </div>
+                    @foreach($gallery as $galleries)
+                        @if($galleries->is_active == '1')
+                            <div>
+                                <img class="gallery-photo"style="width :200px; height:200px; margin-bottom:100px; margin-left: -250px;"src="{{ \Storage::url($galleries->image)}}"alt="">
+                            </div>
+                        @endif
+                    @endforeach
             </div>
-                @foreach($gallery as $galleries)
-                    @if($galleries->is_active == '1')
-                        <div>
-                            <img class="gallery-photo"style="width :200px; height:200px; margin-bottom:100px; margin-left: -250px;"src="{{ \Storage::url($galleries->image)}}"alt="">
-                        </div>
-                    @endif
-                @endforeach
-        </div>
+        @endif
         
         </section>
       <!-- footer start -->

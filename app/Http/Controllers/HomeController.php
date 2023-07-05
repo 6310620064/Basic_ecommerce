@@ -20,15 +20,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $now = Carbon::now();
-
-        $product = Product::orderBy('id', 'desc')->paginate(6);
-
-        $product = Product::where('is_highlight', '1')->where('is_active', '1')->where('start_display', '<=', $now)
-        ->where(function ($query) use ($now) {
-            $query->where('end_display', '>', $now)
-                ->orWhereNull('end_display');
-        })->orderBy('id', 'desc')->paginate(6);
+        $product = Product::where('is_highlight', '1')->where(function($productQuery){
+            $productQuery->Published();
+        })->orderBy('id','desc')->paginate(6);
         $category = Category::all();
         $category->load('products');
 
@@ -48,13 +42,12 @@ class HomeController extends Controller
         }
         else
         {
-            $product = Product::where('is_highlight', '1')->where('is_active', '1')->where('start_display', '<=', $now)
-            ->where(function ($query) use ($now) {
-                $query->where('end_display', '>', $now)
-                    ->orWhereNull('end_display');
-            })->paginate(6);
+            $product = Product::where('is_highlight', '1')->where(function($productQuery){
+                $productQuery->Published();
+            })->orderBy('id','desc')->paginate(6);
             $category = Category::all();
             $category->load('products');
+    
 
             return view('home.userpage',compact('product','category'));
         }
@@ -75,7 +68,7 @@ class HomeController extends Controller
         $product = Product::find($id);
         $details = Product_detail::where('product_id', $id)->get();
         $gallery = Product_Gallery::where('product_id', $id)->get();
-
+        
         return view('home.product_detail',compact('product','details','gallery'));
     }
 
