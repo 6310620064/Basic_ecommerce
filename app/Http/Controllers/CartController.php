@@ -17,12 +17,25 @@ class CartController extends Controller
         {
             $user = Auth::user();
             $product = Product::find($id);
-            
             $cart = new Cart;
-            $cart->product_id = $product->id;
-            $cart->user_id = $user->id;
-            $cart->quantity = $request->amount;
-            $cart->save();
+            $cart = $cart->where([
+                'product_id' => $product->id,
+                'user_id' => $user->id
+            ]);
+
+            if($cart->count() > 0){
+                $cart = $cart->first();
+                $cart->update([
+                    'quantity' => $cart->quantity + $request->amount
+                ]);
+            }else{
+                $cart = new Cart;
+                $cart->product_id = $product->id;
+                $cart->user_id = $user->id;
+                $cart->quantity = $request->amount;
+                $cart->save();
+            }
+
             
             return redirect()->back();
         }
@@ -50,6 +63,31 @@ class CartController extends Controller
         }
 
     }
+
+    public function update_quantity(Request $request)
+    {
+        $cartId = $request->input('cart_id');
+        $quantity = $request->input('quantity');
+
+        // Update the quantity of the product in the database using $cartId and $quantity
+
+        // Calculate the new subtotal and total price
+        $cart = Cart::find($cartId);
+        $subtotal = $cart->product->price_member * $quantity;
+
+        $totalPrice = 0;
+        $cartItems = Cart::all();
+        foreach ($cartItems as $item) {
+            $totalPrice += $item->product->price_member * $item->quantity;
+        }
+
+        return response()->json([
+            'success' => true,
+            'subtotal' => number_format($subtotal, 2),
+            'total_price' => number_format($totalPrice, 2),
+        ]);
+    }
+
 
     public function delete_cart($id)
     {

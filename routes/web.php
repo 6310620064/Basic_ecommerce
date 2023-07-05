@@ -6,8 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ChangeOrderController;
 use App\Http\Controllers\CartController;
-
-
+use App\Http\Controllers\OrderController;
 
 use Illuminate\Http\Request;
 
@@ -113,7 +112,12 @@ Route::get('/size_product/{id}',[HomeController::class,'size_product'])->where('
 //Cart
 Route::post('/add_cart/{id}',[CartController::class,'add_cart'])->where('id', '[0-9]+')->name('add_cart');
 Route::get('/show_cart', [CartController::class, 'show_cart'])->name('show_cart');
+Route::post('/update_cart', [CartController::class, 'update_cart'])->name('update_cart');
 Route::get('/delete_cart/{id}', [CartController::class, 'delete_cart'])->where('id', '[0-9]+')->name('delete_cart');
+
+//Order
+Route::get('/cash_order', [OrderController::class, 'cash_order'])->name('cash_order');
+
 
 
 

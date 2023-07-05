@@ -25,6 +25,7 @@
       <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
       <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
       <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
       <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -76,7 +77,7 @@
                         @endif
                     @endforeach
 
-                    <form style="display: flex; margin-top:30px;" action="{{route('add_cart',$product->id)}}" method ="POST">
+                    <form id="add_cart"style="display: flex; margin-top:30px;" action="{{route('add_cart',$product->id)}}" method ="POST">
                         @csrf
                         <div class ="row">
                             <div class="col-md-4">
@@ -123,6 +124,7 @@
         <!-- bootstrahome/p js -->
         <script src="home/js/bootstrap.js"></script>
         <!-- custom jhome/s -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script type="text/javascript" src="slick/slick.min.js"></script>			
@@ -146,6 +148,33 @@
                 centerMode: true,
                 focusOnSelect: true
                 });
+        </script>
+        <script>
+            document.getElementById('add_cart').addEventListener('submit', function (event) {
+            event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
+            Swal.fire({
+                icon: 'success',
+                title: 'Add to cart successfully',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
+                var form = event.target;
+                var formData = new FormData(form);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', form.action, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // ส่งคำขอเสร็จสมบูรณ์
+                        console.log('Add to cart successfully');
+                        // โหลดหน้าเว็บใหม่
+                        location.reload();
+                    }
+                };
+                xhr.send(formData);
+            });
+        });
         </script>
     </body>
 </html>

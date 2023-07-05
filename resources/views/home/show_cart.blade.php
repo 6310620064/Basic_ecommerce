@@ -69,11 +69,18 @@
                 <?php $total_price = $total_price + $cart->product->price_member ?>
 
                 @endforeach
+                </form>
                 </tbody>
             </table>
-
             <div>
                 <h1 id="total_price" class ="total_deg">Total Price : ฿ {{number_format($total_price,2)}}</h1>
+            </div>
+
+            <div>
+                <h1 style ="font-size:25px; padding-bottom:15px;">Proceed to Order</h1>
+                <a href= "" class ="btn btn-warning">Cash on Delivery</a>
+                <a href="" class ="btn btn-warning">Pay Using Card</a>
+
             </div>
 
 
@@ -144,6 +151,7 @@
                     
                     if (parseInt(inputField.value) > 1) {
                         inputField.value = parseInt(inputField.value) - 1;
+                        
                         updateSubtotal();
                     }
                 });
@@ -154,6 +162,7 @@
                 var inputField = this.parentNode.querySelector('input[type="string"]');
             
                 inputField.value = parseInt(inputField.value) + 1;
+
                 updateSubtotal();
             });
         }
@@ -191,6 +200,8 @@
 
             return parts.join(dec_point);
         }
+
+        
 
     </script>
 
