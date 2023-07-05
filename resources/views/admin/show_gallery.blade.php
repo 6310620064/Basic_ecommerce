@@ -5,11 +5,11 @@
     <!-- Required meta tags -->
     @include('admin.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
   </head>
   <body>
@@ -72,8 +72,9 @@
                             @endif
                         </td>
                         <td>
-                            <a style="margin-bottom:10px;"class ="btn btn-primary"href="{{route('update_gallery', $galleries->id)}}">Edit</a><br>
-                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_gallery', $galleries->id)}}"">Delete</a>
+                            <a style="margin-bottom:10px;"class ="btn btn-primary"href="{{route('update_gallery', $galleries->id)}}"><i class="fa-solid fa-pen-to-square"></i> Edit</a><br>
+                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_gallery', $galleries->id)}}""><i class="fas fa-trash-alt"></i> Delete</a>
+
                         </td>
                     </tr>
                     @endforeach
@@ -173,6 +174,10 @@
     <!-- plugins:js -->
     @include('admin.script')
     <!-- End custom js for this page -->
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
   </body>
         

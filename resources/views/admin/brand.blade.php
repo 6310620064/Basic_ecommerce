@@ -3,11 +3,11 @@
 <head>
     <!-- Required meta tags -->
     @include('admin.css')
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 </head>
   <body>
@@ -121,8 +121,9 @@
                                 </span>
                             @endif
                         <td>
-                            <a style="margin-bottom:10px;" href="{{route('update_brand', $brands->id)}}" class="btn btn-primary">Edit</a><br>
-                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_brand', $brands->id)}}">Delete</a>
+                            <a style="margin-bottom:10px;" href="{{route('update_brand', $brands->id)}}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a><br>
+                            <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_brand', $brands->id)}}"><i class="fas fa-trash-alt"></i> Delete</a>
+
                         </td>
                     </tr>
                     @endforeach
@@ -144,6 +145,9 @@
     </div>
     
     @include('admin.script')
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         function confirmation(event) {
