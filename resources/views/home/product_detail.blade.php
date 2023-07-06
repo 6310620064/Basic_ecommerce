@@ -151,7 +151,7 @@
         </script>
         <script>
             document.getElementById('add_cart').addEventListener('submit', function (event) {
-            event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
+            event.preventDefault();
             Swal.fire({
                 icon: 'success',
                 title: 'Add to cart successfully',
@@ -166,10 +166,7 @@
                 xhr.open('POST', form.action, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // ส่งคำขอเสร็จสมบูรณ์
                         console.log('Add to cart successfully');
-                        // โหลดหน้าเว็บใหม่
-                        location.reload();
                     }
                 };
                 xhr.send(formData);

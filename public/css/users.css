@@ -21,6 +21,8 @@ table,th,td
 {
     width: 200px;
     height: 200px;
+    margin-left:10px;
+    margin-right: 50px;
 }
 
 .total_deg
@@ -56,9 +58,11 @@ table,th,td
     padding-left: 1px;
 }
 
-.subtotal,
-.total_deg {
-    font-weight: bold;
+
+.content-wrapper {
+    display: flex;
+    align-items: center;
 }
+
 
 

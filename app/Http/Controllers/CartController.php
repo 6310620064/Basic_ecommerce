@@ -69,25 +69,21 @@ class CartController extends Controller
         $cartId = $request->input('cart_id');
         $quantity = $request->input('quantity');
 
-        // Update the quantity of the product in the database using $cartId and $quantity
-
-        // Calculate the new subtotal and total price
+        // Retrieve the cart item from the database
         $cart = Cart::find($cartId);
-        $subtotal = $cart->product->price_member * $quantity;
 
-        $totalPrice = 0;
-        $cartItems = Cart::all();
-        foreach ($cartItems as $item) {
-            $totalPrice += $item->product->price_member * $item->quantity;
+        if ($cart) {
+            // Update the quantity
+            $cart->quantity = $quantity;
+            $cart->save();
+
+            // Return success response
+            return response()->json(['success' => true]);
+        } else {
+            // Return error response if cart item is not found
+            return response()->json(['success' => false, 'message' => 'Cart item not found']);
         }
-
-        return response()->json([
-            'success' => true,
-            'subtotal' => number_format($subtotal, 2),
-            'total_price' => number_format($totalPrice, 2),
-        ]);
     }
-
 
     public function delete_cart($id)
     {
@@ -97,6 +93,7 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
 
 
 }
