@@ -11,45 +11,38 @@ use App\Models\Order;
 class OrderController extends Controller
 {
 
-    public function add_cart(Request $request ,$id)
+    public function cash_order()
     {
-        if(Auth::id())
+        $user=Auth::user();
+
+        $userid = $user->id;
+
+        $data = Cart::where('user_id',$userid)->get();
+        $order = Order::create([
+            'order_no' => '....',
+            'total'
+            'payment_status' => "Cash on Delivery",
+            'delivery_status' => "Processing"
+        ]);
+
+        foreach($data as $data)
         {
-            $user = Auth::user();
-            $product = Product::find($id);
-            
-            $cart = new Cart;
-            $cart->product_id = $product->id;
-            $cart->user_id = $user->id;
-            $cart->quantity = $request->amount;
-            $cart->save();
-            
-            return redirect()->back();
-        }
-
-        else
-        {
-            return redirect('login');
-        }
-    }
-
-    public function add_order(Request $request , $id)
-    {
-            $user = Auth::user();
-
-            $userid = $user->id;
-            $cart = Cart::find($id);
-
-            
             $order = new Order;
-            $order->user_id = $userid;
-            $order->cart_id = $cart->id;
-            $order->payment_status = 'Pending';
-            $order->delivery_status = 'Processing';
-            dd($order);
+
+            $order->user_id = $data->user_id;
+            $order->payment_status = "Cash on Delivery";
+            $order->delivery_status = "Processing";
+
             $order->save();
-            
-            return redirect()->back();
+            $CartId = $data->id;
+            $cart = Cart::find($CartId);
+            $cart->delete();
+        }
+        
+
+        return redirect()->back()->with('message','We have received your order.');
+
+
 
 
     }
