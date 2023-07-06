@@ -54,11 +54,11 @@
                     </h3><br>
 
                     <h6 style ="text-decoration: line-through;">
-                        Normal Price ฿ {{$product->price_normal}} 
+                        Normal Price ฿ {{number_format($product->price_normal)}} 
                     </h6>
 
                     <h6 style="color:red;">
-                        Member Price ฿ {{$product->price_member}} 
+                        Member Price ฿ {{number_format($product->price_member)}} 
                     </h6><br>
                     
                     @foreach($details as $detail)
