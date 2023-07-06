@@ -70,7 +70,7 @@
                     </td>
                 </tr>
 
-                <?php $total_price = $total_price + $cart->product->price_member ?>
+                <?php $total_price = $total_price + ($cart->product->price_member * $cart->quantity) ?>
 
                 @endforeach
                 </form>
@@ -82,7 +82,7 @@
 
             <div>
                 <h1 style ="font-size:25px; padding-bottom:15px;">Proceed to Order</h1>
-                <a href= "" class ="btn btn-warning">Cash on Delivery</a>
+                <a href= "{{route('cash_order')}}" class ="btn btn-warning">Cash on Delivery</a>
                 <a href="" class ="btn btn-warning">Pay Using Card</a>
 
             </div>
