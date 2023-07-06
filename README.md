@@ -25,7 +25,7 @@
 ------------------------------------------------------------------------------------------------------
 ### Diagram
 
-![ecommerce](public/images/ecommerce.png)
+![ecommerce](public/images/ecommerce_diagram.png)
 
 ## CLIP DEMO
 *[Link](https://youtu.be/D3i7-oq-LPE).*
