@@ -108,6 +108,13 @@ Route::get('/all_categories', [HomeController::class, 'all_categories'])->name('
 Route::get('/category_product/{id}',[HomeController::class,'category_product'])->where('id', '[0-9]+')->name('category_product');
 Route::get('/all_sizes', [HomeController::class, 'all_sizes'])->name('all_sizes');
 Route::get('/size_product/{id}',[HomeController::class,'size_product'])->where('id', '[0-9]+')->name('size_product');
+Route::get('/shipping_address', [HomeController::class, 'shipping_address'])->name('shipping_address');
+Route::post('/add_shipping',[HomeController::class,'add_shipping'])->name('add_shipping');
+Route::get('/all_addresses', [HomeController::class, 'all_addresses'])->name('all_addresses');
+Route::get('/delete_address/{id}', [HomeController::class, 'delete_address'])->where('id', '[0-9]+')->name('delete_address');
+Route::get('/update_address/{id}',[HomeController::class,'update_address'])->where('id', '[0-9]+')->name('update_address');
+Route::post('/update_address_confirm/{id}', [HomeController::class, 'update_address_confirm'])->where('id', '[0-9]+')->name('update_address_confirm');
+
 
 //Cart
 Route::post('/add_cart/{id}',[CartController::class,'add_cart'])->where('id', '[0-9]+')->name('add_cart');

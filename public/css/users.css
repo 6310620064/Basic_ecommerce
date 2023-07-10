@@ -64,5 +64,60 @@ table,th,td
     align-items: center;
 }
 
+.container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
+.input-check
+{
+    margin-left: -50px;
+}
+
+.label-check
+{
+    margin-left: -70px;
+    margin-bottom: 15px;
+}
+
+
+.div-form
+{
+    max-width: 1000px;
+    margin: 100px auto;
+}
+
+.h2_font
+{
+    font-size: 35px;
+    padding-bottom: 40px;
+}
+
+.div_center
+{
+    text-align: center;
+    padding-top : 40px;
+}
+
+th
+{
+    height: 50px;
+    width: 50px;
+}
+
+td
+{
+    width: 150px;
+}
+
+.table_address
+{
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    margin-top: 30px;
+    border: 3px solid white;
+    border-collapse:collapse
+}
 

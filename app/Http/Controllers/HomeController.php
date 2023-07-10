@@ -11,6 +11,8 @@ use App\Models\Category;
 use App\Models\Size;
 use App\Models\Product_Detail;
 use App\Models\Product_Gallery;
+use App\Models\Shipping_address;
+
 use Carbon\Carbon;
 
 
@@ -159,6 +161,85 @@ class HomeController extends Controller
         {
             return redirect('login');
         }
+    }
+
+    public function all_addresses()
+    {
+            $address = Shipping_address::all();
+            return view('home.all_address',compact('address'));
+    }
+
+    public function shipping_address(){
+        if(Auth::id())
+        {
+            return view('home.shipping_address');
+        }
+
+        else
+        {
+            return redirect('login');
+        }
+    }
+
+    public function add_shipping(Request $request)
+    {
+        if(Auth::check()) {
+
+            $user = Auth::user();
+            $address = new Shipping_address;
+
+            $address->user_id = $user->id;
+            $address->address = $request->address;
+            $address->Phone = $request->phone;
+            if ($request->is_default == 1) {
+                Shipping_address::where('user_id', $user->id)->update(['is_default' => 0]);
+                $address->is_default = 1;
+            } else {
+                $address->is_default = 0;
+            }            
+            $address->save();
+
+            return redirect()->back();
+        }
+        else {
+            return redirect('login');
+        }
+    }
+
+
+    public function update_address($id)
+    {
+        $address= Shipping_address::find($id);
+      
+        return view('home.update_address', compact('address'));
+    }
+
+    
+    public function update_address_confirm(Request $request,$id)
+    {
+        
+        $user = Auth::user();
+        $address = Shipping_Address::find($id);
+
+        $address->address = $request->address;
+        $address->Phone = $request->phone;
+        if ($request->is_default == 1) {
+            Shipping_address::where('user_id', $user->id)->update(['is_default' => 0]);
+            $address->is_default = 1;
+        } else {
+            $address->is_default = 0;
+        }       
+        $address->save();
+        
+        return redirect()->back();
+    }
+
+    public function delete_address($id)
+    {
+        $address = Shipping_address::find($id);
+        $address->delete();
+
+        return redirect()->back()->with('message','Size Deleted Successfully');
     }
 
 

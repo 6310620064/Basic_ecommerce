@@ -80,6 +80,8 @@
                 <h1 id="total_price" class ="total_deg">Total Price : ฿ {{number_format($total_price,2)}}</h1>
             </div>
 
+            
+
             <div>
                 <h1 style ="font-size:25px; padding-bottom:15px;">Proceed to Order</h1>
                 <a href= "{{route('cash_order')}}" class ="btn btn-warning">Cash on Delivery</a>

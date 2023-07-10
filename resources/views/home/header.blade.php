@@ -31,7 +31,10 @@
                         <li class="nav-item">
                            <a class="nav-link" href="{{route('all_sizes')}}">Sizes</a>
                         </li>
-
+                        <li class="nav-item">
+                           <a class="nav-link" href="{{route('all_addresses')}}">Address</a>
+                        </li>
+                        
                         <form class="form-inline">
                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
                            <i class="fa fa-search" aria-hidden="true"></i>
@@ -67,6 +70,10 @@
                         
                         <li>
                            <a class ="nav-link" href="{{route('show_cart')}}"><i class="fa-solid fa-cart-shopping fa-lg" style="color: #ff1100; margin-left:10px;"></i></a>
+                        </li>
+
+                        <li>
+                           <a class ="nav-link" href="{{route('shipping_address')}}"><i class="fa-solid fa-location-dot fa-lg" style="color: #ff0000;"></i></i></a>
                         </li>
 
                         
