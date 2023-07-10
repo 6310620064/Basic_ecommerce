@@ -72,10 +72,6 @@
                            <a class ="nav-link" href="{{route('show_cart')}}"><i class="fa-solid fa-cart-shopping fa-lg" style="color: #ff1100; margin-left:10px;"></i></a>
                         </li>
 
-                        <li>
-                           <a class ="nav-link" href="{{route('shipping_address')}}"><i class="fa-solid fa-location-dot fa-lg" style="color: #ff0000;"></i></i></a>
-                        </li>
-
                         
                      </ul>
                   </div>

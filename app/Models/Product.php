@@ -68,6 +68,11 @@ class Product extends Model
         return $this->hasMany(Cart::class, 'product_id', 'id');
     }
 
+    public function orderitem()
+    {
+        return $this->hasOne(OrderItem::class,'product_id','id');
+    }
+
 
     protected static function boot()
 {
