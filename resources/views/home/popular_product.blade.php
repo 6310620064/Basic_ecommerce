@@ -22,7 +22,7 @@
                            <div class="img-box">
                               <img src="{{ \Storage::url($products->image)}}"alt="">
                            </div>
-                              <div class="detail-box">
+                              <div >
                                  <h5>
                                     {{$products->name}}
                                  </h5>
@@ -52,7 +52,7 @@
                               <div class="img-box">
                                  <img src="{{ \Storage::url($products->image)}}"alt="">
                               </div>
-                                 <div class="detail-box">
+                                 <div >
                                     <h5>
                                        {{$products->name}}
                                     </h5>
@@ -65,10 +65,10 @@
                                     <h6 style="color:red;">
                                        Member Price <br>
                                        ฿ {{number_format($products->price_member)}} 
-                                    </h6>            
-                        </div>
+                                    </h6>    
+                                 </div>
+                           </div>
                      </div>
-                  </div>
                   @endif
 
                @endforeach

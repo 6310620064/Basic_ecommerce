@@ -51,7 +51,7 @@
                            <div class="img-box">
                               <img src="{{ \Storage::url($products->image)}}"alt="">
                            </div>
-                           <div class="detail-box">
+                           <div >
                               <h5>
                                  {{$products->name}}
                               </h5>
