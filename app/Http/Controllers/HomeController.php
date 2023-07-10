@@ -201,6 +201,19 @@ class HomeController extends Controller
             $user = Auth::user();
             $address = new Shipping_address;
 
+            // Check if the address already exists
+            $existingAddress = Shipping_address::where('user_id', $user->id)
+            ->where('address', $request->address)
+            ->where('phone', $request->phone)
+            ->first();
+
+            if ($existingAddress) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You already have this address.'
+                ]);
+            }
+
             $address->user_id = $user->id;
             $address->address = $request->address;
             $address->Phone = $request->phone;
@@ -212,7 +225,9 @@ class HomeController extends Controller
             }            
             $address->save();
 
-            return redirect()->back();
+            return response()->json([
+                'success' => true
+            ]);
         }
         else {
             return redirect('login');

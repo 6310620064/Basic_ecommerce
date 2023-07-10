@@ -34,11 +34,14 @@
 
          <!-- header section strats -->
         @include('home.header')
+
+        
          <!-- end header section -->
          <!-- slider section -->
         <!-- @include('home.slider') -->
          <!-- end slider section -->
          <div class ="div-form">
+         
             <form id ="create_address"action ="{{route('add_shipping')}}" method ="POST"> 
                @csrf 
                   <div style="margin-bottom: 20px;">
@@ -84,34 +87,49 @@
 
       <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <!-- ... -->
+
       <script>
          document.getElementById('create_address').addEventListener('submit', function (event) {
-            event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
+            event.preventDefault(); // Cancel the default form submission
 
-            Swal.fire({
-            icon: 'success',
-            title: 'Address created successfully',
-            showConfirmButton: false,
-            timer: 1500
-            }).then(() => {
-            // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
+            // Send the form data using XMLHttpRequest
             var form = event.target;
             var formData = new FormData(form);
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', form.action, true);
             xhr.onreadystatechange = function () {
-               if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-               // ส่งคำขอเสร็จสมบูรณ์
-               console.log('Address submitted successfully');
-               // โหลดหน้าเว็บใหม่
-               location.reload();
-               }
+                  if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                     // Handle the response
+                     var response = JSON.parse(xhr.responseText);
+
+                     if (response.success) {
+                        // Address created successfully, show SweetAlert success message
+                        Swal.fire({
+                              icon: 'success',
+                              title: 'Address created successfully',
+                              showConfirmButton: false,
+                              timer: 1500
+                        }).then(() => {
+                              // Reload the page
+                              location.reload();
+                        });
+                     } else {
+                        // Address already exists, show SweetAlert error message
+                        Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: response.message
+                        });
+                     }
+                  }
             };
             xhr.send(formData);
-            });
          });
-         </script>
+      </script>
+
+
 
    </body>
 </html>
