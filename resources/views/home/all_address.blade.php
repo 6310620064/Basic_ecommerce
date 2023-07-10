@@ -45,7 +45,7 @@
 
 
 
-        <table class ="table_address">
+        <table class ="table_address" >
         <thead>
             <tr>
                 <th>Address</th>
@@ -80,7 +80,9 @@
         @endforeach
 
         </table>
-         
+        <span style="margin-left: 100px; margin-top:-50px;">       
+            {{ $address ->links() }}
+        </span>     
     </div>
       <!-- footer start -->
       @include('home.footer')

@@ -165,8 +165,21 @@ class HomeController extends Controller
 
     public function all_addresses()
     {
-            $address = Shipping_address::all();
-            return view('home.all_address',compact('address'));
+        if(Auth::id())
+        {
+            $user = auth()->user();
+            $address = Shipping_address::where('user_id' , $user->id)->orderBy('id','desc')->paginate(5);
+
+            if ($address->isEmpty()) {
+                return view('home.shipping_address');
+            }
+
+            return view('home.all_address', compact('address'));
+        }
+        else{
+
+            return redirect('login');
+        }
     }
 
     public function shipping_address(){
