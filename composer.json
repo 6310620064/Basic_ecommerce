@@ -6,13 +6,18 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "bacon/bacon-qr-code": "^2.0",
+        "chillerlan/php-qrcode": "dev-main#2777a0d9125b9f214495ee63e008386942d3f5b0",
+        "farzai/promptpay": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
+        "keenthekeen/php-promptpay-qr": "^1.0",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^3.0",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.11",
-        "realrashid/sweet-alert": "^7.0"
+        "realrashid/sweet-alert": "^7.0",
+        "simplesoftwareio/simple-qrcode": "^4.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -32,6 +32,9 @@ class Order extends Model
         return $this->belongsTo(Shipping_Address::class,'shipping_address_id','id');
     }
 
-
+    public function payment_log()
+    {
+        return $this->hasOne(Payment_log::class,'order_id','id');
+    }
 
 }

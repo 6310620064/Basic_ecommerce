@@ -8,13 +8,10 @@ use App\Models\User;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
-
 use App\Models\Shipping_Address;
-
-
+use Farzai\PromptPay\Generator;
 class OrderController extends Controller
 {
-
     public function cash_order()
     {
         $user=Auth::user();
@@ -77,9 +74,18 @@ class OrderController extends Controller
             foreach ($cart as $item){
                 $total_price += $item->product->price_member * $item->quantity;
             }
+            $generator = new Generator();
+            $qrCode = $generator->generate(
+                target: "088-752-2809", 
+                amount: $total_price,
+            );
 
-            return view('home.qrcode',compact('total_price'));
+            $qrCodeimg = ('qrcode_' . time() . '.png');
+            $qrCode->save($qrCodeimg);
 
+            return view('home.qrcode', compact('total_price','qrCodeimg'));
         }
     }
+
+
 }

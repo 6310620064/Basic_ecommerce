@@ -1,24 +1,36 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build"
-    },
-    "devDependencies": {
-        "@alpinejs/focus": "^3.10.5",
-        "@tailwindcss/forms": "^0.5.2",
-        "@tailwindcss/typography": "^0.5.0",
-        "alpinejs": "^3.0.6",
-        "autoprefixer": "^10.4.7",
-        "axios": "^1.1.2",
-        "laravel-vite-plugin": "^0.7.2",
-        "lodash": "^4.17.19",
-        "postcss": "^8.4.14",
-        "tailwindcss": "^3.1.0",
-        "vite": "^4.0.0"
-    },
-    "dependencies": {
-        "@sweetalert2/themes": "^5.0.15",
-        "sweetalert2": "^11.7.12"
-    }
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@alpinejs/focus": "^3.10.5",
+    "@tailwindcss/forms": "^0.5.2",
+    "@tailwindcss/typography": "^0.5.0",
+    "alpinejs": "^3.0.6",
+    "autoprefixer": "^10.4.7",
+    "axios": "^1.1.2",
+    "laravel-vite-plugin": "^0.7.2",
+    "lodash": "^4.17.19",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.0",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "@sweetalert2/themes": "^5.0.15",
+    "fs": "^0.0.1-security",
+    "promptpay-qr": "^0.5.0",
+    "qrcode": "^1.5.3",
+    "sweetalert2": "^11.7.12"
+  },
+  "name": "web_product",
+  "description": "------------------------------------------------\r #### Pavisa Sirirojvorakul | Student_ID : 6310620064\r ---------------------------------------------------\r #### Basic Ecommerce พัฒนาโดยใช้ Laravel Framework \r ### แบ่งการทำงานออกเป็น 2 ส่วน คือ Admin และ User\r ---------------------------------------------------\r ### Admin \r - Category\r - Brand\r - Size\r - Product\r     - Detail\r     - Gallery\r #### สามารถ CREATE READ UPDATE DELETE ได้ทั้งหมดสำหรับทุกๆส่วน เลือกได้ว่าจะให้ส่วนใดแสดงหน้าเว็บไซต์บ้าง",
+  "version": "1.0.0",
+  "main": "postcss.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "author": "",
+  "license": "ISC"
 }

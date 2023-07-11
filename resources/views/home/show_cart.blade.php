@@ -85,7 +85,7 @@
             <div class ="proceed">
                 <h1 style ="font-size:25px; padding-bottom:15px;">Proceed to Order</h1>
                 <a href= "{{route('cash_order')}}" class ="btn btn-warning" onclick="checkQuantity()">Cash on Delivery</a>
-                <a href="" class ="btn btn-warning">Pay With QRCODE</a>
+                <a href="{{route('pay_qrcode')}}" class ="btn btn-warning">Pay With QRCODE</a>
 
             </div>
     </div>
@@ -168,15 +168,21 @@
                 });
                 event.preventDefault();
             } else {
-                Swal.fire({
-                icon: 'success',
-                title: 'We have received your order.',
-                showConfirmButton: false,
-                timer: 1500
-        });
+                var addressNull = "{{ $address == null ? 'true' : 'false' }}";
+                if (addressNull === 'true') {
+                    // Redirect to shipping_address page
+                    window.location.href = "/shipping_address";
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'We have received your order.',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
             }
         }
-
+       
         document.addEventListener('DOMContentLoaded', function() {
             var reduceQtyButtons = document.getElementsByClassName('reduce_qty');
             var addQtyButtons = document.getElementsByClassName('add_qty');
