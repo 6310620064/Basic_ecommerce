@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Shipping_Address;
+
 
 
 class CartController extends Controller
@@ -51,15 +53,18 @@ class CartController extends Controller
 
         if(Auth::id())
         {
-            $id = Auth::user()->id;
-            $cart = Cart::where('user_id', $id)->get();
+            $user = Auth::user();
+            $userid = $user->id;
+            $address = Shipping_Address::where('user_id', $userid)
+                                        ->where('is_default', 1)
+                                        ->first();
+            $cart = Cart::where('user_id', $userid)->get();
             
             if($cart->isEmpty()) {
                 return view('home.show_cart_empty');
             }
-        
-    
-            return view('home.show_cart',compact('cart'));  
+
+            return view('home.show_cart',compact('cart','address'));  
         }
         
         else
