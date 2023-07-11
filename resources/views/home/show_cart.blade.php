@@ -60,7 +60,7 @@
                     <td  class= "td_deg">฿ {{number_format($cart ->product->price_member,2)}}</td>
                     <td  class= "td_deg">
                         <button class="reduce_qty" data-cart-id="{{ $cart->id }}"> - </button>
-                        <input class="qty" type="string" value="{{ $cart->quantity }}">
+                        <input class="qty" type="string" value="{{ $cart->quantity }}" data-amount="{{ $cart->product->amount }}">
                         <button class="add_qty" data-cart-id="{{ $cart->id }}"> + </button>
                     </td>
                     <td  class = "td_deg"><span class="subtotal">{{number_format($cart->product->price_member * $cart->quantity, 2)}}</span></td>
@@ -84,7 +84,7 @@
 
             <div class ="proceed">
                 <h1 style ="font-size:25px; padding-bottom:15px;">Proceed to Order</h1>
-                <a href= "{{route('cash_order')}}" class ="btn btn-warning">Cash on Delivery</a>
+                <a href= "{{route('cash_order')}}" class ="btn btn-warning" onclick="checkQuantity()">Cash on Delivery</a>
                 <a href="" class ="btn btn-warning">Pay With QRCODE</a>
 
             </div>
@@ -114,7 +114,7 @@
       <!-- custom jhome/s -->
       <script src="home/js/custom.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
@@ -144,6 +144,39 @@
             });
         }
 
+        function checkQuantity() {
+            var quantities = document.getElementsByClassName('qty');
+            var valid = true;
+            var errorMessage = '';
+
+            for (var i = 0; i < quantities.length; i++) {
+                var quantity = parseInt(quantities[i].value);
+                var amount = parseInt(quantities[i].dataset.amount);
+
+                if (quantity > amount) {
+                    valid = false;
+                    errorMessage += 'The quantity for ' + quantities[i].dataset.productName + ' exceeds the available amount.\n';
+                }
+            }
+
+            if (!valid) {
+                Swal.fire({
+                    title: 'Invalid Quantity',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                event.preventDefault();
+            } else {
+                Swal.fire({
+                icon: 'success',
+                title: 'We have received your order.',
+                showConfirmButton: false,
+                timer: 1500
+        });
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             var reduceQtyButtons = document.getElementsByClassName('reduce_qty');
             var addQtyButtons = document.getElementsByClassName('add_qty');
@@ -151,16 +184,25 @@
             for (var i = 0; i < reduceQtyButtons.length; i++) {
                 reduceQtyButtons[i].addEventListener('click', function() {
                     var inputField = this.parentNode.querySelector('input[type="string"]');
+                    var productAmount = parseInt(inputField.dataset.amount);
 
                     if (parseInt(inputField.value) > 1) {
                         inputField.value = parseInt(inputField.value) - 1;
-
                         updateSubtotal();
 
-                        // Update quantity in database
-                        var cartId = this.dataset.cartId;
-                        var newQuantity = inputField.value;
-                        updateQuantityInDatabase(cartId, newQuantity);
+                        if (parseInt(inputField.value) > productAmount) {
+                            Swal.fire({
+                                title: 'Invalid Quantity',
+                                text: 'The quantity for ' + inputField.dataset.productName + ' exceeds the available amount.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            // Update quantity in database
+                            var cartId = this.dataset.cartId;
+                            var newQuantity = inputField.value;
+                            updateQuantityInDatabase(cartId, newQuantity);
+                        }
                     }
                 });
             }
@@ -168,15 +210,24 @@
             for (var i = 0; i < addQtyButtons.length; i++) {
                 addQtyButtons[i].addEventListener('click', function() {
                     var inputField = this.parentNode.querySelector('input[type="string"]');
+                    var productAmount = parseInt(inputField.dataset.amount);
 
-                    inputField.value = parseInt(inputField.value) + 1;
+                    if (parseInt(inputField.value) < productAmount) {
+                        inputField.value = parseInt(inputField.value) + 1;
+                        updateSubtotal();
 
-                    updateSubtotal();
-
-                    // Update quantity in database
-                    var cartId = this.dataset.cartId;
-                    var newQuantity = inputField.value;
-                    updateQuantityInDatabase(cartId, newQuantity);
+                        // Update quantity in database
+                        var cartId = this.dataset.cartId;
+                        var newQuantity = inputField.value;
+                        updateQuantityInDatabase(cartId, newQuantity);
+                    } else {
+                        Swal.fire({
+                            title: 'Invalid Quantity',
+                            text: 'The quantity for ' + inputField.dataset.productName + ' exceeds the available amount.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
                 });
             }
         });
@@ -236,9 +287,10 @@
                 console.log('An error occurred while updating quantity');
             });
         }
+
     </script>
 
-    
+
 
 
    </body>

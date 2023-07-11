@@ -31,19 +31,21 @@
                         <li class="nav-item">
                            <a class="nav-link" href="{{route('all_sizes')}}">Sizes</a>
                         </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="{{route('all_addresses')}}">Address</a>
-                        </li>
                         
-                        <form class="form-inline">
+                        
+                        <!-- <form class="form-inline">
                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
                            <i class="fa fa-search" aria-hidden="true"></i>
                            </button>
-                        </form>
+                        </form> -->
                         
                         @if (Route::has('login'))
 
                         @auth
+
+                        <li class="nav-item">
+                           <a class="nav-link" href="{{route('all_addresses')}}">Address</a>
+                        </li>
 
                         <li class="nav-item">
                            <form method="POST" action="{{ route('logout') }}" class="inline">
@@ -52,6 +54,10 @@
                                  {{ __('Log Out') }}
                               </button>
                            </form>
+                        </li>
+
+                        <li>
+                           <a class ="nav-link" href="{{route('show_cart')}}"><i class="fa-solid fa-cart-shopping fa-lg" style="color: #ff1100; margin-left:10px;"></i></a>
                         </li>
                         
                         
@@ -68,9 +74,6 @@
 
                         @endif
                         
-                        <li>
-                           <a class ="nav-link" href="{{route('show_cart')}}"><i class="fa-solid fa-cart-shopping fa-lg" style="color: #ff1100; margin-left:10px;"></i></a>
-                        </li>
 
                         
                      </ul>
