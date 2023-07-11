@@ -41,13 +41,13 @@
          </div>
          <br><h3 style="display:flex; justify-content:center;">นางสาวภวิศา สิริโรจน์วรกุล</h3>
         
-        <label for="image">แนบหลักฐานการชำระเงิน</label>
-        <div style="width:25%; display: flex; justify-content: center;">
-            <form action="">
+         <div style="width:25%; display: flex; justify-content: center;">
+            <form action="" method="POST" >
                 <input type="file" name="image" id="image" style="margin:100px -200px 0px 650px;">
                 <input type="submit" value="Submit" style="margin:100px -400px 200px 850px;">
             </form>
         </div>
+
 
 
     </div>
