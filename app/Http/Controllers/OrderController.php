@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Order;
@@ -26,7 +27,6 @@ class OrderController extends Controller
         else{     
             $cart = Cart::where('user_id',$userid)->get();
             $total_price = 0;
-            $orderItem = new OrderItem();
 
             foreach ($cart as $item){
                 $total_price += $item->product->price_member * $item->quantity;
@@ -49,6 +49,10 @@ class OrderController extends Controller
                 $orderItem->quantity = $item->quantity;
                 $orderItem->sub_total = $item->product->price_member * $item->quantity;
                 $orderItem->save();
+
+                $product = Product::find($item->product_id);
+                $product->amount -= $item->quantity;
+                $product->save();
 
                 $item->delete();
             }
