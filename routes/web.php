@@ -119,6 +119,7 @@ Route::post('/update_address_confirm/{id}', [HomeController::class, 'update_addr
 //Cart
 Route::post('/add_cart/{id}',[CartController::class,'add_cart'])->where('id', '[0-9]+')->name('add_cart');
 Route::get('/show_cart', [CartController::class, 'show_cart'])->name('show_cart');
+
 Route::post('/update_quantity',[CartController::class,'update_quantity'])->name('update_quantity');
 
 Route::get('/delete_cart/{id}', [CartController::class, 'delete_cart'])->where('id', '[0-9]+')->name('delete_cart');

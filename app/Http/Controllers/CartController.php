@@ -53,6 +53,11 @@ class CartController extends Controller
         {
             $id = Auth::user()->id;
             $cart = Cart::where('user_id', $id)->get();
+            
+            if($cart->isEmpty()) {
+                return view('home.show_cart_empty');
+            }
+        
     
             return view('home.show_cart',compact('cart'));  
         }

@@ -42,7 +42,7 @@
                      <div class="col-sm-6 col-md-4 col-lg-4">
                         <div class="box">
                            <div class="option_container">
-                              <div class="options">
+                              <div class="options" style="margin-bottom:100px;">
                                  <a href="{{route('product_detail', $products->id)}}" class="option1">
                                  Detail
                                  </a>
