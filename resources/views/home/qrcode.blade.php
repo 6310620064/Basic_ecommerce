@@ -23,6 +23,7 @@
     <!-- responshome/ive style -->
     <link href="home/css/responsive.css" rel="stylesheet" />
     <link href="{{ asset('css/users.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -42,9 +43,10 @@
          <br><h3 style="display:flex; justify-content:center;">นางสาวภวิศา สิริโรจน์วรกุล</h3>
         
          <div style="width:25%; display: flex; justify-content: center;">
-            <form action="" method="POST" >
-                <input type="file" name="image" id="image" style="margin:100px -200px 0px 650px;">
-                <input type="submit" value="Submit" style="margin:100px -400px 200px 850px;">
+            <form id = "add_slip" action="{{route('payment_log')}}" method="POST" enctype="multipart/form-data">
+               @csrf
+                  <input type="file" name="image" style="margin:100px -200px 0px 650px;" required>
+                  <input type="submit" value="Submit" style="margin:100px -400px 200px 850px;">
             </form>
         </div>
 
@@ -76,9 +78,37 @@
       <!-- custom jhome/s -->
       <script src="home/js/custom.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="sweetalert2.all.min.js"></script>
+
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script>
+         document.getElementById('add_slip').addEventListener('submit', function (event) {
+         event.preventDefault(); 
+         Swal.fire({
+            icon: 'success',
+            title: 'We have received your order.',
+            showConfirmButton: false,
+            timer: 1500
+         }).then(() => {
+            // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
+            var form = event.target;
+            var formData = new FormData(form);
 
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', form.action, true);
+            xhr.onreadystatechange = function () {
+                  if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                     // ส่งคำขอเสร็จสมบูรณ์
+                     console.log('We have received your order.');
+                     // โหลดหน้าเว็บใหม่
+                     location.reload();
+                  }
+            };
+            xhr.send(formData);
+         });
+      });
+      </script>
 
    </body>
 </html>

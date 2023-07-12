@@ -56,18 +56,28 @@
                            <div class="img-box">
                               <img src="{{ \Storage::url($products->image)}}"alt="">
                            </div>
-                              <div class="detail-box">
+                              <div>
                                  <h5>
                                     {{$products->name}}
                                  </h5>
 
-                                 <h6>
-                                    Amount <br>
-                                     {{$products->amount}} 
+                                 <h6 style ="text-decoration: line-through;">
+                                    Price <br>
+                                    ฿ {{number_format($products->price_normal)}} 
                                  </h6>
+
+                                 <h6 style="color:red;">
+                                    Member Price <br>
+                                    ฿ {{number_format($products->price_member)}} 
+                                 </h6>        
+
+                                 <h6 style="padding-left:190px;">
+                                    Amount <br>
+                                    <p style="margin-left:25px;">{{$products->amount}}</p>
+                                 </h6>
+                              </div>
+                        </div>
                      </div>
-                  </div>
-               </div>
                   @elseif($products->is_active == '1' && $products->start_display <= now() && $products->end_display == null)
 
                      <div class="col-sm-6 col-md-4 col-lg-4">
@@ -82,18 +92,28 @@
                               <div class="img-box">
                                  <img src="{{ \Storage::url($products->image)}}"alt="">
                               </div>
-                                 <div class="detail-box">
+                                 <div>
                                     <h5>
                                        {{$products->name}}
                                     </h5>
 
-                                    <h6>
-                                       Amount <br>
-                                       {{$products->amount}} 
+                                    <h6 style ="text-decoration: line-through;">
+                                       Price <br>
+                                       ฿ {{number_format($products->price_normal)}} 
                                     </h6>
-                        </div>
+
+                                    <h6 style="color:red;">
+                                       Member Price <br>
+                                       ฿ {{number_format($products->price_member)}} 
+                                    </h6>        
+
+                                    <h6 style="padding-left:190px;">
+                                       Amount <br>
+                                       <p style="margin-left:25px;">{{$products->amount}}</p>
+                                    </h6>
+                                 </div>
+                           </div>
                      </div>
-                  </div>
                   @endif
                @endforeach
 

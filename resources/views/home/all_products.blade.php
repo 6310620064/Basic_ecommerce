@@ -51,7 +51,7 @@
                            <div class="img-box">
                               <img src="{{ \Storage::url($products->image)}}"alt="">
                            </div>
-                           <div >
+                           <div>
                               <h5>
                                  {{$products->name}}
                               </h5>
@@ -65,7 +65,12 @@
                                  Member Price <br>
                                  ฿ {{number_format($products->price_member)}} 
                               </h6>            
+
                            </div>
+                           <h6 style="padding-left:190px;">
+                              Amount <br>
+                                 <p style="margin-left:25px;">{{$products->amount}}</p>
+                           </h6>
                         </div>
                      </div>
                   @endforeach

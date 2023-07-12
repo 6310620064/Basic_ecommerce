@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping_Address;
+use App\Models\Payment_log;
 use Farzai\PromptPay\Generator;
 class OrderController extends Controller
 {
@@ -26,6 +27,10 @@ class OrderController extends Controller
         }
         else{     
             $cart = Cart::where('user_id',$userid)->get();
+            if($cart->isEmpty()){
+                return redirect('/');
+            }
+            
             $total_price = 0;
 
             foreach ($cart as $item){
@@ -58,12 +63,12 @@ class OrderController extends Controller
             }
         }
 
-        return redirect()->back();
+        return redirect('/');
     }
 
     public function pay_qrcode(){
         $user=Auth::user();
-
+        
         $userid = $user->id;
         $address = Shipping_Address::where('user_id',$userid)
                                     ->where('is_default',1)
@@ -72,22 +77,86 @@ class OrderController extends Controller
             return redirect('shipping_address');    
         }
         else{
+            
+            $cart = Cart::where('user_id',$userid)->get();
+            if($cart->isEmpty()){
+               return redirect('/');
+            }
+            else{
+                $total_price = 0;
+                
+                foreach ($cart as $item){
+                    $total_price += $item->product->price_member * $item->quantity;
+                }
+                $generator = new Generator();
+                $qrCode = $generator->generate(
+                    target: "088-752-2809", 
+                    amount: $total_price,
+                );
+
+                $qrCodeimg = ('qrcode_' . time() . '.png');
+                $qrCode->save($qrCodeimg);
+
+                return view('home.qrcode', compact('total_price','qrCodeimg'));
+            }
+        }
+    }
+
+    public function payment_log(Request $request)
+    {
+        if(Auth::id())
+        {
+            $user = Auth::user();
+            $userid = $user->id;
+            $address = Shipping_Address::where('user_id',$userid)
+                                    ->where('is_default',1)
+                                    ->first();
+
             $cart = Cart::where('user_id',$userid)->get();
             $total_price = 0;
-            
+
             foreach ($cart as $item){
                 $total_price += $item->product->price_member * $item->quantity;
             }
-            $generator = new Generator();
-            $qrCode = $generator->generate(
-                target: "088-752-2809", 
-                amount: $total_price,
-            );
 
-            $qrCodeimg = ('qrcode_' . time() . '.png');
-            $qrCode->save($qrCodeimg);
+            $order = new Order();
+            $order->order_no = uniqid();
+            $order->user_id = $userid;
+            $order->total_price = $total_price;
+            $order->payment_status = "Pay With QRCODE";
+            $order->delivery_status = "Processing";
+            $order->shipping__address_id = $address->id;
+            $order->save();
 
-            return view('home.qrcode', compact('total_price','qrCodeimg'));
+            foreach ($cart as $item){
+                $orderItem = new OrderItem();
+                $orderItem->product_id = $item->product_id;
+                $orderItem->order_id = $order->id;
+                $orderItem->price =  $item->product->price_member;
+                $orderItem->quantity = $item->quantity;
+                $orderItem->sub_total = $item->product->price_member * $item->quantity;
+                $orderItem->save();
+
+                $product = Product::find($item->product_id);
+                $product->amount -= $item->quantity;
+                $product->save();
+
+                $item->delete();
+            }
+            $qrCodeimg->delete();
+            $payment = new Payment_log;
+
+            $payment->order_id = $order->id;
+            $payment->total_price = $total_price;
+            $payment->image = $request->image->store('slip');
+            $payment->save();
+            
+            return redirect('/');
+        }
+
+        else
+        {
+            return redirect('login');
         }
     }
 

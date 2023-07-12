@@ -125,6 +125,7 @@ Route::get('/delete_cart/{id}', [CartController::class, 'delete_cart'])->where('
 //Order
 Route::get('/cash_order', [OrderController::class, 'cash_order'])->name('cash_order');
 Route::get('/pay_qrcode', [OrderController::class, 'pay_qrcode'])->name('pay_qrcode');
+Route::post('/payment_log',[OrderController::class,'payment_log'])->name('payment_log');
 
 
 

@@ -35,10 +35,15 @@
                                  <h6 style="color:red;">
                                     Member Price <br>
                                     ฿ {{number_format($products->price_member)}} 
-                                 </h6>            
+                                 </h6>           
+                                 
+                                 <h6 style="padding-left:190px;">
+                                    Amount <br>
+                                       <p style="margin-left:25px;">{{$products->amount}}</p>
+                                 </h6>
+                              </div>
+                        </div>
                      </div>
-                  </div>
-               </div>
                   @elseif($products->is_highlight == '1' && $products->is_active =='1' && $products->start_display <= now()  && $products->end_display == null)
                      <div class="col-sm-6 col-md-4 col-lg-4">
                            <div class="box">
@@ -65,7 +70,12 @@
                                     <h6 style="color:red;">
                                        Member Price <br>
                                        ฿ {{number_format($products->price_member)}} 
-                                    </h6>    
+                                    </h6> 
+                                    
+                                    <h6 style="padding-left:190px;">
+                                       Amount <br>
+                                       <p style="margin-left:25px;">{{$products->amount}}</p>
+                                    </h6>
                                  </div>
                            </div>
                      </div>
