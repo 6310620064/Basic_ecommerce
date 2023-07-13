@@ -33,25 +33,46 @@
          <!-- header section strats -->
         @include('home.header')
          <!-- end header section -->
-        <div style="text-align:center;">
-            <h1>Total Price : {{number_format($total_price,2)}}</h1>
-        </div>
 
-         <div style="display: flex; justify-content: center; align-items: center;">
-            <img style="width:300px; margin-top: 100px;" src="{{ asset($qrCodeimg) }}" alt="QR Code">
+        <div class="promptpay-container">
+            <div class ="thai-qr">
+               <img src="images/thai_qr_payment.png" width="50%" alt="PromptPay">
+            </div>
+         <div class="promptpay-qrcode">
+            <img src="{{ asset($qrCodeimg) }}" alt="PromptPay QR Code">
          </div>
-         <br><h3 style="display:flex; justify-content:center;">นางสาวภวิศา สิริโรจน์วรกุล</h3>
-        
-         <div style="width:25%; display: flex; justify-content: center;">
-            <form id = "add_slip" action="{{route('payment_log')}}" method="POST" enctype="multipart/form-data">
-               @csrf
-                  <input type="file" name="image" style="margin:100px -200px 0px 750px;" required>
-                  <input type="submit" value="Submit" style="margin:100px -600px 200px 960px;">
-            </form>
-        </div>
+         <h2 class="promptpay-title">Everything Shop</h2>
+         <h3 class="promptpay-name">Bank Account : นางสาวภวิศา สิริโรจน์วรกุล</h3>
+         <h3 class="total">Total : {{number_format($total_price,2)}} BAHT </h3>
+         <a href="{{ asset($qrCodeimg) }}" class="btn btn-outline-info"target="_blank" download style="margin: 20px; 20px; ">DOWNLOAD QRCODE</a>  
 
+         </div>
 
+         <div class="divider-container">
+            <div class="divider"></div>
+         </div>
 
+         <div class="member">
+            <div>
+               <h2 class="about-member">Member Name : {{$user->name}}</h2>
+            </div>
+            <div class="member">
+               <div>
+                     <div class="form-slip">
+                        <form id="add_slip" action="{{route('payment_log')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                           <h2 class="about-member">
+                              <label for="phone">Telephone:</label>
+                              <input type="text" name="phone" value="{{$user->phone}}" class="input-phone">
+                           </h2>
+                              <input type="file" name="image" required>
+                              <input type="submit" value="Submit" style="margin-top: 20px;">
+                        </form>
+                     </div>
+               </div>
+            </div>
+
+         </div>
     </div>
 
 

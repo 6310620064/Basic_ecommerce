@@ -135,3 +135,99 @@ td
     font-size: 36px;
     text-align: center;
 }
+
+.promptpay-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+ }
+
+ .promptpay-qrcode {
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+ }
+
+ .promptpay-qrcode img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+ }
+
+ .promptpay-title {
+    font-size: 30px;
+    margin-top: 20px;
+    padding-top: 20px;
+ }
+
+ .promptpay-name {
+    font-size: 22px;
+    margin-top: 10px;
+ }
+
+ .total {
+    font-size: 20px;
+    margin-top: 10px;
+ }
+ 
+ .thai-qr
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10vh;
+    background-color: white;
+}
+
+.divider-container {
+    display: flex;
+    justify-content: center;
+    margin: 90px 20px;
+ }
+ 
+ .divider {
+    width: 50%;
+    height: 2px;
+    background-color: #ccc;
+ }
+
+ .member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+ }
+ 
+ .about-member {
+    font-size: 22px;
+    text-align: center;
+ }
+ 
+ .about-member h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ 
+ .label-phone {
+    font-size: 16px;
+    margin-right: 10px;
+ }
+ 
+ .input-phone {
+    font-size: 18px;
+    padding: 5px;
+    margin-top: 10px;
+ }
+ 
+ .form-slip {
+    margin-top: 20px;
+    margin-bottom: 90px;
+ }
+ 

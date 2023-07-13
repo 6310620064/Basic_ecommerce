@@ -97,7 +97,7 @@ class OrderController extends Controller
                 $qrCodeimg = ('qrcode_' . time() . '.png');
                 $qrCode->save($qrCodeimg);
 
-                return view('home.qrcode', compact('total_price','qrCodeimg'));
+                return view('home.qrcode', compact('user','total_price','qrCodeimg'));
             }
         }
     }
@@ -148,6 +148,8 @@ class OrderController extends Controller
             $payment->order_id = $order->id;
             $payment->total_price = $total_price;
             $payment->image = $request->image->store('slip');
+            $payment->name = $user->name;
+            $payment->phone = $request->phone;
             $payment->save();
 
             return redirect('/');

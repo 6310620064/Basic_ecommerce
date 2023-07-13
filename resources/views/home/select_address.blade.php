@@ -64,6 +64,8 @@
                @endif
                <input type="submit" value="Submit" style="margin-top:50px;">
             </form>
+            <a href="{{route('show_cart')}}" class="btn btn-primary btn-lg" style="margin-left:-40px; margin-top: -75px;">Back</a>
+
          </div>
     </div>
       <!-- footer start -->

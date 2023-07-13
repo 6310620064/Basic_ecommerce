@@ -38,9 +38,10 @@
         @if($default_address != null)
             <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
                 <h3>ที่อยู่สำหรับจัดส่ง</h3><br>
-                <p>Phone : {{$default_address->Phone}}</p>
+                <p>Phone : {{substr($default_address->Phone,0,3) . '-' . substr($default_address->Phone,3,3). '-' . substr($default_address->Phone, 6)}}</p>
                 <p>Address : {{$default_address->address}}</p>
-                <a href="{{route('select_address')}}" class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">Change</a>
+                <a href="{{route('shipping_address')}}" class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">Add</a>
+                <a href="{{route('select_address')}}" class="btn btn-success" style="position: absolute; top: 50px; right: 10px;">Change</a>
             </div>
         @elseif($default_address == null && $address->isEmpty())
              <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
@@ -50,7 +51,7 @@
         @else
             <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
                 <h3>โปรดเลือกที่อยู่จัดส่ง</h3><br>
-                <a href="{{route('select_address')}}" class="btn btn-success">Select Address</a>
+                <a href="{{route('select_address')}}" class="btn btn-success">Select Address</a><br>
             </div>
         @endif
 
@@ -111,7 +112,7 @@
                     <button class="btn btn-warning" onclick="noAddressAlert()">Pay With QRCODE</button>
                 @else
                     <a href="{{route('cash_order')}}" class="btn btn-warning" onclick="checkQuantity()">Cash on Delivery</a>
-                    <a href="{{route('pay_qrcode')}}" class="btn btn-warning" onclick="checkQuantity()">Pay With QRCODE</a>
+                    <a href="{{route('pay_qrcode')}}" class="btn btn-warning" onclick="checkQuantityQrCode()">Pay With QRCODE</a>
                 @endif
 
             </div>
@@ -206,6 +207,39 @@
                         showConfirmButton: false,
                         timer: 2500
                     });
+                }
+            }
+        }
+
+        function checkQuantityQrCode() {
+            var quantities = document.getElementsByClassName('qty');
+            var valid = true;
+            var errorMessage = '';
+
+            for (var i = 0; i < quantities.length; i++) {
+                var quantity = parseInt(quantities[i].value);
+                var amount = parseInt(quantities[i].dataset.amount);
+
+                if (quantity > amount) {
+                    valid = false;
+                    errorMessage += 'The quantity for ' + quantities[i].dataset.productName + ' exceeds the available amount.\n';
+                }
+            }
+
+            if (!valid) {
+                Swal.fire({
+                    title: 'Invalid Quantity',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                event.preventDefault();
+            } else {
+                var addressNull = "{{ $address == null ? 'true' : 'false' }}";
+                if (addressNull === 'true') {
+                    // Redirect to shipping_address page
+                    window.location.href = "/shipping_address";
+                });
                 }
             }
         }
