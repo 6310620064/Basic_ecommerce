@@ -28,6 +28,6 @@
 ------------------------------------------------------------------------------------------------------
 ### Diagram
 
-![ecommerce](public/images/ecommerce_diagram.png)
+![ecommerce](public/images/diagram.png)
 
 
