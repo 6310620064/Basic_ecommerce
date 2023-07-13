@@ -42,6 +42,7 @@
 
                         @auth
 
+
                         <li class="nav-item">
                            <a class="nav-link" href="{{route('all_addresses')}}">Address</a>
                         </li>

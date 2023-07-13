@@ -198,7 +198,6 @@
             } else {
                 var addressNull = "{{ $address == null ? 'true' : 'false' }}";
                 if (addressNull === 'true') {
-                    // Redirect to shipping_address page
                     window.location.href = "/shipping_address";
                 } else {
                     Swal.fire({

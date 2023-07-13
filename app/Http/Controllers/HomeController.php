@@ -171,7 +171,7 @@ class HomeController extends Controller
             $address = Shipping_address::where('user_id' , $user->id)->orderBy('id','desc')->paginate(5);
 
             if ($address->isEmpty()) {
-                return view('home.shipping_address');
+                return view('home.all_address_empty');
             }
 
             return view('home.all_address', compact('address'));
