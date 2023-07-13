@@ -112,7 +112,7 @@
                     <button class="btn btn-warning" onclick="noAddressAlert()">Pay With QRCODE</button>
                 @else
                     <a href="{{route('cash_order')}}" class="btn btn-warning" onclick="checkQuantity()">Cash on Delivery</a>
-                    <a href="{{route('pay_qrcode')}}" class="btn btn-warning" onclick="checkQuantityQrCode()">Pay With QRCODE</a>
+                    <a href="{{route('pay_qrcode')}}" class="btn btn-warning" onclick="checkQuantityQrcode()">Pay With QRCODE</a>
                 @endif
 
             </div>
@@ -198,7 +198,7 @@
             } else {
                 var addressNull = "{{ $address == null ? 'true' : 'false' }}";
                 if (addressNull === 'true') {
-                    window.location.href = "/shipping_address";
+                    window.location.href = "{{route ('shipping_address') }}";
                 } else {
                     Swal.fire({
                         icon: 'success',
@@ -210,7 +210,7 @@
             }
         }
 
-        function checkQuantityQrCode() {
+        function checkQuantityQrcode() {
             var quantities = document.getElementsByClassName('qty');
             var valid = true;
             var errorMessage = '';
@@ -236,12 +236,12 @@
             } else {
                 var addressNull = "{{ $address == null ? 'true' : 'false' }}";
                 if (addressNull === 'true') {
-                    // Redirect to shipping_address page
-                    window.location.href = "/shipping_address";
-                });
-                }
+                    window.location.href = "{{ route('shipping_address') }}";
+                } 
             }
         }
+
+        
        
         document.addEventListener('DOMContentLoaded', function() {
             var reduceQtyButtons = document.getElementsByClassName('reduce_qty');
