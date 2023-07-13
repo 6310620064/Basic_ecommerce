@@ -35,22 +35,22 @@
          <!-- slider section -->
         <!-- @include('home.slider') -->
          <!-- end slider section -->
-         @if($default_address != null)
+        @if($default_address != null)
             <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
                 <h3>ที่อยู่สำหรับจัดส่ง</h3><br>
                 <p>Phone : {{$default_address->Phone}}</p>
                 <p>Address : {{$default_address->address}}</p>
                 <a href="{{route('select_address')}}" class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">Change</a>
             </div>
-        @elseif($address != null)
-            <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
-                <h3>โปรดเลือกที่อยู่จัดส่ง</h3><br>
-                <a href="{{route('select_address')}}" class="btn btn-success">Select Address</a>
+        @elseif($default_address == null && $address->isEmpty())
+             <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
+                <h3>ยังไม่มีที่อยู่จัดส่ง</h3><br>
+                <a href="{{route('shipping_address')}}" class="btn btn-success">Add Address</a>
             </div>
         @else
             <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
-                <h3>ยังไม่มีที่อยู่จัดส่ง</h3><br>
-                <a href="{{route('shipping_address')}}" class="btn btn-success">Add Address</a>
+                <h3>โปรดเลือกที่อยู่จัดส่ง</h3><br>
+                <a href="{{route('select_address')}}" class="btn btn-success">Select Address</a>
             </div>
         @endif
 
