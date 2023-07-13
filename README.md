@@ -21,7 +21,10 @@
 - เลือกดู Size
 - เลือกดู Product
 - เลือกดู Popular Product
+- Add Address
 - Add Product To Cart
+    - Cash on Develiry
+    - Pay with QRCODE
 ------------------------------------------------------------------------------------------------------
 ### Diagram
 
