@@ -10,16 +10,16 @@
       <meta name="keywords" content="" />
       <meta name="description" content="" />
       <meta name="author" content="" />
-      <link rel="shortcut icon" href="images/favicon.png" type="">
+      <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="">
       <title>Shopping - Product</title>
       <!-- bootstrap core css -->
-      <link rel="stylesheet" type="text/css" href="home/css/bootstrap.css" />
+      <link rel="stylesheet" type="text/css" href="{{ asset('home/css/bootstrap.css') }}" />
       <!-- font awesome style -->
-      <link href="home/css/font-awesome.min.css" rel="stylesheet" />
+      <link href="{{ asset('home/css/font-awesome.min.css') }}" rel="stylesheet" />
       <!-- Custom home/styles for this template -->
-      <link href="home/css/style.css" rel="stylesheet" />
+      <link href="{{ asset('home/css/style.css') }}" rel="stylesheet" />
       <!-- responshome/ive style -->
-      <link href="home/css/responsive.css" rel="stylesheet" />
+      <link href="{{ asset('home/css/responsive.css') }}" rel="stylesheet" />
       <link href="{{ asset('css/users.css') }}" rel="stylesheet" />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
 
@@ -44,6 +44,7 @@
          
             <form id ="create_address"action ="{{route('add_shipping')}}" method ="POST"> 
                @csrf 
+               <input type="hidden" name="cart" value ="{{ $cart }}">
                   <div style="margin-bottom: 20px;">
                      <label style="display: block; font-weight: bold; margin-bottom: 5px;">Address:</label>
                      <input type="text" id="address" name="address" placeholder="Address" required style="width: 100%; padding: 10px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc;"">
@@ -76,13 +77,13 @@
       </div>
     
       <!-- jQery -->
-      <script src="home/js/jquery-3.4.1.min.js"></script>
+      <script src="{{ asset('home/js/jquery-3.4.1.min.js') }}"></script>
       <!-- popper jhome/s -->
-      <script src="home/js/popper.min.js"></script>
+      <script src="{{ asset('home/js/popper.min.js') }}"></script>
       <!-- bootstrahome/p js -->
-      <script src="home/js/bootstrap.js"></script>
+      <script src="{{ asset('home/js/bootstrap.js') }}"></script>
       <!-- custom jhome/s -->
-      <script src="home/js/custom.js"></script>
+      <script src="{{ asset('home/js/custom.js') }}"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
       <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
@@ -103,18 +104,30 @@
                   if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                      // Handle the response
                      var response = JSON.parse(xhr.responseText);
-
                      if (response.success) {
-                        // Address created successfully, show SweetAlert success message
-                        Swal.fire({
-                              icon: 'success',
-                              title: 'Address created successfully',
-                              showConfirmButton: false,
-                              timer: 1500
-                        }).then(() => {
-                              // Reload the page
-                              location.reload();
-                        });
+                        if(response.cart != null) {
+                           // Address created successfully, show SweetAlert success message
+                           Swal.fire({
+                                 icon: 'success',
+                                 title: 'Address created successfully',
+                                 showConfirmButton: false,
+                                 timer: 1500
+                           }).then(() => {
+                                 window.location.href = "{{ route('show_cart') }}";
+                           });
+                        }else if(response.cart == null) {
+                           // Address created successfully, show SweetAlert success message
+                           Swal.fire({
+                                 icon: 'success',
+                                 title: 'Address created successfully',
+                                 showConfirmButton: false,
+                                 timer: 1500
+                           }).then(() => {
+                                 // Reload the page
+                                 location.reload();
+
+                           });
+                        }
                      } else {
                         // Address already exists, show SweetAlert error message
                         Swal.fire({

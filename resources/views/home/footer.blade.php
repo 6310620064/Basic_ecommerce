@@ -4,7 +4,7 @@
                <div class="col-md-4">
                    <div class="full">
                       <div class="logo_footer">
-                        <a href="#"><img width="120" src="images/shop_logo-removebg.png" alt="" /></a>
+                        <a href="#"><img width="120" src="{{ asset('images/shop_logo-removebg.png') }}" alt="" /></a>
                       </div>
                       <div class="information_f">
                         <p><strong>ADDRESS:</strong> TU Dormitory 99 Moo.18 Khlong Nueng , Khlong Luang Pathum Thani 12120</p>

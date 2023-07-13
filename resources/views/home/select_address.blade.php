@@ -62,9 +62,9 @@
                      @endforeach
                   </select>
                @endif
-               <input type="submit" value="Submit" style="margin-top:50px;">
+               <input type="submit" value="Submit" style="margin-top:50px; margin-left:150px;">
             </form>
-            <a href="{{route('show_cart')}}" class="btn btn-primary btn-lg" style="margin-left:-40px; margin-top: -75px;">Back</a>
+            <a href="{{route('show_cart')}}" class="btn btn-primary btn-lg" style="margin-left:30px; margin-top:-75px;">Back</a>
 
          </div>
     </div>

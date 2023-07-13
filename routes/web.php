@@ -109,6 +109,7 @@ Route::get('/category_product/{id}',[HomeController::class,'category_product'])-
 Route::get('/all_sizes', [HomeController::class, 'all_sizes'])->name('all_sizes');
 Route::get('/size_product/{id}',[HomeController::class,'size_product'])->where('id', '[0-9]+')->name('size_product');
 Route::get('/shipping_address', [HomeController::class, 'shipping_address'])->name('shipping_address');
+Route::get('/shipping_address/{cart}', [HomeController::class, 'shipping_address'])->name('cart_shipping_address');
 Route::post('/add_shipping',[HomeController::class,'add_shipping'])->name('add_shipping');
 Route::get('/all_addresses', [HomeController::class, 'all_addresses'])->name('all_addresses');
 

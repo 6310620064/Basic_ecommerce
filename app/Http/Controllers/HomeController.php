@@ -182,10 +182,10 @@ class HomeController extends Controller
         }
     }
 
-    public function shipping_address(){
+    public function shipping_address(Request $request, $cart = null){
         if(Auth::id())
         {
-            return view('home.shipping_address');
+            return view('home.shipping_address')->with(['cart' => $cart]);
         }
 
         else
@@ -194,10 +194,12 @@ class HomeController extends Controller
         }
     }
 
+    
+
     public function add_shipping(Request $request)
     {
         if(Auth::check()) {
-
+            // return $request->cart;
             $user = Auth::user();
             $address = new Shipping_address;
 
@@ -224,9 +226,11 @@ class HomeController extends Controller
                 $address->is_default = 0;
             }            
             $address->save();
-
+            
+            // return redirect('show_cart');
             return response()->json([
-                'success' => true
+                'success' => true,
+                'cart' => $request->cart
             ]);
         }
         else {

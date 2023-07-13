@@ -40,13 +40,13 @@
                 <h3>ที่อยู่สำหรับจัดส่ง</h3><br>
                 <p>Phone : {{substr($default_address->Phone,0,3) . '-' . substr($default_address->Phone,3,3). '-' . substr($default_address->Phone, 6)}}</p>
                 <p>Address : {{$default_address->address}}</p>
-                <a href="{{route('shipping_address')}}" class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">Add</a>
+                <a href="{{route('cart_shipping_address',['cart' => 'cart'])}}" class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">Add</a>
                 <a href="{{route('select_address')}}" class="btn btn-success" style="position: absolute; top: 50px; right: 10px;">Change</a>
             </div>
         @elseif($default_address == null && $address->isEmpty())
              <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
                 <h3>ยังไม่มีที่อยู่จัดส่ง</h3><br>
-                <a href="{{route('shipping_address')}}" class="btn btn-success">Add Address</a>
+                <a href="{{route('cart_shipping_address',['cart' => 'cart'])}}" class="btn btn-success">Add Address</a>
             </div>
         @else
             <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
