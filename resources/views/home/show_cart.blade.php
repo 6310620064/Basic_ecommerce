@@ -35,6 +35,25 @@
          <!-- slider section -->
         <!-- @include('home.slider') -->
          <!-- end slider section -->
+         @if($default_address != null)
+            <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
+                <h3>ที่อยู่สำหรับจัดส่ง</h3><br>
+                <p>Phone : {{$default_address->Phone}}</p>
+                <p>Address : {{$default_address->address}}</p>
+                <a href="{{route('select_address')}}" class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">Change</a>
+            </div>
+        @elseif($address != null)
+            <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
+                <h3>โปรดเลือกที่อยู่จัดส่ง</h3><br>
+                <a href="{{route('select_address')}}" class="btn btn-success">Select Address</a>
+            </div>
+        @else
+            <div class="cart_center" style="width: 600px; height: 200px; border: 2px solid black; border-radius: 10px; background-color: white; padding: 20px; position: relative;">
+                <h3>ยังไม่มีที่อยู่จัดส่ง</h3><br>
+                <a href="{{route('shipping_address')}}" class="btn btn-success">Add Address</a>
+            </div>
+        @endif
+
         <div class ="cart_center" style="margin-top:100px;">
             <table>
                 <thead>
@@ -78,14 +97,22 @@
             <div>
                 <h1 id="total_price" class ="total_deg">Total Price : ฿ {{number_format($total_price,2)}}</h1>
             </div>
+
+
+
          
 
         </div>
 
             <div class ="proceed">
                 <h1 style ="font-size:25px; padding-bottom:15px;">Proceed to Order</h1>
-                <a href= "{{route('cash_order')}}" class ="btn btn-warning" onclick="checkQuantity()">Cash on Delivery</a>
-                <a href="{{route('pay_qrcode')}}" class ="btn btn-warning">Pay With QRCODE</a>
+                @if($address == null)
+                    <button class="btn btn-warning" onclick="noAddressAlert()">Cash on Delivery</button>
+                    <button class="btn btn-warning" onclick="noAddressAlert()">Pay With QRCODE</button>
+                @else
+                    <a href="{{route('cash_order')}}" class="btn btn-warning" onclick="checkQuantity()">Cash on Delivery</a>
+                    <a href="{{route('pay_qrcode')}}" class="btn btn-warning" onclick="checkQuantity()">Pay With QRCODE</a>
+                @endif
 
             </div>
     </div>
@@ -293,6 +320,17 @@
                 console.log('An error occurred while updating quantity');
             });
         }
+
+        function noAddressAlert() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You have not added a shipping address yet.',
+            confirmButtonText: 'OK'
+        });
+    }
+
+        
 
     </script>
 

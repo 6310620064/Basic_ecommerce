@@ -31,6 +31,10 @@
                         <li class="nav-item">
                            <a class="nav-link" href="{{route('all_sizes')}}">Sizes</a>
                         </li>
+
+                        <li class="nav-item">
+                           <a class="nav-link" href="{{route('select_address')}}">Test</a>
+                        </li>
                         
                         
                         <!-- <form class="form-inline">

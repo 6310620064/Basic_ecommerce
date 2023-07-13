@@ -143,21 +143,52 @@ class OrderController extends Controller
 
                 $item->delete();
             }
-            $qrCodeimg->delete();
             $payment = new Payment_log;
 
             $payment->order_id = $order->id;
             $payment->total_price = $total_price;
             $payment->image = $request->image->store('slip');
             $payment->save();
-            
+
             return redirect('/');
+
+            
         }
 
         else
         {
             return redirect('login');
         }
+
+    }
+
+
+    public function select_address(){
+
+        $user = Auth::user();
+        $userid = $user->id;
+
+        $address = Shipping_Address::where('user_id', $userid)->get();
+        $default = Shipping_Address::where('user_id', $userid)->
+                                    where('is_default','1')->first();
+                         
+        return view('home.select_address', compact('address','default'));
+    }
+
+    public function select_address_confirm(Request $request)
+    {
+        $user = Auth::user();
+        $selectedAddressId = $request->input('address');
+
+        Shipping_Address::where('user_id', $user->id)->update(['is_default' => 0]);
+
+        $address = Shipping_Address::find($selectedAddressId);
+        if ($address) {
+            $address->is_default = 1;
+            $address->save();
+        }
+
+        return redirect('show_cart');
     }
 
 

@@ -45,8 +45,8 @@
          <div style="width:25%; display: flex; justify-content: center;">
             <form id = "add_slip" action="{{route('payment_log')}}" method="POST" enctype="multipart/form-data">
                @csrf
-                  <input type="file" name="image" style="margin:100px -200px 0px 650px;" required>
-                  <input type="submit" value="Submit" style="margin:100px -400px 200px 850px;">
+                  <input type="file" name="image" style="margin:100px -200px 0px 750px;" required>
+                  <input type="submit" value="Submit" style="margin:100px -600px 200px 960px;">
             </form>
         </div>
 

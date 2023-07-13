@@ -111,6 +111,7 @@ Route::get('/size_product/{id}',[HomeController::class,'size_product'])->where('
 Route::get('/shipping_address', [HomeController::class, 'shipping_address'])->name('shipping_address');
 Route::post('/add_shipping',[HomeController::class,'add_shipping'])->name('add_shipping');
 Route::get('/all_addresses', [HomeController::class, 'all_addresses'])->name('all_addresses');
+
 Route::get('/delete_address/{id}', [HomeController::class, 'delete_address'])->where('id', '[0-9]+')->name('delete_address');
 Route::get('/update_address/{id}',[HomeController::class,'update_address'])->where('id', '[0-9]+')->name('update_address');
 Route::post('/update_address_confirm/{id}', [HomeController::class, 'update_address_confirm'])->where('id', '[0-9]+')->name('update_address_confirm');
@@ -126,6 +127,8 @@ Route::get('/delete_cart/{id}', [CartController::class, 'delete_cart'])->where('
 Route::get('/cash_order', [OrderController::class, 'cash_order'])->name('cash_order');
 Route::get('/pay_qrcode', [OrderController::class, 'pay_qrcode'])->name('pay_qrcode');
 Route::post('/payment_log',[OrderController::class,'payment_log'])->name('payment_log');
+Route::get('/select_address', [OrderController::class, 'select_address'])->name('select_address');
+Route::post('/select_address_confirm', [OrderController::class, 'select_address_confirm'])->name('select_address_confirm');
 
 
 

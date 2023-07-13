@@ -55,7 +55,8 @@ class CartController extends Controller
         {
             $user = Auth::user();
             $userid = $user->id;
-            $address = Shipping_Address::where('user_id', $userid)
+            $address = Shipping_Address::where('user_id', $userid)->get();
+            $default_address = Shipping_Address::where('user_id', $userid)
                                         ->where('is_default', 1)
                                         ->first();
             $cart = Cart::where('user_id', $userid)->get();
@@ -64,7 +65,7 @@ class CartController extends Controller
                 return view('home.show_cart_empty');
             }
 
-            return view('home.show_cart',compact('cart','address'));  
+            return view('home.show_cart',compact('cart','address','default_address'));  
         }
         
         else
