@@ -97,6 +97,8 @@ Route::post('/brand_arrow_down/{id}', [ChangeOrderController::class, 'brand_arro
 Route::post('/brand_arrow_up/{id}', [ChangeOrderController::class, 'brand_arrow_up'])->where('id', '[0-9]+')->name('brand_arrow_up');
 Route::post('/gallery_arrow_down/{id}', [ChangeOrderController::class, 'gallery_arrow_down'])->where('id', '[0-9]+')->name('gallery_arrow_down');
 Route::post('/gallery_arrow_up/{id}', [ChangeOrderController::class, 'gallery_arrow_up'])->where('id', '[0-9]+')->name('gallery_arrow_up');
+Route::get('/all_orders', [OrderController::class, 'all_orders'])->name('all_orders');
+Route::get('/order_item/{id}', [OrderController::class, 'order_item'])->where('id', '[0-9]+')->name('order_item');
 
 
 //ALL OF USERS
@@ -112,7 +114,6 @@ Route::get('/shipping_address', [HomeController::class, 'shipping_address'])->na
 Route::get('/shipping_address/{cart}', [HomeController::class, 'shipping_address'])->name('cart_shipping_address');
 Route::post('/add_shipping',[HomeController::class,'add_shipping'])->name('add_shipping');
 Route::get('/all_addresses', [HomeController::class, 'all_addresses'])->name('all_addresses');
-
 Route::get('/delete_address/{id}', [HomeController::class, 'delete_address'])->where('id', '[0-9]+')->name('delete_address');
 Route::get('/update_address/{id}',[HomeController::class,'update_address'])->where('id', '[0-9]+')->name('update_address');
 Route::post('/update_address_confirm/{id}', [HomeController::class, 'update_address_confirm'])->where('id', '[0-9]+')->name('update_address_confirm');

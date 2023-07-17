@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+   <base href ="/public">
+
    <head>
       <!-- Basic -->
       <meta charset="utf-8" />

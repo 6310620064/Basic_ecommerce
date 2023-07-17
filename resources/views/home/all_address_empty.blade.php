@@ -37,10 +37,9 @@
         <!-- @include('home.slider') -->
          <!-- end slider section -->
 
-         <div class="div_center">
-            <h2 class ="h2_font">You don't have any address</h2>
+         <div class ="div_empty_center">
+            <h1>You don't have any address</h1>
             <a class ="btn btn-success" href="{{route('shipping_address')}}">Add</a>
-
         </div>
 
 

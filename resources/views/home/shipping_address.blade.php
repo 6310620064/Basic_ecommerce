@@ -59,7 +59,7 @@
                      <label class= "label-check"  for="default">Default</label><br>
                   </div>
                   <div class ="container">
-                     <a href="{{route('all_addresses')}}" style="margin-right:10px;"class ="btn btn-primary btn-lg">Back</a>
+                     <a id="backButton"  style="margin-right:10px; color:white;"class ="btn btn-primary btn-lg">Back</a>
                      <input type="submit" value="Submit">
                   </div>
             </form>
@@ -97,6 +97,7 @@
             // Send the form data using XMLHttpRequest
             var form = event.target;
             var formData = new FormData(form);
+            
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', form.action, true);
@@ -140,6 +141,15 @@
             };
             xhr.send(formData);
          });
+         var backButton = document.getElementById('backButton');
+         backButton.addEventListener('click', function () {
+            var currentURL = window.location.href;
+            if (currentURL.endsWith('/cart')) {
+               window.location.href = "{{ route('show_cart') }}";
+            } else {
+               window.location.href = "{{ route('all_addresses') }}";
+            }
+         });    
       </script>
 
 

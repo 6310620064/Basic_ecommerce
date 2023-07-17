@@ -97,7 +97,6 @@ table,th,td
 .div_center
 {
     text-align: center;
-    padding-top : 40px;
 }
 
 th
@@ -231,3 +230,51 @@ td
     margin-bottom: 90px;
  }
  
+.table_address td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px; 
+  }
+
+  
+  .table_address td {
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+  
+  .table_address th {
+    height: 60px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    font-weight: bold;
+  }
+  
+  .table_address th {
+    color: #333;
+  }
+  
+  .table_address {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    margin-top: 30px;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin-bottom: 100px;
+  }
+  
+  .table_address .pagination {
+    margin-top: 20px;
+  }
+  
+  select[name="address"] {
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 8px; /* Add some padding to improve appearance */
+    width: 100%; /* Set the width to occupy the available space */
+    max-width: 400px; /* Limit the maximum width to prevent excessive stretching */
+ }
+
+ select[name="address"] option {
+    font-size: 16px; /* Adjust the font size for the options */
+ }

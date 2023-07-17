@@ -193,5 +193,19 @@ class OrderController extends Controller
         return redirect('show_cart');
     }
 
+    public function all_orders()
+    {
+        $user = Auth::user();
+        $orders = Order::where('user_id' , $user->id)->orderBy('id','desc')->paginate(5);
 
+            return view('home.all_orders', compact('orders'));
+    }
+
+    public function order_item($id)
+    {
+        $order = Order::find($id);
+        $items = OrderItem::where('order_id', $order->id)->get();
+
+            return view('home.order_item', compact('order','items'));
+    }
 }

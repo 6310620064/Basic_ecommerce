@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <base href ="/public">
 
    <head>
       <!-- Basic -->
@@ -37,47 +38,38 @@
         <!-- end slider section -->
 
     <div class="div_center">
-        <h2 class ="h2_font">All Addresses</h2>
-        <a class ="btn btn-success" href="{{route('shipping_address')}}">Add</a>
+        <h2 class ="h2_font">Order No. {{$order->order_no}} </h2>
     </div>
         <table class ="table_address" >
         <thead>
             <tr>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Default</th>
-                <th>Action</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
             </tr>
         </thead>
-        @foreach ($address as $addresses)
+        @foreach ($items as $item)
             <tbody>
                 <tr>
-                    <td>{{$addresses->address}}</td>
-                    <td>{{substr($addresses->Phone,0,3) . '-' . substr($addresses->Phone,3,3). '-' . substr($addresses->Phone, 6)}}</td>
-                    <td>
-                    @if($addresses->is_default == 0)
-                        <span class="icon-center">
-                            <span class="iconify" data-icon="charm:cross" style="color: red;"data-width="25" data-height="25"></span>
-                        </span>
-                    @else
-                        <span class="icon-center">
-                            <span class="iconify" data-icon="fa6-solid:check" style="color: green;"data-width="20" data-height="20"></span>
-                        </span>
-                    @endif
-                    </td>
-                    <td>
-                        <a style="margin-bottom:10px; margin-top:10px;"class ="btn btn-primary" href="{{route('update_address', $addresses->id)}}"><i class="fa-solid fa-pen-to-square"></i> Edit</a><br>
-                        <a  onclick="confirmation(event)" style="margin-bottom:10px;"class ="btn btn-danger" href="{{route('delete_address', $addresses->id)}}"><i class="fas fa-trash-alt"></i> Delete</a>
-                    </td>
+                     <td>{{$item->product->name}}</td>
+                     <td> ฿ {{number_format($item->price,2)}}</td>
+                     <td>{{$item->quantity}}</td>
+                     <td>฿ {{number_format($item->sub_total,2)}}</td>
                 </tr>
             </tbody>
         @endforeach
+        <tfoot>
+            <tr>
+                <td colspan="1" style="text-align: center;"><strong>Total Price</strong></td>
+                <td colspan="3"><strong>฿ {{number_format($order->total_price,2)}}</strong></td>
+            </tr>
+        </tfoot>
         </table>
 
-        <span style="margin-left: 100px; margin-top:-50px;">       
-            {{ $address ->links() }}
-        </span>     
-        
+        <div>
+            <a style="margin-left:80px;" href="{{route('all_orders')}}" class="btn btn-primary">Back</a>
+        </div>
     </div>
       <!-- footer start -->
       @include('home.footer')
@@ -102,32 +94,5 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script>
-        function confirmation(event) {
-            event.preventDefault();
-            var urlToRedirect = event.currentTarget.getAttribute('href');
-            Swal.fire({
-
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'No, cancel!',
-                confirmButtonText: 'Yes, delete it!',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your Address has been deleted.',
-                        'success'
-                    )
-                    // Redirect to the URL
-                    window.location.href = urlToRedirect;
-                }
-            });
-        }
-    </script>
     </body>
 </html>

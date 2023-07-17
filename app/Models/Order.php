@@ -29,7 +29,7 @@ class Order extends Model
 
     public function shipping_address()
     {
-        return $this->belongsTo(Shipping_Address::class,'shipping_address_id','id');
+        return $this->belongsTo(Shipping_Address::class,'shipping__address_id','id');
     }
 
     public function payment_log()

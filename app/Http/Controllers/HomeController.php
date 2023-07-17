@@ -150,19 +150,6 @@ class HomeController extends Controller
         return view('home.size_product', compact('size', 'product'));
     }
 
-    public function add_cart($id)
-    {
-        if(Auth::id())
-        {
-            return redirect()->back();
-        }
-
-        else
-        {
-            return redirect('login');
-        }
-    }
-
     public function all_addresses()
     {
         if(Auth::id())
@@ -199,7 +186,6 @@ class HomeController extends Controller
     public function add_shipping(Request $request)
     {
         if(Auth::check()) {
-            // return $request->cart;
             $user = Auth::user();
             $address = new Shipping_address;
 
@@ -227,7 +213,6 @@ class HomeController extends Controller
             }            
             $address->save();
             
-            // return redirect('show_cart');
             return response()->json([
                 'success' => true,
                 'cart' => $request->cart
@@ -273,6 +258,5 @@ class HomeController extends Controller
 
         return redirect()->back()->with('message','Size Deleted Successfully');
     }
-
 
 }

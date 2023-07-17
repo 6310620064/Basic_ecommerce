@@ -105,17 +105,5 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function shipping_address_cart(){
-        if(Auth::id())
-        {
-            return view('home.shipping_address');
-        }
-
-        else
-        {
-            return redirect('login');
-        }
-    }
-
 
 }

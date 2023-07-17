@@ -23,7 +23,7 @@ class Shipping_Address extends Model
 
     public function order()
     {
-        return $this->hasOne(Order::class, 'shipping_address_id','id');
+        return $this->hasOne(Order::class, 'shipping__address_id','id');
     }
 
 }
