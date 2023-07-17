@@ -196,9 +196,20 @@ class OrderController extends Controller
     public function all_orders()
     {
         $user = Auth::user();
-        $orders = Order::where('user_id' , $user->id)->orderBy('id','desc')->paginate(5);
 
+        if ($user) {
+            $orders = Order::with(['shipping_address' => function ($query) {
+                $query->withTrashed(); 
+            }])
+            ->where('user_id', $user->id)
+            ->withTrashed()
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+    
             return view('home.all_orders', compact('orders'));
+        } else {
+            return  redirect('login');
+        }
     }
 
     public function order_item($id)

@@ -150,6 +150,8 @@ class HomeController extends Controller
         return view('home.size_product', compact('size', 'product'));
     }
 
+
+
     public function all_addresses()
     {
         if(Auth::id())

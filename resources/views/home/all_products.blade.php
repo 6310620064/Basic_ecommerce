@@ -20,6 +20,7 @@
       <link href="home/css/style.css" rel="stylesheet" />
       <!-- responshome/ive style -->
       <link href="home/css/responsive.css" rel="stylesheet" />
+
    </head>
    <body>
         <div style ="margin-top:10px;">

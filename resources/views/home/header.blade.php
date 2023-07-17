@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="{{ asset ('css/static.css') }}">
+
 
 <header class="header_section">
    <div class="container">
@@ -52,12 +54,12 @@
                         <img src="{{ asset('images/user_avatar.png') }}" width="40" height="40" class="rounded-circle">
                      </a>
                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{route('all_orders')}}">My Order</a>
-                        <a class="dropdown-item" href="{{route('all_addresses')}}">Address</a>
+                        <a class="dropdown-item" href="{{route('all_orders')}}" style="text-align:center;">My Order</a>
+                        <a class="dropdown-item" href="{{route('all_addresses')}}" style="text-align:center;" >My Address</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">
                               <form method="POST" action="{{ route('logout') }}" class="inline">
                                  @csrf
-                                 <button type="submit" id="logoutcss" class="btn btn-danger btn-sm" style="margin:auto;">
+                                 <button type="submit" id="logoutcss" class="btn btn-danger btn-sm" style="text-align:center;">
                                     {{ __('Log Out') }}
                                  </button>
                               </form>

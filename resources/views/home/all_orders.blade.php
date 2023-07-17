@@ -39,7 +39,7 @@
     <div class ="hero_area">
 
         <div class ="div_empty_center">
-            <h1>You Don't Have Any Orders.</h1>
+            <h1>You don't have any orders.</h1>
         </div>
   
         <div class ="proceed">
@@ -68,8 +68,7 @@
                         <td>{{$order->order_no}}</td>
                         <td> ฿ {{number_format($order->total_price,2)}}</td>
                         <td>{{$order->shipping_address->address}}</td>
-                        <td>{{substr($order->shipping_address->Phone,0,3) . '-' . substr($order->shipping_address->Phone,3,3). '-' . substr($order->shipping_address->Phone, 6)}}</td>
-                        <td>{{$order->payment_status}}</td>
+                        <td>{{substr($order->shipping_address->Phone,0,3) . '-' . substr($order->shipping_address->Phone,3,3). '-' . substr($order->shipping_address->Phone, 6)}}</td>                        <td>{{$order->payment_status}}</td>
                         <td>{{$order->delivery_status}}</td>
                         <td>
                             <a style="margin-bottom:10px; margin-top:10px;"class ="btn btn-primary" href="{{route('order_item' , $order->id)}}">Detail <span class="iconify" data-icon="tabler:list-details" data-rotate="180deg"></span></a><br>
