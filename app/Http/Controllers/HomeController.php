@@ -91,11 +91,14 @@ class HomeController extends Controller
         $now = Carbon::now();
 
         $brand = Brand::find($id);
-        $product = Product::where('brand_id', $id)->where('start_display', '<=', $now)
-        ->where(function ($query) use ($now) {
-            $query->where('end_display', '>', $now)
-                ->orWhereNull('end_display');
-        })->paginate(6);
+        
+        $product = Product::where('brand_id', $id)
+                            ->where('amount', '!=', 0)
+                            ->where('start_display', '<=', $now)
+                            ->where(function ($query) use ($now) {
+                                $query->where('end_display', '>', $now)
+                                    ->orWhereNull('end_display');
+                            })->paginate(6);
 
         return view('home.brand_product', compact('brand', 'product'));
     }
@@ -116,11 +119,13 @@ class HomeController extends Controller
     {
         $now = Carbon::now();
         $category = Category::find($id);
-        $product = Product::where('category_id', $id)->where('start_display', '<=', $now)
-        ->where(function ($query) use ($now) {
-            $query->where('end_display', '>', $now)
-                ->orWhereNull('end_display');
-        })->paginate(6);
+        $product = Product::where('category_id', $id)
+                            ->where('amount', '!=', 0)
+                            ->where('start_display', '<=', $now)
+                            ->where(function ($query) use ($now) {
+                                $query->where('end_display', '>', $now)
+                                    ->orWhereNull('end_display');
+                            })->paginate(6);
 
         return view('home.category_product', compact('category', 'product'));
     }
@@ -141,11 +146,13 @@ class HomeController extends Controller
         $now = Carbon::now();
 
         $size = Size::find($id);
-        $product = Product::where('size_id', $id)->where('start_display', '<=', $now)
-        ->where(function ($query) use ($now) {
-            $query->where('end_display', '>', $now)
-                ->orWhereNull('end_display');
-        })->paginate(6);
+        $product = Product::where('size_id', $id)
+                            ->where('amount', '!=', 0)
+                            ->where('start_display', '<=', $now)
+                            ->where(function ($query) use ($now) {
+                                $query->where('end_display', '>', $now)
+                                    ->orWhereNull('end_display');
+                            })->paginate(6);
 
         return view('home.size_product', compact('size', 'product'));
     }

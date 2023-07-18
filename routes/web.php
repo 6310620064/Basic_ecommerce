@@ -97,9 +97,19 @@ Route::post('/brand_arrow_down/{id}', [ChangeOrderController::class, 'brand_arro
 Route::post('/brand_arrow_up/{id}', [ChangeOrderController::class, 'brand_arrow_up'])->where('id', '[0-9]+')->name('brand_arrow_up');
 Route::post('/gallery_arrow_down/{id}', [ChangeOrderController::class, 'gallery_arrow_down'])->where('id', '[0-9]+')->name('gallery_arrow_down');
 Route::post('/gallery_arrow_up/{id}', [ChangeOrderController::class, 'gallery_arrow_up'])->where('id', '[0-9]+')->name('gallery_arrow_up');
-Route::get('/all_orders', [OrderController::class, 'all_orders'])->name('all_orders');
-Route::get('/order_item/{id}', [OrderController::class, 'order_item'])->where('id', '[0-9]+')->name('order_item');
 
+
+//Order
+Route::get('/show_order', [AdminController::class, 'show_order'])->name('show_order');
+Route::get('/view_slip/{id}', [AdminController::class, 'view_slip'])->where('id', '[0-9]+')->name('view_slip');
+Route::get('/all_order_item/{id}', [AdminController::class, 'all_order_item'])->where('id', '[0-9]+')->name('all_order_item');
+Route::get('/out_of_delivery/{id}', [AdminController::class, 'out_of_delivery'])->where('id', '[0-9]+')->name('out_of_delivery');
+Route::get('/delivered/{id}', [AdminController::class, 'delivered'])->where('id', '[0-9]+')->name('delivered');
+Route::get('/returned/{id}', [AdminController::class, 'returned'])->where('id', '[0-9]+')->name('returned');
+Route::get('/cancelled/{id}', [AdminController::class, 'cancelled'])->where('id', '[0-9]+')->name('cancelled');
+Route::get('/approved/{id}', [AdminController::class, 'approved'])->where('id', '[0-9]+')->name('approved');
+Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf'])->where('id', '[0-9]+')->name('print_pdf');
+Route::post('/add_tracking_no/{id}', [AdminController::class, 'add_tracking_no'])->where('id', '[0-9]+')->name('add_tracking_no');
 
 //ALL OF USERS
 Route::get('/all_products', [HomeController::class, 'all_products'])->name('all_products');
@@ -131,6 +141,10 @@ Route::get('/pay_qrcode', [OrderController::class, 'pay_qrcode'])->name('pay_qrc
 Route::post('/payment_log',[OrderController::class,'payment_log'])->name('payment_log');
 Route::get('/select_address', [OrderController::class, 'select_address'])->name('select_address');
 Route::post('/select_address_confirm', [OrderController::class, 'select_address_confirm'])->name('select_address_confirm');
+Route::get('/all_orders', [OrderController::class, 'all_orders'])->name('all_orders');
+Route::get('/order_item/{id}', [OrderController::class, 'order_item'])->where('id', '[0-9]+')->name('order_item');
+
+
 
 
 

@@ -151,27 +151,61 @@
         </script>
         <script>
             document.getElementById('add_cart').addEventListener('submit', function (event) {
-            event.preventDefault();
-            Swal.fire({
+                event.preventDefault();
+                var form = event.target;
+                var formData = new FormData(form);
+                var amount = formData.get('amount');
+
+                // ตรวจสอบว่า amount ไม่ใช่ null หรือว่างเปล่า
+                if (amount === null || amount === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid quantity',
+                    text: 'Please enter a valid quantity.',
+                });
+                return;
+                }
+
+                // ตรวจสอบว่า amount เป็นจำนวนเต็มบวกหรือไม่
+                if (amount <= 0 || isNaN(amount)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid quantity',
+                    text: 'Please enter a valid quantity greater than 0.',
+                });
+                return;
+                }
+
+                // ตรวจสอบว่า amount ไม่เกินจำนวนที่มีในสต็อกของสินค้า
+                var stockAmount = {{ $product->amount }}; // ตัวอย่างการใช้งานตามที่ product มีการเก็บจำนวนสินค้าในตัวแปร $product->amount
+                if (amount > stockAmount) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid quantity',
+                    text: 'Please enter a quantity less than or equal to the stock amount.',
+                });
+                return;
+                }
+
+                Swal.fire({
                 icon: 'success',
                 title: 'Add to cart successfully',
                 showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
+                timer: 1500,
+                }).then(() => {
                 // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
-                var form = event.target;
-                var formData = new FormData(form);
-
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', form.action, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        console.log('Add to cart successfully');
+                    console.log('Add to cart successfully');
                     }
                 };
                 xhr.send(formData);
+                });
             });
-        });
-        </script>
+            </script>
+
+
     </body>
 </html>

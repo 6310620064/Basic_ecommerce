@@ -111,8 +111,8 @@
                     <button class="btn btn-warning" onclick="noAddressAlert()">Cash on Delivery</button>
                     <button class="btn btn-warning" onclick="noAddressAlert()">Pay With QRCODE</button>
                 @else
-                    <a href="{{route('cash_order')}}" class="btn btn-warning" onclick="checkQuantity()">Cash on Delivery</a>
-                    <a href="{{route('pay_qrcode')}}" class="btn btn-warning" onclick="checkQuantityQrcode()">Pay With QRCODE</a>
+                    <a href="{{route('cash_order')}}" class="btn btn-warning" onclick="checkQuantity()">Cash On Delivery</a>
+                    <a href="{{route('pay_qrcode')}}" class="btn btn-warning" onclick="checkQuantityQrcode()">Pay With Qrcode</a>
                 @endif
 
             </div>

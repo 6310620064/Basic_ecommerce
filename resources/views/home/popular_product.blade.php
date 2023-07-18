@@ -8,7 +8,7 @@
             <div class="row">
 
                @foreach($product as $products)
-                  @if($products->is_highlight == '1' && $products->is_active =='1' && $products->start_display <= now() && $products->end_display > now())
+                  @if($products->is_highlight == '1' && $products->is_active =='1' && $products->start_display <= now() && $products->end_display > now() && $products->amount != '0' )
 
                      <div class="col-sm-6 col-md-4 col-lg-4">
                         <div class="box">
@@ -44,7 +44,7 @@
                               </div>
                         </div>
                      </div>
-                  @elseif($products->is_highlight == '1' && $products->is_active =='1' && $products->start_display <= now()  && $products->end_display == null)
+                  @elseif($products->is_highlight == '1' && $products->is_active =='1' && $products->start_display <= now()  && $products->end_display == null && $products->amount != '0')
                      <div class="col-sm-6 col-md-4 col-lg-4">
                            <div class="box">
                               <div class="option_container">

@@ -41,7 +41,7 @@ class OrderController extends Controller
             $order->order_no = uniqid();
             $order->user_id = $userid;
             $order->total_price = $total_price;
-            $order->payment_status = "Cash on Delivery";
+            $order->payment_status = "Cash On Delivery";
             $order->delivery_status = "Processing";
             $order->shipping__address_id = $address->id;
             $order->save();
@@ -123,7 +123,7 @@ class OrderController extends Controller
             $order->order_no = uniqid();
             $order->user_id = $userid;
             $order->total_price = $total_price;
-            $order->payment_status = "Pay With QRCODE";
+            $order->payment_status = "Pay With Qrcode";
             $order->delivery_status = "Processing";
             $order->shipping__address_id = $address->id;
             $order->save();
@@ -214,9 +214,17 @@ class OrderController extends Controller
 
     public function order_item($id)
     {
-        $order = Order::find($id);
-        $items = OrderItem::where('order_id', $order->id)->get();
+        $user = Auth::user();
+        $order = Order::withTrashed()->where('id', $id)->first();
 
-            return view('home.order_item', compact('order','items'));
+        if ($order && $user->id === $order->user_id) {
+            $items = OrderItem::where('order_id', $order->id)
+                ->orderBy('id', 'desc')
+                ->get();
+            return view('home.order_item', compact('order', 'items'));
+        } else {
+            abort(404);
+        }
     }
+
 }

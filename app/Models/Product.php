@@ -29,6 +29,7 @@ class Product extends Model
 
     public function scopePublished( $query ){
         return $query->where('is_active', 1)
+                    ->where('amount', '!=', 0)
                     ->where('start_display','<=',now())
                     ->where( function( $query ){
                         $query->where('end_display', '>', now())

@@ -70,6 +70,7 @@
         <div>
             <a style="margin-left:80px;" href="{{route('all_orders')}}" class="btn btn-primary">Back</a>
         </div>
+
     </div>
       <!-- footer start -->
       @include('home.footer')
