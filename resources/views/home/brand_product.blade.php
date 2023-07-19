@@ -61,12 +61,12 @@
 
                                  <h6 style ="text-decoration: line-through;">
                                  Price <br>
-                                 ฿ {{number_format($products->price_normal)}} 
+                                 {{number_format($products->price_normal)}} ฿
                                  </h6>
 
                                  <h6 style="color:red;">
                                     Member Price <br>
-                                    ฿ {{number_format($products->price_member)}} 
+                                    {{number_format($products->price_member)}} ฿
                                  </h6>        
 
                                  <h6 style="padding-left:190px;">
@@ -96,12 +96,12 @@
 
                                     <h6 style ="text-decoration: line-through;">
                                     Price <br>
-                                    ฿ {{number_format($products->price_normal)}} 
+                                    {{number_format($products->price_normal)}} ฿
                                     </h6>
 
                                     <h6 style="color:red;">
                                        Member Price <br>
-                                       ฿ {{number_format($products->price_member)}} 
+                                       {{number_format($products->price_member)}} ฿
                                     </h6>        
 
                                     <h6 style="padding-left:190px;">

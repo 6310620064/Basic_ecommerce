@@ -66,7 +66,7 @@
                 <tbody>
                     <tr>
                         <td>{{$order->order_no}}</td>
-                        <td> ฿ {{number_format($order->total_price,2)}}</td>
+                        <td>{{number_format($order->total_price,2)}} ฿</td>
                         <td>{{$order->shipping_address->address}}</td>
                         <td>{{substr($order->shipping_address->Phone,0,3) . '-' . substr($order->shipping_address->Phone,3,3). '-' . substr($order->shipping_address->Phone, 6)}}</td>                        <td>{{$order->payment_status}}</td>
                         <td>{{$order->delivery_status}}</td>

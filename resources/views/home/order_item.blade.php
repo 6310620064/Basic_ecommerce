@@ -53,16 +53,16 @@
             <tbody>
                 <tr>
                      <td>{{$item->product->name}}</td>
-                     <td> ฿ {{number_format($item->price,2)}}</td>
+                     <td>{{number_format($item->price,2)}} ฿</td>
                      <td>{{$item->quantity}}</td>
-                     <td>฿ {{number_format($item->sub_total,2)}}</td>
+                     <td>{{number_format($item->sub_total,2)}} ฿</td>
                 </tr>
             </tbody>
         @endforeach
         <tfoot>
             <tr>
                 <td colspan="1" style="text-align: center;"><strong>Total Price</strong></td>
-                <td colspan="3"><strong>฿ {{number_format($order->total_price,2)}}</strong></td>
+                <td colspan="3"><strong>{{number_format($order->total_price,2)}} ฿</strong></td>
             </tr>
         </tfoot>
         </table>

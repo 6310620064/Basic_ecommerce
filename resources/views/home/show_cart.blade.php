@@ -77,13 +77,13 @@
                             {{$cart ->product->name}}
                         </div>
                     </td >
-                    <td  class= "td_deg">฿ {{number_format($cart ->product->price_member,2)}}</td>
+                    <td  class= "td_deg">{{number_format($cart ->product->price_member,2)}} ฿</td>
                     <td  class= "td_deg">
                         <button class="reduce_qty" data-cart-id="{{ $cart->id }}"> - </button>
                         <input class="qty" type="string" value="{{ $cart->quantity }}" data-amount="{{ $cart->product->amount }}">
                         <button class="add_qty" data-cart-id="{{ $cart->id }}"> + </button>
                     </td>
-                    <td  class = "td_deg"><span class="subtotal">{{number_format($cart->product->price_member * $cart->quantity, 2)}}</span></td>
+                    <td  class = "td_deg"><span class="subtotal">{{number_format($cart->product->price_member * $cart->quantity, 2)}} ฿</span></td>
                     <td  class = "td_deg" >
                         <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_cart' , $cart->id)}}"><i class="fas fa-trash-alt"></i> Delete</a>
                     </td>
@@ -96,7 +96,7 @@
                 </tbody>
             </table>
             <div>
-                <h1 id="total_price" class ="total_deg">Total Price : ฿ {{number_format($total_price,2)}}</h1>
+                <h1 id="total_price" class ="total_deg">Total Price : {{number_format($total_price,2)}} ฿</h1>
             </div>
 
 
@@ -309,7 +309,7 @@
                 var price = parseFloat(quantityInputs[i].parentNode.previousElementSibling.textContent.replace('฿', '').replace(',', ''));
 
                 var subtotal = quantity * price;
-                var formattedSubtotal = '฿ ' + number_format(subtotal, 2);
+                var formattedSubtotal = number_format(subtotal, 2) + ' ฿';
 
                 subtotalElements[i].textContent = formattedSubtotal;
 
@@ -317,7 +317,7 @@
             }
 
             var totalElement = document.getElementById('total_price');
-            totalElement.textContent = 'Total Price: ฿ ' + number_format(total_price, 2);
+            totalElement.textContent = 'Total Price: ' + number_format(total_price, 2) + ' ฿';
         }
 
         function number_format(number, decimals, dec_point, thousands_sep) {
