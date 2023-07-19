@@ -12,6 +12,7 @@ use App\Models\Size;
 use App\Models\Product_Detail;
 use App\Models\Product_Gallery;
 use App\Models\Shipping_address;
+use App\Models\Order;
 
 use Carbon\Carbon;
 
@@ -40,8 +41,27 @@ class HomeController extends Controller
 
         if($usertype=='1')
         {
-            return view('admin.home');
+            $total_product = Product::All()->count();
+            $total_order = Order::withTrashed()->count();
+            $total_user = User::All()->count();
+            $order = Order::withTrashed()->get();
+            $total_revenue = 0;
+            foreach($order as $order)
+            {
+                $total_revenue = $total_revenue + $order->total_price;
+            }
+            $total_delivered = Order::withTrashed()->where('delivery_status','=','Delivered')->get()->count();
+            $total_outofdelivery = Order::withTrashed()->where('delivery_status','=','Out of delivery')->get()->count();
+            $total_processing = Order::withTrashed()->where('delivery_status','=','Processing')->get()->count();
+            $total_returned = Order::withTrashed()->where('delivery_status','=','Returned')->get()->count();
+            $total_cancelled = Order::withTrashed()->where('delivery_status','=','Cancelled')->get()->count();
+
+
+
+            return view('admin.home' , compact('total_product','total_order','total_user','total_revenue'
+            ,'total_delivered','total_outofdelivery','total_processing','total_returned','total_cancelled'));
         }
+
         else
         {
             $product = Product::where('is_highlight', '1')->where(function($productQuery){

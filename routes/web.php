@@ -41,7 +41,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/redirect',[HomeController::class,'redirect'])->name('redirect');
+Route::get('/redirect',[HomeController::class,'redirect'])->middleware('auth','verified')->name('redirect');
 
 
 ///ALL OF ADMIN///
