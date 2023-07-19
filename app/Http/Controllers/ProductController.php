@@ -20,6 +20,21 @@ class ProductController extends Controller
          
     }
 
+    public function search_detail(Request $request ,$id)
+    {
+        $product = Product::find($id);
+        $search_detail = $request->search;
+        $detail = Product_Detail::where('product_id', $id)
+                                ->where(function ($query) use ($search_detail) {
+                                $query->where('type', 'LIKE', "%$search_detail%")
+                                    ->orWhere('value', 'LIKE', "%$search_detail%")
+                                    ->orWhere('language', 'LIKE', "%$search_detail%");
+                                })
+                                    ->paginate(6);
+
+        return view('admin.show_detail', compact('product','detail'));
+    }
+
     public function add_detail(Request $request)
     {
         $detail = new Product_Detail;

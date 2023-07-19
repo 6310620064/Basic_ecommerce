@@ -33,7 +33,15 @@
 
             <div class="add-button-container">
                 <a class="btn btn-info" href="{{route('add_brand_page')}}">Add</a>
-            </div>  
+            </div>
+            
+            <div class ="search-boxs">
+                <form action="{{route('search_brand')}}" method="GET">
+                    @csrf
+                        <input class ="input_color"type ="text" name="search" placeholder="Search">
+                        <input type="submit" value="Search" class="btn btn-outline-success">
+                </form>
+            </div>
             
             <table class="center">
                     <tr>

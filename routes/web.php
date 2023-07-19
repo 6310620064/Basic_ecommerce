@@ -117,6 +117,10 @@ Route::post('/add_tracking_no/{id}', [AdminController::class, 'add_tracking_no']
 //Search
 Route::get('/search_order', [AdminController::class, 'search_order'])->name('search_order');
 Route::get('/search_product', [AdminController::class, 'search_product'])->name('search_product');
+Route::get('/search_category', [AdminController::class, 'search_category'])->name('search_category');
+Route::get('/search_size', [AdminController::class, 'search_size'])->name('search_size');
+Route::get('/search_brand', [AdminController::class, 'search_brand'])->name('search_brand');
+Route::get('/search_detail/{id}', [ProductController::class, 'search_detail'])->where('id', '[0-9]+')->name('search_detail');
 
 
 //ALL OF USERS

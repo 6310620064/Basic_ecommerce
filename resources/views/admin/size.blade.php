@@ -36,6 +36,14 @@
                 <a class="btn btn-info" href="{{route('add_size_page')}}">Add</a>
             </div>  
 
+            <div class ="search-boxs">
+                <form action="{{route('search_size')}}" method="GET">
+                    @csrf
+                        <input class ="input_color"type ="text" name="search" placeholder="Search">
+                        <input type="submit" value="Search" class="btn btn-outline-success">
+                </form>
+            </div>
+
             <table class="center">
                 <tr>
                     <th>Size</th>

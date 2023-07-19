@@ -20,12 +20,23 @@
         <!-- partial -->
     <div class="main-panel">
         <div class="content-wrapper">
-        <div class="div_center">
 
-            <h2 class ="h2_font"> All details of {{$product->name}} </h2><br>
-            <div class="add-button-container">
-                <a class="btn btn-info" href="{{route('view_detail', $product->id)}}">Add</a>
-            </div>               
+        <div class="div_center">
+            <h2 class ="h2_font"> All details of {{$product->name}} </h2>
+        </div>
+
+        <div class="add-button-container">
+            <a class="btn btn-info" href="{{route('view_detail', $product->id)}}">Add</a>
+        </div> 
+
+        <div class ="search-boxs">
+            <form action="{{route('search_detail' , $product->id)}}" method="GET">
+                @csrf
+                    <input class ="input_color"type ="text" name="search" placeholder="Search">
+                    <input type="submit" value="Search" class="btn btn-outline-success">
+            </form>
+        </div>
+
                 <table class="center">
                     <tr>
                         <th>ID</th>

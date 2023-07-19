@@ -515,6 +515,8 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    //Search Function
+
     public function search_order(Request $request)
     {
         $search_order = $request->search;   
@@ -544,7 +546,6 @@ class AdminController extends Controller
                             ->where('name','LIKE',"%$search_product%")
                             ->orWhere('price_normal','LIKE',"%$search_product%")
                             ->orWhere('price_member','LIKE',"%$search_product%")
-                            ->orWhere('amount','LIKE',"%$search_product%")
                             ->orWhereHas('brand', function ($query) use ($search_product) {
                                 $query->where('name', 'LIKE', "%$search_product%");
                             })
@@ -560,5 +561,32 @@ class AdminController extends Controller
 
     }
 
+    public function search_category(Request $request)
+    {
+        $search_category = $request->search;
+        $data = Category::where('name','LIKE',"%$search_category%")
+                            ->paginate(6);
+
+        return view('admin.category', compact('data'));
+    }
+
+    public function search_size(Request $request)
+    {
+        $search_size = $request->search;
+        $size = Size::where('size','LIKE',"%$search_size%")
+                            ->paginate(6);
+
+        return view('admin.size', compact('size'));
+    }
+
+    public function search_brand(Request $request)
+    {
+        $search_brand = $request->search;
+        $brand = Brand::where('name','LIKE',"%$search_brand%")
+                            ->orWhere('order','LIKE',"%$search_brand%")
+                            ->paginate(6);
+
+        return view('admin.brand', compact('brand'));
+    }
 
 }
