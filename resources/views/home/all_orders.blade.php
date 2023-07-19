@@ -74,7 +74,7 @@
                         <td>{{substr($order->shipping_address->Phone,0,3) . '-' . substr($order->shipping_address->Phone,3,3). '-' . substr($order->shipping_address->Phone, 6)}}</td>                        <td>{{$order->payment_status}}</td>
                         <td>{{$order->delivery_status}}</td>
                         <td>
-                            @if($order->delivery_status != 'Cancelled' && $order->delivery_status != 'Returned' )
+                            @if($order->delivery_status != 'Cancelled' && $order->delivery_status != 'Returned'  && $order->delivery_status != 'Delivered')
                                 <a  onclick="confirmation(event)" style="margin-bottom:10px; margin-top:10px;"class ="btn btn-danger" href="{{route('cancel_order' , $order->id)}}">Cancel</a><br>
                             @endif
                         </td>
