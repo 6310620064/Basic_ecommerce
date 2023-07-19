@@ -155,6 +155,8 @@ Route::get('/select_address', [OrderController::class, 'select_address'])->name(
 Route::post('/select_address_confirm', [OrderController::class, 'select_address_confirm'])->name('select_address_confirm');
 Route::get('/all_orders', [OrderController::class, 'all_orders'])->name('all_orders');
 Route::get('/order_item/{id}', [OrderController::class, 'order_item'])->where('id', '[0-9]+')->name('order_item');
+Route::get('/cancel_order/{id}', [OrderController::class, 'cancel_order'])->where('id', '[0-9]+')->name('cancel_order');
+
 
 
 

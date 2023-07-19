@@ -65,13 +65,18 @@
             @foreach ($orders as $order)
                 <tbody>
                     <tr>
-                        <td>{{$order->order_no}}</td>
+                        <td>
+                            {{$order->order_no}}<br>
+                            <a style="margin-bottom:10px; margin-top:10px;"class ="btn btn-primary" href="{{route('order_item' , $order->id)}}">Detail <span class="iconify" data-icon="tabler:list-details" data-rotate="180deg"></span></a><br>
+                        </td>
                         <td>{{number_format($order->total_price,2)}} ฿</td>
                         <td>{{$order->shipping_address->address}}</td>
                         <td>{{substr($order->shipping_address->Phone,0,3) . '-' . substr($order->shipping_address->Phone,3,3). '-' . substr($order->shipping_address->Phone, 6)}}</td>                        <td>{{$order->payment_status}}</td>
                         <td>{{$order->delivery_status}}</td>
                         <td>
-                            <a style="margin-bottom:10px; margin-top:10px;"class ="btn btn-primary" href="{{route('order_item' , $order->id)}}">Detail <span class="iconify" data-icon="tabler:list-details" data-rotate="180deg"></span></a><br>
+                            @if($order->delivery_status != 'Cancelled' && $order->delivery_status != 'Returned' )
+                                <a  onclick="confirmation(event)" style="margin-bottom:10px; margin-top:10px;"class ="btn btn-danger" href="{{route('cancel_order' , $order->id)}}">Cancel</a><br>
+                            @endif
                         </td>
                     </tr>
                 </tbody>
@@ -106,5 +111,31 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script>
+        function confirmation(event) {
+            event.preventDefault();
+            var urlToRedirect = event.currentTarget.getAttribute('href');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to cancel this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No, not sure!',
+                confirmButtonText: 'Yes, cancel order!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Cancelled!',
+                        'Your order has been cancelled.',
+                        'success'
+                    )
+                    // Redirect to the URL
+                    window.location.href = urlToRedirect;
+                }
+            });
+        }
+    </script>
     </body>
 </html>

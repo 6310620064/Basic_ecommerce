@@ -227,4 +227,20 @@ class OrderController extends Controller
         }
     }
 
+    public function cancel_order($id)
+    {
+        $user = Auth::user();
+        $order = Order::withTrashed()->where('id', $id)->first();
+
+        if ($order && $user->id === $order->user_id) {
+            
+            $order->delivery_status = "Cancelled";
+            $order->save();
+
+            return redirect()->back();
+        } else {
+            abort(404);
+        }
+    }
+
 }

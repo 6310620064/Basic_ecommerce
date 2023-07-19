@@ -512,7 +512,7 @@ class AdminController extends Controller
         $order->tracking_no = $request->tracking_no;
         $order->delivery_status = "Out of delivery";
         $order->save();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Add tracking no. successfully');
     }
 
     //Search Function
