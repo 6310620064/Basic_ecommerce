@@ -29,52 +29,13 @@
         @endif
 
             <div class="div_center">
-                <h2 class ="h2_font">Add Size</h2>
-
-                <form id="create_size" action ="{{route('add_size')}}" method="POST">
-                    @csrf
-                    <div class = "div_design">
-                        <label> Size :</label>
-                        <input class="input_form" type="text" name="size" placeholder="Size" required="">
-                    </div>
-                    
-                    <input type="hidden" class="input_form" name="is_active" value="0">
-                    <input type="checkbox" class="input_form" name="is_active" value="1" checked>
-                    <label for="active">Active</label><br>
-
-                    <input type="submit" class ="btn btn-primary" name="submit" value="Add Size">  
-                </form>
-
-                <script>
-                    document.getElementById('create_size').addEventListener('submit', function (event) {
-                        event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
-
-                        Swal.fire({
-                        icon: 'success',
-                        title: 'Size created successfully',
-                        showConfirmButton: false,
-                        timer: 1500
-                        }).then(() => {
-                        // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
-                        var form = event.target;
-                        var formData = new FormData(form);
-
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('POST', form.action, true);
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                            // ส่งคำขอเสร็จสมบูรณ์
-                            console.log('Size submitted successfully');
-                            // โหลดหน้าเว็บใหม่
-                            location.reload();
-                            }
-                        };
-                        xhr.send(formData);
-                        });
-                    });
-                </script>
-                
+                <h2 class ="h2_font">All Sizes</h2>                
             </div>
+
+            <div class="add-button-container">
+                <a class="btn btn-info" href="{{route('add_size_page')}}">Add</a>
+            </div>  
+
             <table class="center">
                 <tr>
                     <th>Size</th>

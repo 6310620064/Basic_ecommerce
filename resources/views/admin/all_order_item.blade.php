@@ -49,7 +49,7 @@
                     <tr>
                         <td>{{$item->product->name}}</td>
                         <td>
-                            <img src="{{ \Storage::url( $item->product->image ) }}" alt=""/>
+                            <img class="img_center" src="{{ \Storage::url( $item->product->image ) }}" alt="" onclick="showFullImage(this)" style="max-width: 150px; max-height: 150px;"/>
                         </td>
                         <td> ฿ {{number_format($item->price,2)}}</td>
                         <td>{{$item->quantity}}</td>
@@ -78,6 +78,20 @@
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        function showFullImage(image) {
+            const imageUrl = image.src;
+            Swal.fire({
+                imageUrl,
+                imageAlt: 'Full Image',
+                width: '500px',
+                height: '500px',
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        }
+    </script>
 
   </body>
         

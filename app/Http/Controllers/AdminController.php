@@ -19,13 +19,28 @@ class AdminController extends Controller
     //Categories
     public function view_category()
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1){
+                $data = Category::orderBy('id', 'desc')->paginate(6);
+
+                return view('admin.category',compact('data'));
+            }
+            else {
+                abort(404);
+            }
+        } else {
+            abort(404);
+        }
+    }
+
+    public function add_category_page()
+    {
         $user = Auth::user();
         if($user->usertype == 1){
-            $data = Category::orderBy('id', 'desc')->paginate(6);
-
-            return view('admin.category',compact('data'));
+            return view('admin.add_category');
         }
-        else {
+        else{
             abort(404);
         }
     }
@@ -47,12 +62,16 @@ class AdminController extends Controller
 
     public function update_category($id)
     {
-        $user = Auth::user();
-        $data= Category::find($id);
-        if($user->usertype == 1){
-            return view('admin.update_category', compact('data'));
-        }
-        else{
+        if (Auth::check()) {
+            $user = Auth::user();
+            $data= Category::find($id);
+            if($user->usertype == 1){
+                return view('admin.update_category', compact('data'));
+            }
+            else{
+                abort(404);
+            }
+        } else {
             abort(404);
         }
     }
@@ -82,13 +101,32 @@ class AdminController extends Controller
     //Sizes
     public function view_size()
     {
-        $user = Auth::user();
-        if($user->usertype == 1){
-            $size = Size::orderBy('id', 'desc')->paginate(6);
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1){
+                $size = Size::orderBy('id', 'desc')->paginate(6);
 
-            return view('admin.size',compact('size'));
-        }
-        else{
+                return view('admin.size',compact('size'));
+            }
+            else{
+                abort(404);
+            }
+        } else {
+            abort(404);
+        }   
+    }
+
+    public function add_size_page()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1){
+                return view('admin.add_size');
+            }
+            else{
+                abort(404);
+            }
+        } else {
             abort(404);
         }
     }
@@ -108,13 +146,17 @@ class AdminController extends Controller
     
     public function update_size($id)
     {
-        $user = Auth::user();
-        if($user->usertype == 1){
-            $size = Size::find($id);
-      
-            return view('admin.update_size', compact('size'));
-        }
-        else{
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1){
+                $size = Size::find($id);
+        
+                return view('admin.update_size', compact('size'));
+            }
+            else{
+                abort(404);
+            }
+        } else{
             abort(404);
         }
     }
@@ -142,12 +184,31 @@ class AdminController extends Controller
     //Brands
     public function view_brand()
     {
-        $user = Auth::user();
-        if($user->usertype == 1){
-            $brand = Brand::orderBy('order')->paginate(6);
-            return view('admin.brand',compact('brand'));
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1){
+                $brand = Brand::orderBy('order')->paginate(6);
+                return view('admin.brand',compact('brand'));
+            }
+            else{
+                abort(404);
+            }
+        } else{
+            abort(404);
         }
-        else{
+    }
+
+    public function add_brand_page()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1){
+                return view('admin.add_brand');
+            }
+            else{
+                abort(404);
+            }
+        } else {
             abort(404);
         }
     }
@@ -173,13 +234,17 @@ class AdminController extends Controller
     
     public function update_brand($id)
     {
-        $user = Auth::user();
-        if($user->usertype == 1){
-            $brand= Brand::find($id);
-      
-            return view('admin.update_brand', compact('brand'));
-        }
-        else{
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1){
+                $brand= Brand::find($id);
+        
+                return view('admin.update_brand', compact('brand'));
+            }
+            else{
+                abort(404);
+            }
+        } else{
             abort(404);
         }
     }
@@ -214,16 +279,20 @@ class AdminController extends Controller
     //Products
     public function view_product()
     {
-        $user = Auth::user();
-        if($user->usertype == 1){
-            $category = Category::all();
-            $brand = Brand::all();
-            $size = Size::all();
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1){
+                $category = Category::all();
+                $brand = Brand::all();
+                $size = Size::all();
 
 
-            return view('admin.product', compact('category','brand','size'));
-        }
-        else{
+                return view('admin.product', compact('category','brand','size'));
+            }
+            else{
+                abort(404);
+            }
+        } else{
             abort(404);
         }
     }
@@ -251,14 +320,15 @@ class AdminController extends Controller
 
     public function show_product()
     {
-        $user = Auth::user();
-        if($user->usertype == 1){
-            $product = Product::orderBy('id', 'desc')->paginate(6);
-
-            return view('admin.show_product', compact('product'));
-        }
-        else
-        {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->usertype == 1) {
+                $product = Product::orderBy('id', 'desc')->paginate(6);
+                return view('admin.show_product', compact('product'));
+            } else {
+                abort(404);
+            }
+        } else {
             abort(404);
         }
     }
@@ -315,32 +385,39 @@ class AdminController extends Controller
 
     public function show_order()
     {
-        $user = Auth::user();
-        if($user->usertype == 1){
-            $orders = Order::with(['shipping_address' => function ($query) {
-                $query->withTrashed(); 
-            }])
-            ->withTrashed()
-            ->orderBy('id', 'desc')
-            ->paginate(6);
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1 ){
+                $order = Order::with(['shipping_address' => function ($query) {
+                    $query->withTrashed(); 
+                }])
+                ->withTrashed()
+                ->orderBy('id', 'desc')
+                ->paginate(6);
 
-            return view('admin.show_order',compact('orders'));
-        }
-        else{
+                return view('admin.show_order',compact('order'));
+            }
+            else{
+                abort(404);
+            }
+        } else{
             abort(404);
         }
     }
 
     public function all_order_item($id)
     {
-        $user = Auth::user();
-        $order = Order::withTrashed()->where('id', $id)->first();
-
-        if($user->usertype == 1){
-            $items = OrderItem::where('order_id', $order->id)
-                ->orderBy('id', 'desc')
-                ->get();
-            return view('admin.all_order_item', compact('order', 'items'));
+        if (Auth::check()) {
+            $user = Auth::user();
+            $order = Order::withTrashed()->where('id', $id)->first();
+            if($user->usertype == 1){
+                $items = OrderItem::where('order_id', $order->id)
+                    ->orderBy('id', 'desc')
+                    ->get();
+                return view('admin.all_order_item', compact('order', 'items'));
+            } else {
+                abort(404);
+            }
         } else {
             abort(404);
         }
@@ -392,15 +469,19 @@ class AdminController extends Controller
 
     public function view_slip($id)
     {
-        $user = Auth::user();
-        $order = Order::withTrashed()->where('id', $id)->first();
+        if (Auth::check()) {
+            $user = Auth::user();
+            $order = Order::withTrashed()->where('id', $id)->first();
 
-        if($user->usertype == 1){
-            $slip = Payment_log::where('order_id', $order->id)
-                ->orderBy('id', 'desc')
-                ->get();
-            return view('admin.view_slip', compact('order', 'slip'));
-        } else {
+            if($user->usertype == 1){
+                $slip = Payment_log::where('order_id', $order->id)
+                    ->orderBy('id', 'desc')
+                    ->get();
+                return view('admin.view_slip', compact('order', 'slip'));
+            } else {
+                abort(404);
+            }
+        } else{
             abort(404);
         }
     }
@@ -433,4 +514,51 @@ class AdminController extends Controller
         $order->save();
         return redirect()->back();
     }
+
+    public function search_order(Request $request)
+    {
+        $search_order = $request->search;   
+        $order = Order::withTrashed(['user','shipping_address'])->where('order_no','LIKE', "%$search_order%")
+                                    ->orWhere('total_price','LIKE', "%$search_order%")
+                                    ->orWhere('tracking_no','LIKE', "%$search_order%")
+                                    ->orWhere('delivery_status','LIKE', "%$search_order%")
+                                    ->orWhere('payment_status','LIKE', "%$search_order%")
+                                    ->orWhereHas('user', function ($query) use ($search_order) {
+                                        $query->where('name', 'LIKE', "%$search_order%");
+                                    })
+                                    ->orWhereHas('shipping_address', function ($query) use ($search_order) {
+                                        $query->where('address', 'LIKE', "%$search_order%");
+                                    })
+                                    ->orWhereHas('shipping_address', function ($query) use ($search_order) {
+                                        $query->where('Phone', 'LIKE', "%$search_order%");
+                                    })
+                                    ->paginate(6);
+
+        return view('admin.show_order' ,compact('order'));
+    }
+
+    public function search_product(Request $request)
+    {
+        $search_product = $request->search;
+        $product = Product::with(['brand','size','category'])
+                            ->where('name','LIKE',"%$search_product%")
+                            ->orWhere('price_normal','LIKE',"%$search_product%")
+                            ->orWhere('price_member','LIKE',"%$search_product%")
+                            ->orWhere('amount','LIKE',"%$search_product%")
+                            ->orWhereHas('brand', function ($query) use ($search_product) {
+                                $query->where('name', 'LIKE', "%$search_product%");
+                            })
+                            ->orWhereHas('category', function ($query) use ($search_product) {
+                                $query->where('name', 'LIKE', "%$search_product%");
+                            })
+                            ->orWhereHas('size', function ($query) use ($search_product) {
+                                $query->where('size', 'LIKE', "%$search_product%");
+                            })
+                            ->paginate(6);
+
+        return view('admin.show_product', compact('product'));
+
+    }
+
+
 }

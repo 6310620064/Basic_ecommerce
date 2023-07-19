@@ -35,7 +35,7 @@
 
                     <div class = "div_img" style="margin-left:auto;">
                         <label>Currect Image :</label>
-                        <img  height="150" width="150" src="{{ \Storage::url($brand->image)}}" alt="">
+                        <img  style="max-width: 150px; max-height: 150px;" src="{{ \Storage::url($brand->image)}}" alt=""  onclick="showFullImage(this)">
                     </div>
 
                     <div class = "div_img" style="margin-left:200px;">
@@ -96,6 +96,20 @@
             });
 
             </script>
+
+    <script>
+        function showFullImage(image) {
+            const imageUrl = image.src;
+            Swal.fire({
+                imageUrl,
+                imageAlt: 'Full Image',
+                width: '500px',
+                height: '500px',
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        }
+    </script>
 
         </div>
     </div>

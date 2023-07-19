@@ -28,58 +28,13 @@
             @endif
             
             <div class="div_center">
-                <h2 class ="h2_font">Add Brand</h2>
-
-                <form id = "create_brand" action ="{{route('add_brand')}}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class = "div_design">
-                        <input type="hidden" class="input_form" name="is_active" value="0">
-
-                        <label> Name :</label>
-                        <input class="input_form" type="text" name="name" placeholder="Name" required="">
-                    </div>
-                    <input class="input_form" type="hidden" name="amount" value="0">
-                    <div class = "div_img">
-                        <label> Image :</label>
-                        <input type="file" name="image" >
-                    </div>
-                
-
-                    <input class="input_form" type="hidden" name="order" value="1">
-
-                    <input type="checkbox" class="input_form" name="is_active" value="1" checked>
-                    <label for="active">Active</label><br>
-
-                    <input type="submit" class ="btn btn-primary" name="submit" value="Add Brand">  
-                </form>
-                <script>
-                    document.getElementById('create_brand').addEventListener('submit', function (event) {
-                    event.preventDefault(); // ยกเลิกการส่งฟอร์มแบบปกติ
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Brand created successfully',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(() => {
-                        // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
-                        var form = event.target;
-                        var formData = new FormData(form);
-
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('POST', form.action, true);
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                                // ส่งคำขอเสร็จสมบูรณ์
-                                console.log('Brand submitted successfully');
-                                // โหลดหน้าเว็บใหม่
-                                location.reload();
-                            }
-                        };
-                        xhr.send(formData);
-                    });
-                });
-                </script>
+                <h2 class ="h2_font">All Brands</h2>
             </div>
+
+            <div class="add-button-container">
+                <a class="btn btn-info" href="{{route('add_brand_page')}}">Add</a>
+            </div>  
+            
             <table class="center">
                     <tr>
                         <th>Name</th>
@@ -95,7 +50,7 @@
                         <td>{{$brands->name}}</td>
                         <td>{{$brands->products->count() ?? 0}}</td>
                         <td class = "show_img">
-                            <img src="{{ \Storage::url( $brands->image ) }}" alt=""/>
+                            <img class ="img_center"style="max-width: 150px; max-height: 150px;" src="{{ \Storage::url( $brands->image ) }}" alt="" onclick="showFullImage(this)" />
                         </td>
                         <td>{{$brands->order}}
                             @if($brands->order == '1')
@@ -146,6 +101,20 @@
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        function showFullImage(image) {
+            const imageUrl = image.src;
+            Swal.fire({
+                imageUrl,
+                imageAlt: 'Full Image',
+                width: '500px',
+                height: '500px',
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        }
+    </script>
 
     <script>
         function confirmation(event) {

@@ -80,12 +80,12 @@
                 <input class = "input_color" type="number" min="0" name="amount" placeholder="Amount" required=""value="{{$product->amount}}">
             </div>
 
-            <div class = "div_img">
+            <div class = "div_img" style="margin-left:-50px;">
                 <label>Currect Image :</label>
-                <img  height="150" width="150" src="{{ \Storage::url($product->image)}}" alt="">
+                <img  style="max-width: 150px; max-height: 150px;"src="{{ \Storage::url($product->image)}}" alt="" onclick="showFullImage(this)">
             </div>
 
-            <div class = "div_img">
+            <div class = "div_img" >
                 <label>Change Image :</label>
                 <input type="file" name="image" placeholder="Image" >
             </div>
@@ -121,6 +121,20 @@
 
             </div>
             </form>
+
+            <script>
+                function showFullImage(image) {
+                    const imageUrl = image.src;
+                    Swal.fire({
+                        imageUrl,
+                        imageAlt: 'Full Image',
+                        width: '500px',
+                        height: '500px',
+                        showConfirmButton: false,
+                        showCloseButton: true
+                    });
+                }
+            </script>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update_product').addEventListener('submit', function (event) {

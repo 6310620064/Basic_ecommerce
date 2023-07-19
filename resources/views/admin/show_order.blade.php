@@ -30,9 +30,20 @@
             @endif
 
             <div class="div_center">
-                <h2 class ="h2_font">All Order</h2>
-
+                <h2 class ="h2_font">All Orders</h2>
             </div>
+
+            
+
+            <div class ="search-box">
+                <form action="{{route('search_order')}}" method="GET">
+                    @csrf
+                        <input class ="input_color"type ="text" name="search" placeholder="Search">
+                        <input type="submit" value="Search" class="btn btn-outline-success">
+                </form>
+            </div>
+
+
 
                 <table class="table-order">
                 <thead>
@@ -49,55 +60,55 @@
                     </tr>      
                 </thead>
 
-                @foreach ($orders as $order)
+                @foreach ($order as $orders)
                 <tbody>
                     <tr>
                         <td>
-                            <br>{{$order->order_no}}
-                            <br><a class ="btn btn-outline-primary" href="{{route('all_order_item' , $order->id)}}" style="margin:10px 0 10px 0"> Detail</a>
+                            <br>{{$orders->order_no}}
+                            <br><a class ="btn btn-outline-primary" href="{{route('all_order_item' , $orders->id)}}" style="margin:10px 0 10px 0"> Detail</a>
                         </td>
-                        <td> {{number_format($order->total_price,2)}} ฿</td>
-                        <td>{{$order->user->name}}</td>
-                        <td>{{$order->shipping_address->address}}</td>
-                        <td>{{substr($order->shipping_address->Phone,0,3) . '-' . substr($order->shipping_address->Phone,3,3). '-' . substr($order->shipping_address->Phone, 6)}}</td>                        
+                        <td> {{number_format($orders->total_price,2)}} ฿</td>
+                        <td>{{$orders->user->name}}</td>
+                        <td>{{$orders->shipping_address->address}}</td>
+                        <td>{{substr($orders->shipping_address->Phone,0,3) . '-' . substr($orders->shipping_address->Phone,3,3). '-' . substr($orders->shipping_address->Phone, 6)}}</td>                        
                         <td>
-                            @if($order->payment_status == 'Pay With Qrcode')
+                            @if($orders->payment_status == 'Pay With Qrcode')
                                 <br>{{$order->payment_status}}
-                                <br><a class ="btn btn-warning" href="{{route('view_slip' , $order->id)}}"style="margin:10px 0 10px 0"> Slip</a><br>
-                            @elseif($order->payment_status == 'Cash On Delivery')
-                                {{$order->payment_status}}
-                            @elseif($order->payment_status == 'Payment verified')
-                                <br>{{$order->payment_status}}
-                                <br><a class ="btn btn-outline-warning" href="{{route('view_slip' , $order->id)}}"style="margin:10px 0 10px 0"> Evidence</a><br>
+                                <br><a class ="btn btn-warning" href="{{route('view_slip' , $orders->id)}}"style="margin:10px 0 10px 0"> Slip</a><br>
+                            @elseif($orders->payment_status == 'Cash On Delivery')
+                                {{$orders->payment_status}}
+                            @elseif($orders->payment_status == 'Payment verified')
+                                <br>{{$orders->payment_status}}
+                                <br><a class ="btn btn-outline-warning" href="{{route('view_slip' , $orders->id)}}"style="margin:10px 0 10px 0"> Evidence</a><br>
                             @else
-                                {{$order->payment_status}}
+                                {{$orders->payment_status}}
                             @endif
 
                         </td>
                         <td>
                             <div class="dropdown">
-                                @if($order->delivery_status == 'Cancelled')
-                                    <span style="color:#e51c23">{{$order->delivery_status}}
-                                @elseif($order->delivery_status == 'Returned')
-                                    <span style="color:#ffa000;">{{$order->delivery_status}}
-                                @elseif($order->delivery_status == 'Delivered')
-                                    <span style="color:#42db41;;">{{$order->delivery_status}}
-                                @elseif($order->delivery_status == 'Out of delivery')
-                                    <span style="color:#03a9f4;">{{$order->delivery_status}}
+                                @if($orders->delivery_status == 'Cancelled')
+                                    <span style="color:#e51c23">{{$orders->delivery_status}}
+                                @elseif($orders->delivery_status == 'Returned')
+                                    <span style="color:#ffa000;">{{$orders->delivery_status}}
+                                @elseif($orders->delivery_status == 'Delivered')
+                                    <span style="color:#42db41;;">{{$orders->delivery_status}}
+                                @elseif($orders->delivery_status == 'Out of delivery')
+                                    <span style="color:#03a9f4;">{{$orders->delivery_status}}
                                 @else
-                                    <span style="color:white;">{{$order->delivery_status}}
+                                    <span style="color:white;">{{$orders->delivery_status}}
                                 @endif
                                 <span class="iconify" data-icon="ri:more-2-line" style="color: white;"></span></span>
                                 <div class="dropdown-content">
-                                    <a class ="a2" href="{{route('delivered' , $order->id)}}">Delivered</a>
-                                    <a class ="a3" href="{{route('returned' , $order->id)}}">Returned</a>
-                                    <a class ="a4" href="{{route('cancelled' , $order->id)}}">Cancelled</a>
+                                    <a class ="a2" href="{{route('delivered' , $orders->id)}}">Delivered</a>
+                                    <a class ="a3" href="{{route('returned' , $orders->id)}}">Returned</a>
+                                    <a class ="a4" href="{{route('cancelled' , $orders->id)}}">Cancelled</a>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            @if($order->tracking_no == null)
-                                <form  action ="{{route('add_tracking_no' ,$order->id)}}" method="POST">
+                            @if($orders->tracking_no == null)
+                                <form  action ="{{route('add_tracking_no' ,$orders->id)}}" method="POST">
                                     @csrf
                                     <div class = "div_design">
                                         <input class="tracking_no" type="text" name="tracking_no" placeholder="Tracking No." required="">
@@ -105,17 +116,17 @@
                                     </div>
                                 </form>
                             @else
-                                {{$order->tracking_no}}
+                                {{$orders->tracking_no}}
                             @endif
                         </td>
-                        <td><a href="{{route('print_pdf' ,$order->id)}}" class="btn btn-secondary">Download</a></td>
+                        <td><a href="{{route('print_pdf' ,$orders->id)}}" class="btn btn-secondary">Download</a></td>
                     </tr>
                 </tbody>
             @endforeach   
             </table>
 
             <span style="margin-left: 100px; margin-top:-50px;">       
-                {{ $orders ->links() }}
+                {{ $order ->links() }}
             </span>
         </div>
     </div>

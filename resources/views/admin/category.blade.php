@@ -30,30 +30,12 @@
             @endif
 
             <div class="div_center">
-                <h2 class ="h2_font">Add Category</h2>
-
-                <form id = "create_category" action ="{{route('add_category')}}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class = "div_design">
-                        <input class="input_form" type="hidden" name="amount" value="0">
-                        <input type="hidden" class="input_form" name="is_display_homepage" value="0">
-                        <input type="hidden" class="input_form" name="is_active" value="0">
-                        <label> Name :</label>
-                        <input class="input_form" type="text" name="name" placeholder="Name" required="">
-                    </div>
-                    <div class = "div_img">
-                        <label > Image :</label>
-                        <input type="file" name="image" style="margin-bottom:5px;">
-                    </div>
-                    <input type="checkbox" class="input_form" name="is_display_homepage" value="1" checked>
-                    <label style ="display:inline; padding-left:30px;"for="display">Display for Homepage</label><br>
-                    <input style ="margin-left:28px;"type="checkbox" class="input_form" name="is_active" value="1" checked>
-                    <label style = "padding-top:30px; padding-right:80px;" for="active">Active</label><br>
-
-                    <input type="submit" class ="btn btn-primary" name="submit" value="Add Category">  
-                </form>
-
+                <h2 class ="h2_font">All Categories</h2>
             </div>
+
+            <div class="add-button-container">
+                <a class="btn btn-info" href="{{route('add_category_page')}}">Add</a>
+            </div>  
 
                 <table class="center">
                     <tr>
@@ -70,8 +52,8 @@
                         <td>{{$datas->name}}</td>
                         <td>{{$datas->products->count() ?? 0 }} </td>
 
-                        <td>
-                            <img src="{{ \Storage::url( $datas->image ) }}" alt="" />
+                        <td class="show_img">
+                            <img  class ="img_center" src="{{ \Storage::url( $datas->image ) }}" alt="" onclick="showFullImage(this)" style="max-width: 150px; max-height: 150px;" >
                         </td>
                         <td>
                             @if( $datas->is_display_homepage == 1 )
@@ -182,6 +164,21 @@
             });
         }
     </script>
+
+    <script>
+        function showFullImage(image) {
+            const imageUrl = image.src;
+            Swal.fire({
+                imageUrl,
+                imageAlt: 'Full Image',
+                width: '500px',
+                height: '500px',
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        }
+    </script>
+
   </body>
         
 </html>

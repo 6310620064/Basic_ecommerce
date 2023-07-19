@@ -82,6 +82,11 @@ p
     height: 150px;
 }
 
+.img_center
+{
+    display: block;
+    margin: auto;
+}
 th
 {
     background-color: rgb(4, 0, 32);
@@ -256,7 +261,7 @@ margin-left: 10px;
 .table-order
 {
     margin: auto;
-    width: 90%;
+    width: 100%;
     margin-top: 30px;
     border: 3px solid white;
     border-collapse:collapse  
@@ -337,4 +342,9 @@ margin-left: 10px;
     margin-bottom:15px;
     color: black;
     border-radius: 10px;
+}
+
+.search-box{
+    padding-bottom:20px;
+    text-align: center;
 }

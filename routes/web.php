@@ -47,6 +47,7 @@ Route::get('/redirect',[HomeController::class,'redirect'])->name('redirect');
 ///ALL OF ADMIN///
 // Category
 Route::get('/view_category',[AdminController::class,'view_category'])->name('view_category');
+Route::get('/add_category_page',[AdminController::class,'add_category_page'])->name('add_category_page');
 Route::post('/add_category',[AdminController::class,'add_category'])->name('add_category');
 Route::get('/update_category/{id}',[AdminController::class,'update_category'])->where('id', '[0-9]+')->name('update_category');
 Route::post('/update_category_confirm/{id}', [AdminController::class, 'update_category_confirm'])->where('id', '[0-9]+')->name('update_category_confirm');
@@ -55,6 +56,7 @@ Route::get('/delete_category/{id}',[AdminController::class,'delete_category'])->
 
 // Size
 Route::get('/view_size',[AdminController::class,'view_size'])->name('view_size');
+Route::get('/add_size_page',[AdminController::class,'add_size_page'])->name('add_size_page');
 Route::post('/add_size',[AdminController::class,'add_size'])->name('add_size');
 Route::get('/update_size/{id}',[AdminController::class,'update_size'])->where('id', '[0-9]+')->name('update_size');
 Route::post('/update_size_confirm/{id}', [AdminController::class, 'update_size_confirm'])->where('id', '[0-9]+')->name('update_size_confirm');
@@ -62,6 +64,7 @@ Route::get('/delete_size/{id}',[AdminController::class,'delete_size'])->where('i
 
 // Brand
 Route::get('/view_brand',[AdminController::class,'view_brand'])->name('view_brand');
+Route::get('/add_brand_page',[AdminController::class,'add_brand_page'])->name('add_brand_page');
 Route::post('/add_brand',[AdminController::class,'add_brand'])->name('add_brand');
 Route::get('/update_brand/{id}',[AdminController::class,'update_brand'])->where('id', '[0-9]+')->name('update_brand');
 Route::post('/update_brand_confirm/{id}', [AdminController::class, 'update_brand_confirm'])->where('id', '[0-9]+')->name('update_brand_confirm');
@@ -110,6 +113,11 @@ Route::get('/cancelled/{id}', [AdminController::class, 'cancelled'])->where('id'
 Route::get('/approved/{id}', [AdminController::class, 'approved'])->where('id', '[0-9]+')->name('approved');
 Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf'])->where('id', '[0-9]+')->name('print_pdf');
 Route::post('/add_tracking_no/{id}', [AdminController::class, 'add_tracking_no'])->where('id', '[0-9]+')->name('add_tracking_no');
+
+//Search
+Route::get('/search_order', [AdminController::class, 'search_order'])->name('search_order');
+Route::get('/search_product', [AdminController::class, 'search_product'])->name('search_product');
+
 
 //ALL OF USERS
 Route::get('/all_products', [HomeController::class, 'all_products'])->name('all_products');

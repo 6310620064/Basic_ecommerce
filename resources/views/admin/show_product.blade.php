@@ -30,6 +30,14 @@
       <h2 class ="h2_font">All Products</h2>
     </div>
 
+    <div class ="search-box">
+      <form action="{{route('search_product')}}" method="GET">
+          @csrf
+              <input class ="input_color"type ="text" name="search" placeholder="Search">
+              <input type="submit" value="Search" class="btn btn-outline-success">
+      </form>
+    </div>
+
 
       <table class ="head_product">
         <tr>
@@ -51,15 +59,21 @@
       @foreach($product as $products)
 
         <tr>
-          <td>{{$products->name}}</td>
+          <td >{{$products->name}}</td>
           <td>{{number_format($products->price_normal,2)}} ฿</td>
           <td>{{number_format($products->price_member,2)}} ฿</td>
           <td>{{$products->brand->name}}</td>
           <td>{{$products->category->name}}</td>
           <td>{{$products->size->size}}</td>
-          <td>{{$products->amount}}</td>
           <td>
-            <img src="{{ \Storage::url($products->image)}}" alt=""/>
+            @if($products->amount == 0)
+              <p style="color:red">{{$products->amount}}</p>
+            @else
+              {{$products->amount}}
+            @endif
+          </td>
+          <td>
+            <img class ="img_center"style="max-width: 100px; max-height: 100px;" src="{{ \Storage::url($products->image)}}" alt="" onclick="showFullImage(this)"/>
           </td>
           <td>
               @if($products->is_highlight == 1)
@@ -90,12 +104,8 @@
             <a class ="btn btn-success" href="{{route('show_gallery', $products->id)}}" >Gallery</a>
           </td>
           <td colspan="2">
-            <a style="margin-bottom:10px; "class ="btn btn-info" href="{{route('view_detail', $products->id)}} ">Add Detail</a>
-            <a style="margin-bottom:10px; "class ="btn btn-success" href="{{route('view_gallery', $products->id)}} ">Add Gallery</a>
             <a style="margin-bottom:10px;"class ="btn btn-primary" href="{{route('update_product', $products->id)}} "><i class="fa-solid fa-pen-to-square"></i> Edit</a><br>
-
             <a onclick="confirmation(event)" class ="btn btn-danger" href="{{route('delete_product', $products->id)}}"><i class="fas fa-trash-alt"></i> Delete</a>
-
           </td>
         </tr>
       @endforeach
@@ -148,5 +158,19 @@
             });
         }
     </script>
+    <script>
+        function showFullImage(image) {
+            const imageUrl = image.src;
+            Swal.fire({
+                imageUrl,
+                imageAlt: 'Full Image',
+                width: '500px',
+                height: '500px',
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        }
+    </script>
+
   </body>
 </html>

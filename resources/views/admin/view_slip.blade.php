@@ -62,7 +62,7 @@
                             <td>{{substr($slip->phone,0,3) . '-' . substr($slip->phone,3,3). '-' . substr($slip->phone, 6)}}</td>    
                             <td> ฿ {{number_format($slip->total_price,2)}}</td>
                             <td>
-                                <img src="{{ \Storage::url( $slip->image ) }}" alt="slip" onclick="showFullImage(this)">
+                                <img class="img_center" src="{{ \Storage::url( $slip->image ) }}" alt="slip" onclick="showFullImage(this)" style="max-width: 150px; max-height: 150px;">
                             </td>
                             </td>
                             <td>
@@ -98,7 +98,8 @@
             Swal.fire({
                 imageUrl,
                 imageAlt: 'Full Image',
-                width: 'auto',
+                width: '500px',
+                height: '500px',
                 showConfirmButton: false,
                 showCloseButton: true
             });
