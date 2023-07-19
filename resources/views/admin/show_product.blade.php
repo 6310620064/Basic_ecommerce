@@ -33,7 +33,6 @@
 
       <table class ="head_product">
         <tr>
-          <th >ID</th>
           <th>Name</th>
           <th>Price Normal</th>
           <th>Price Member</th>
@@ -52,10 +51,9 @@
       @foreach($product as $products)
 
         <tr>
-          <td>{{$products->id}}</td>
           <td>{{$products->name}}</td>
-          <td>{{$products->price_normal}}</td>
-          <td>{{$products->price_member}}</td>
+          <td>{{number_format($products->price_normal,2)}} ฿</td>
+          <td>{{number_format($products->price_member,2)}} ฿</td>
           <td>{{$products->brand->name}}</td>
           <td>{{$products->category->name}}</td>
           <td>{{$products->size->size}}</td>

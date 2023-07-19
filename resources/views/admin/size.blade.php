@@ -77,14 +77,12 @@
             </div>
             <table class="center">
                 <tr>
-                    <th>ID</th>
                     <th>Size</th>
                     <th>Active</th>
                     <th>Action</th>
                 </tr>
                 @foreach($size as $sizes)
                 <tr>
-                    <td>{{$sizes->id}}</td>
                     <td>{{$sizes->size}}</td>
                     <td>
                         @if($sizes->is_active == 1)
@@ -105,7 +103,7 @@
                 </tr>
                 @endforeach
                 <tr>
-                    <td colspan="4">
+                    <td colspan="3">
                         @if($size->count() == '0')
                             <p>Total Sizes : {{ $size->count() }}</p>
                         @else

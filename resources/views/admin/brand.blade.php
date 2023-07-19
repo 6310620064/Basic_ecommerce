@@ -82,7 +82,6 @@
             </div>
             <table class="center">
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Image</th>
@@ -93,7 +92,6 @@
                     
                     @foreach($brand as $brands)
                     <tr>
-                        <td>{{$brands->id}}</td>
                         <td>{{$brands->name}}</td>
                         <td>{{$brands->products->count() ?? 0}}</td>
                         <td class = "show_img">
@@ -128,7 +126,7 @@
                     </tr>
                     @endforeach
                     <tr>
-                        <td colspan="7">
+                        <td colspan="6">
                             @if($brand->count() == '0')
                                 <p>Total Brands : {{ $brand->count() }}</p>
                             @else

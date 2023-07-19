@@ -57,7 +57,6 @@
 
                 <table class="center">
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Image</th>
@@ -68,7 +67,6 @@
 
                     @foreach($data as $datas)
                     <tr>
-                        <td>{{$datas->id}}</td>
                         <td>{{$datas->name}}</td>
                         <td>{{$datas->products->count() ?? 0 }} </td>
 
@@ -104,7 +102,7 @@
                     </tr>
                     @endforeach
                     <tr>
-                        <td colspan="7">
+                        <td colspan="6">
                             @if($data->count() == '0')
                                 <p>Total catogories : {{ $data->count() }}</p>
                             @else

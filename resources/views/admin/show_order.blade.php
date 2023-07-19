@@ -56,7 +56,7 @@
                             <br>{{$order->order_no}}
                             <br><a class ="btn btn-outline-primary" href="{{route('all_order_item' , $order->id)}}" style="margin:10px 0 10px 0"> Detail</a>
                         </td>
-                        <td> ฿ {{number_format($order->total_price,2)}}</td>
+                        <td> {{number_format($order->total_price,2)}} ฿</td>
                         <td>{{$order->user->name}}</td>
                         <td>{{$order->shipping_address->address}}</td>
                         <td>{{substr($order->shipping_address->Phone,0,3) . '-' . substr($order->shipping_address->Phone,3,3). '-' . substr($order->shipping_address->Phone, 6)}}</td>                        
