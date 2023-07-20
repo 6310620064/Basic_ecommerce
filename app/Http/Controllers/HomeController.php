@@ -23,6 +23,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
         $product = Product::where('is_highlight', '1')->where(function($productQuery){
             $productQuery->Published();
         })->orderBy('id','desc')->paginate(6);
@@ -30,7 +31,7 @@ class HomeController extends Controller
         $category->load('products');
 
 
-        return view('home.userpage',compact('product','category'));
+        return view('home.userpage',compact('user','product','category'));
     }
     
     public function redirect()
@@ -64,6 +65,7 @@ class HomeController extends Controller
 
         else
         {
+            $user = Auth::user();
             $product = Product::where('is_highlight', '1')->where(function($productQuery){
                 $productQuery->Published();
             })->orderBy('id','desc')->paginate(6);
@@ -71,7 +73,7 @@ class HomeController extends Controller
             $category->load('products');
     
 
-            return view('home.userpage',compact('product','category'));
+            return view('home.userpage',compact('user','product','category'));
         }
     }
 
@@ -285,7 +287,19 @@ class HomeController extends Controller
         $address = Shipping_address::find($id);
         $address->delete();
 
-        return redirect()->back()->with('message','Size Deleted Successfully');
+        return redirect()->back()->with('message','Address Deleted Successfully');
     }
 
+    public function edit_profile($id)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            
+            if($user->id == $id){
+                return view('home.edit_profile');
+            } 
+        }else {
+            abort(404);
+        }
+    }
 }

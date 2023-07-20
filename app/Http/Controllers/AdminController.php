@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Category;
 use App\Models\Size;
 use App\Models\Brand;
@@ -11,11 +12,57 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment_log;
+use App\Models\Shipping_Address;
 use RealRashid\SweetAlert\Facades\Alert;
 use PDF;
 
 class AdminController extends Controller
 {
+
+    //Users
+    public function show_user()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1 ){
+                $users = User::where('usertype', '!=', 1)
+                                ->orderBy('id', 'asc')
+                                ->paginate(6);
+                return view('admin.show_user',compact('users'));
+            }
+            else{
+                abort(404);
+            }
+        } else{
+            abort(404);
+        }
+    }
+
+    public function user_address($id)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if($user->usertype == 1 ){
+                $address = Shipping_Address::where('user_id',$id)->paginate(6);
+                $users = User::findOrFail($id);
+                return view('admin.user_address',compact('address','users'));
+            }
+            else{
+                abort(404);
+            }
+        } else{
+            abort(404);
+        }
+    }
+
+    public function delete_user($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->back()->with('message','User Deleted Successfully');
+    }
+
     //Categories
     public function view_category()
     {
@@ -516,6 +563,33 @@ class AdminController extends Controller
     }
 
     //Search Function
+
+    public function search_user(Request $request)
+    {
+        $search_user = $request->search;   
+        $users = User::withTrashed()->where('usertype', '!=', 1)
+                                    ->where(function ($query) use ($search_user) {
+                                        $query->where('name', 'LIKE', "%$search_user%")
+                                            ->orWhere('email', 'LIKE', "%$search_user%")
+                                            ->orWhere('phone', 'LIKE', "%$search_user%");
+                                    })
+                                    ->paginate(6);
+
+        return view('admin.show_user' ,compact('users'));
+    }
+    public function search_address(Request $request,$id)
+    {
+        $search_address = $request->search; 
+        $users = User::findOrFail($id);
+        $address = Shipping_Address::withTrashed()->where('user_id', $id)
+                                    ->where(function ($query) use ($search_address) {
+                                        $query->where('address', 'LIKE', "%$search_address%")
+                                            ->orWhere('phone', 'LIKE', "%$search_address%");
+                                    })
+                                    ->paginate(6);
+
+        return view('admin.user_address' ,compact('users','address'));
+    }
 
     public function search_order(Request $request)
     {

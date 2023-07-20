@@ -45,6 +45,12 @@ Route::get('/redirect',[HomeController::class,'redirect'])->middleware('auth','v
 
 
 ///ALL OF ADMIN///
+
+//User
+Route::get('/show_user', [AdminController::class, 'show_user'])->name('show_user');
+Route::get('/user_address/{id}',[AdminController::class,'user_address'])->where('id', '[0-9]+')->name('user_address');
+Route::get('/delete_user/{id}', [AdminController::class, 'delete_user'])->where('id', '[0-9]+')->name('delete_user');
+
 // Category
 Route::get('/view_category',[AdminController::class,'view_category'])->name('view_category');
 Route::get('/add_category_page',[AdminController::class,'add_category_page'])->name('add_category_page');
@@ -115,12 +121,15 @@ Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf'])->where('id'
 Route::post('/add_tracking_no/{id}', [AdminController::class, 'add_tracking_no'])->where('id', '[0-9]+')->name('add_tracking_no');
 
 //Search
+Route::get('/search_user', [AdminController::class, 'search_user'])->name('search_user');
 Route::get('/search_order', [AdminController::class, 'search_order'])->name('search_order');
 Route::get('/search_product', [AdminController::class, 'search_product'])->name('search_product');
 Route::get('/search_category', [AdminController::class, 'search_category'])->name('search_category');
 Route::get('/search_size', [AdminController::class, 'search_size'])->name('search_size');
 Route::get('/search_brand', [AdminController::class, 'search_brand'])->name('search_brand');
 Route::get('/search_detail/{id}', [ProductController::class, 'search_detail'])->where('id', '[0-9]+')->name('search_detail');
+Route::get('/search_address/{id}', [AdminController::class, 'search_address'])->where('id', '[0-9]+')->name('search_address');
+
 
 
 //ALL OF USERS
@@ -139,6 +148,7 @@ Route::get('/all_addresses', [HomeController::class, 'all_addresses'])->name('al
 Route::get('/delete_address/{id}', [HomeController::class, 'delete_address'])->where('id', '[0-9]+')->name('delete_address');
 Route::get('/update_address/{id}',[HomeController::class,'update_address'])->where('id', '[0-9]+')->name('update_address');
 Route::post('/update_address_confirm/{id}', [HomeController::class, 'update_address_confirm'])->where('id', '[0-9]+')->name('update_address_confirm');
+Route::get('/edit_profile/{id}', [HomeController::class, 'edit_profile'])->where('id', '[0-9]+')->name('edit_profile');
 
 
 //Cart

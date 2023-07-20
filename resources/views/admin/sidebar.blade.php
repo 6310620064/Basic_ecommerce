@@ -65,7 +65,14 @@
             </a>
           </li>
 
-
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{route('show_user')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-contacts"></i>
+              </span>
+              <span class="menu-title">Users</span>
+            </a>
+          </li>
 
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('view_category')}}">
