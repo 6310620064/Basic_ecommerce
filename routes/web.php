@@ -149,7 +149,7 @@ Route::get('/delete_address/{id}', [HomeController::class, 'delete_address'])->w
 Route::get('/update_address/{id}',[HomeController::class,'update_address'])->where('id', '[0-9]+')->name('update_address');
 Route::post('/update_address_confirm/{id}', [HomeController::class, 'update_address_confirm'])->where('id', '[0-9]+')->name('update_address_confirm');
 Route::get('/edit_profile/{id}', [HomeController::class, 'edit_profile'])->where('id', '[0-9]+')->name('edit_profile');
-
+Route::post('/update_profile/{id}',[HomeController::class,'update_profile'])->where('id', '[0-9]+')->name('update_profile');
 
 //Cart
 Route::post('/add_cart/{id}',[CartController::class,'add_cart'])->where('id', '[0-9]+')->name('add_cart');

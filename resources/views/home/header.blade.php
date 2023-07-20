@@ -54,7 +54,7 @@
                         <img src="{{ asset('images/user_avatar.png') }}" width="40" height="40" class="rounded-circle">
                      </a>
                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="" style="text-align:center;">Edit Profile</a>
+                        <a class="dropdown-item" href="{{route('edit_profile' ,$user->id)}}" style="text-align:center;">Edit Profile</a>
                         <a class="dropdown-item" href="{{route('all_orders')}}" style="text-align:center;">My Order</a>
                         <a class="dropdown-item" href="{{route('all_addresses')}}" style="text-align:center;" >My Address</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">

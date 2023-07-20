@@ -79,25 +79,28 @@ class HomeController extends Controller
 
     public function all_products()
     {
+        $user = Auth::user();
         $product = Product::where(function($productQuery){
             $productQuery->Published();
         })
         ->orderBy('id','desc')->paginate(6);
 
-        return view('home.all_products',compact('product'));
+        return view('home.all_products',compact('user','product'));
     }
 
     public function product_detail($id)
     {
+        $user = Auth::user();
         $product = Product::find($id);
         $details = Product_detail::where('product_id', $id)->get();
         $gallery = Product_Gallery::where('product_id', $id)->get();
         
-        return view('home.product_detail',compact('product','details','gallery'));
+        return view('home.product_detail',compact('user','product','details','gallery'));
     }
 
     public function all_brands()
     {
+        $user = Auth::user();
         $brand = Brand::where('is_active', '1')
         ->whereHas('products', function( $productQuery ){
             $productQuery->Published();
@@ -105,15 +108,14 @@ class HomeController extends Controller
         ->orderBy('order','asc')
         ->paginate(6);
       
-        return view('home.all_brands',compact('brand'));
+        return view('home.all_brands',compact('user','brand'));
     }
 
     public function brand_product($id)
     {
         $now = Carbon::now();
-
+        $user = Auth::user();
         $brand = Brand::find($id);
-        
         $product = Product::where('brand_id', $id)
                             ->where('amount', '!=', 0)
                             ->where('start_display', '<=', $now)
@@ -122,11 +124,12 @@ class HomeController extends Controller
                                     ->orWhereNull('end_display');
                             })->paginate(6);
 
-        return view('home.brand_product', compact('brand', 'product'));
+        return view('home.brand_product', compact('user','brand', 'product'));
     }
 
     public function all_categories()
     {
+        $user = Auth::user();
         $category = Category::where('is_active', '1')
         ->whereHas('products', function( $productQuery){
             $productQuery->published();
@@ -134,12 +137,13 @@ class HomeController extends Controller
         ->paginate(6);
 
 
-        return view('home.all_categories',compact('category'));
+        return view('home.all_categories',compact('user','category'));
     }
     
     public function category_product($id)
     {
         $now = Carbon::now();
+        $user = Auth::user();
         $category = Category::find($id);
         $product = Product::where('category_id', $id)
                             ->where('amount', '!=', 0)
@@ -149,24 +153,25 @@ class HomeController extends Controller
                                     ->orWhereNull('end_display');
                             })->paginate(6);
 
-        return view('home.category_product', compact('category', 'product'));
+        return view('home.category_product', compact('user','category', 'product'));
     }
 
     public function all_sizes()
     {
+        $user = Auth::user();
         $size = Size::where('is_active', '1')
         ->whereHas('products', function ($productQuery) {
             $productQuery->Published();
         })
         ->paginate(6);
 
-        return view('home.all_sizes',compact('size'));
+        return view('home.all_sizes',compact('user','size'));
     }
 
     public function size_product($id)
     {
         $now = Carbon::now();
-
+        $user = Auth::user();
         $size = Size::find($id);
         $product = Product::where('size_id', $id)
                             ->where('amount', '!=', 0)
@@ -176,7 +181,7 @@ class HomeController extends Controller
                                     ->orWhereNull('end_display');
                             })->paginate(6);
 
-        return view('home.size_product', compact('size', 'product'));
+        return view('home.size_product', compact('user','size', 'product'));
     }
 
 
@@ -185,14 +190,14 @@ class HomeController extends Controller
     {
         if(Auth::id())
         {
-            $user = auth()->user();
+            $user = Auth::user();
             $address = Shipping_address::where('user_id' , $user->id)->orderBy('id','desc')->paginate(5);
 
             if ($address->isEmpty()) {
-                return view('home.all_address_empty');
+                return view('home.all_address_empty',compact('user'));
             }
 
-            return view('home.all_address', compact('address'));
+            return view('home.all_address', compact('user','address'));
         }
         else{
 
@@ -203,7 +208,8 @@ class HomeController extends Controller
     public function shipping_address(Request $request, $cart = null){
         if(Auth::id())
         {
-            return view('home.shipping_address')->with(['cart' => $cart]);
+            $user = Auth::user();
+            return view('home.shipping_address',compact('user'))->with(['cart' => $cart]);
         }
 
         else
@@ -257,9 +263,10 @@ class HomeController extends Controller
 
     public function update_address($id)
     {
+        $user = Auth::user();
         $address= Shipping_address::find($id);
       
-        return view('home.update_address', compact('address'));
+        return view('home.update_address', compact('user','address'));
     }
 
     
@@ -296,10 +303,23 @@ class HomeController extends Controller
             $user = Auth::user();
             
             if($user->id == $id){
-                return view('home.edit_profile');
+                return view('home.edit_profile' ,compact('user'));
             } 
         }else {
             abort(404);
         }
+    }
+
+    public function update_profile(Request $request,$id)
+    {
+        
+        $user = Auth::user();
+        $users = User::find($id);
+
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->phone = $request->phone;
+        $users->save(); 
+        return redirect()->back()->with('message','Profile Updated Successfully');
     }
 }

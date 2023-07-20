@@ -174,7 +174,7 @@ class OrderController extends Controller
         $default = Shipping_Address::where('user_id', $userid)->
                                     where('is_default','1')->first();
                          
-        return view('home.select_address', compact('address','default'));
+        return view('home.select_address', compact('user','address','default'));
     }
 
     public function select_address_confirm(Request $request)
@@ -206,7 +206,7 @@ class OrderController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(5);
     
-            return view('home.all_orders', compact('orders'));
+            return view('home.all_orders', compact('user','orders'));
         } else {
             return  redirect('login');
         }
@@ -221,7 +221,7 @@ class OrderController extends Controller
             $items = OrderItem::where('order_id', $order->id)
                 ->orderBy('id', 'desc')
                 ->get();
-            return view('home.order_item', compact('order', 'items'));
+            return view('home.order_item', compact('user','order', 'items'));
         } else {
             abort(404);
         }
