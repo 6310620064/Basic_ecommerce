@@ -28,6 +28,7 @@
 
    </head>
    <body>
+
     <div class ="hero_area">
          <!-- header section strats -->
         @include('home.header')
@@ -98,10 +99,6 @@
             <div>
                 <h1 id="total_price" class ="total_deg">Total Price : {{number_format($total_price,2)}} ฿</h1>
             </div>
-
-
-
-         
 
         </div>
 

@@ -73,7 +73,7 @@
                         <td>{{substr($orders->shipping_address->Phone,0,3) . '-' . substr($orders->shipping_address->Phone,3,3). '-' . substr($orders->shipping_address->Phone, 6)}}</td>                        
                         <td>
                             @if($orders->payment_status == 'Pay With Qrcode')
-                                <br>{{$order->payment_status}}
+                                <br>{{$orders->payment_status}}
                                 <br><a class ="btn btn-warning" href="{{route('view_slip' , $orders->id)}}"style="margin:10px 0 10px 0"> Slip</a><br>
                             @elseif($orders->payment_status == 'Cash On Delivery')
                                 {{$orders->payment_status}}

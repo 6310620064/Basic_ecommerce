@@ -59,7 +59,7 @@
             <div class="member">
                <div>
                      <div class="form-slip">
-                        <form id="add_slip" action="{{route('payment_log')}}" method="POST" enctype="multipart/form-data">
+                        <form  id="paymentForm" action="{{route('payment_log')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                            <h2 class="about-member">
                               <label for="phone">Telephone:</label>
@@ -103,33 +103,6 @@
 
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script>
-         document.getElementById('add_slip').addEventListener('submit', function (event) {
-         event.preventDefault(); 
-         Swal.fire({
-            icon: 'success',
-            title: 'We have received your order.',
-            showConfirmButton: false,
-            timer: 1500
-         }).then(() => {
-            // ส่งข้อมูลฟอร์มโดยใช้ XMLHttpRequest
-            var form = event.target;
-            var formData = new FormData(form);
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', form.action, true);
-            xhr.onreadystatechange = function () {
-                  if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                     // ส่งคำขอเสร็จสมบูรณ์
-                     console.log('We have received your order.');
-                     // โหลดหน้าเว็บใหม่
-                     location.reload();
-                  }
-            };
-            xhr.send(formData);
-         });
-      });
-      </script>
 
    </body>
 </html>

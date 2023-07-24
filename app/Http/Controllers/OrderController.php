@@ -38,7 +38,6 @@ class OrderController extends Controller
             }
 
             $order = new Order();
-            $order->order_no = uniqid();
             $order->user_id = $userid;
             $order->total_price = $total_price;
             $order->payment_status = "Cash On Delivery";
@@ -61,9 +60,18 @@ class OrderController extends Controller
 
                 $item->delete();
             }
-        }
 
-        return redirect('/');
+             /* Generate Order No. - Start */
+             $orderNo = env('ORDER_PREFIX','STDSHOP').date('Ymd').$order->id;
+             $order->order_no = $orderNo;
+             $order->save();
+            // Pass order information to the success_cash_order view
+            $order_info = [
+                'order_no' => $order->order_no,
+                'message' => 'Thank you!',
+            ];
+            return view('home.success_cash_order', compact('order_info','user'));        
+        }
     }
 
     public function pay_qrcode(){
@@ -97,7 +105,13 @@ class OrderController extends Controller
                 $qrCodeimg = ('qrcode_' . time() . '.png');
                 $qrCode->save($qrCodeimg);
 
-                return view('home.qrcode', compact('user','total_price','qrCodeimg'));
+                $dataCompact = [
+                    'user',
+                    'total_price',
+                    'qrCodeimg'
+                ];
+
+                return view('home.qrcode', compact( $dataCompact ));
             }
         }
     }
@@ -120,7 +134,7 @@ class OrderController extends Controller
             }
 
             $order = new Order();
-            $order->order_no = uniqid();
+            
             $order->user_id = $userid;
             $order->total_price = $total_price;
             $order->payment_status = "Pay With Qrcode";
@@ -143,6 +157,13 @@ class OrderController extends Controller
 
                 $item->delete();
             }
+
+            /* Generate Order No. - Start */
+            $orderNo = env('ORDER_PREFIX','STDSHOP').date('Ymd').$order->id;
+            $order->order_no = $orderNo;
+            $order->save();
+            /* Generate Order No. - End */
+
             $payment = new Payment_log;
 
             $payment->order_id = $order->id;
@@ -152,9 +173,11 @@ class OrderController extends Controller
             $payment->phone = $request->phone;
             $payment->save();
 
-            return redirect('/');
-
-            
+            $order_info = [
+                'order_no' => $order->order_no,
+                'message' => 'Thank you!',
+            ];
+            return view('home.success_cash_order', compact('order_info','user'));
         }
 
         else

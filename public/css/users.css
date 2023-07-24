@@ -278,3 +278,23 @@ td
  select[name="address"] option {
     font-size: 16px; /* Adjust the font size for the options */
  }
+
+ .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 200px;
+    width: 200px;
+}
+
+.div-success{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    margin-top: 70px;
+}
